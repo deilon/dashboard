@@ -155,6 +155,7 @@
 @endsection
 
 @section('page-js')
+<script src="{{ asset('storage/assets/js/dashboards-analytics.js') }}"></script>
 <script>
    $(document).ready(function() {
      
