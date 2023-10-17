@@ -29,7 +29,8 @@ class UserFactory extends Factory
             'country' => $faker->country(),
             'city' => $faker->city(),
             'address' => $faker->address(),
-            'role' => 'staff',
+            'role' => 'member',
+            'status' => 'active',
             'email_verified_at' => now(),
             'password' => '$2y$10$2BAv1ZMktIOvin8NphwQwOT5Em1mj7nKnX3LLSjpi5gM42jqCou9.', // password123#
             'remember_token' => Str::random(10),

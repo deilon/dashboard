@@ -86,6 +86,60 @@
                 </li> --}}
             </ul>
         </li>
+
+
+        {{-- Users Records --}}
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Users records</span>
+        </li>
+        <li class="menu-item {{ (request()->is('admin/users-records/admin')) ? 'active' : '' }}">
+            <a href="{{ url('admin/users-records/admin') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Admins">Admins</div>
+            </a>
+        </li>
+        <li class="menu-item {{ (request()->is('admin/users-records/staff')) ? 'active' : '' }}">
+            <a href="{{ url('admin/users-records/staff') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-group"></i>
+                <div data-i18n="Staff">Staff</div>
+            </a>
+        </li>
+        <li class="menu-item {{ (request()->is('admin/users-records/member')) ? 'active' : '' }}">
+            <a href="{{ url('admin/users-records/member') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-group"></i>
+                <div data-i18n="Members">Members</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-group"></i>
+                <div data-i18n="Registered">Registered</div>
+            </a>
+        </li>
+
+
+        {{-- Actions --}}
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Actions</span>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-package"></i>
+                <div data-i18n="Package settings">Package Settings</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-group"></i>
+                <div data-i18n="Logs">Logs</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-box"></i>
+                <div data-i18n="Archives">Archives</div>
+            </a>
+        </li>
     </ul>
 </aside>
 <!-- / Menu -->

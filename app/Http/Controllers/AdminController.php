@@ -79,7 +79,6 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 
-    
     public function updatePassword(Request $request) {
         $request->validate([
             'current_password' => 'required',
@@ -101,4 +100,40 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Password updated successfully.');
     }
 
+    public function usersRecords($role) {
+        $data['users'] = User::where('role', $role)->paginate(10);
+        $data['role'] = $role;
+        return view('dashboard.admin.users-records', $data);
+    }
+
+    public function updateStatus(Request $request)
+    {  
+        $status = $request->input('status');
+        $user = User::find($request->input('user_id'));
+        if(!$user) {
+            return response()->json([
+                'message' => 'We can\'t find that user'
+            ]); 
+        }
+
+        $user->status = $status;
+        $user->save();
+
+        return response()->json([
+            'message' => 'Status for <strong>'.$user->firstname.' '.$user->lastname.'</strong> successfully udpated.'
+        ]); 
+    }
+
+    public function viewProfile($user_id) {
+        $data['user'] = User::find($user_id);
+        return view('dashboard.admin.view-profile', $data);
+    }
+
+    public function deleteUser($user_id) {
+        $user = User::find($user_id);
+        $user->delete();
+        return response()->json([
+            'message' => '<strong>'.$user->firstname.' '.$user->lastname.'</strong> successfully deleted.'
+        ]); 
+    }
 }

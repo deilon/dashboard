@@ -41,6 +41,18 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::get('change-password', [AdminController::class, 'changePassword']);
     Route::put('profile-update', [AdminController::class, 'updateProfile']);
     Route::post('change-password', [AdminController::class, 'updatePassword']);
+    
+    // Users records
+    Route::get('users-records/{role}', [AdminController::class, 'usersRecords']);
+
+    // Status update
+    Route::post('status-update', [AdminController::class, 'updateStatus'])->name('update-status');
+
+    // View
+    Route::get('view-profile/{user}', [AdminController::class, 'viewProfile']);
+
+    // Delete user 
+    Route::post('delete-user/{user}', [AdminController::class, 'deleteUser']);
 });
 
 // Staff routes
