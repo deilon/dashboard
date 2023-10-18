@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
-    public function viewMemberDashboard() {
+    public function home() {
         return view('member.dashboard');
     }
 }

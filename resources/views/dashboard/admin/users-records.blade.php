@@ -37,6 +37,28 @@
       <div class="card">
          <h5 class="card-header">Users Records</h5>
          <div class="table-responsive text-nowrap">
+            <div class="row mb-4 mx-2">
+                <div class="col border-top border-bottom">
+                    <div class="text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
+                        <div class="py-3">
+                            <label>
+                                <input type="search" class="form-control" placeholder="Search..">
+                            </label>
+                        </div>
+                        <div class="py-3"> 
+                            <button class="btn btn-secondary mx-3" tabindex="0" type="button">
+                                <span><i class="bx bx-export me-1"></i>Export</span>
+                            </button> 
+                            <button class="btn btn-primary" tabindex="0" type="button">
+                                <span>
+                                    <i class="bx bx-plus me-0 me-sm-1"></i>
+                                    <span class="d-none d-sm-inline-block">Add New User</span>
+                                </span>
+                            </button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
             <table class="table table-hover">
                <thead>
                   <tr>

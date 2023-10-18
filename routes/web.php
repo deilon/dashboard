@@ -22,12 +22,16 @@ use App\Http\Controllers\StaffController;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('home', function () {
+    return view('home');
+});
 
 Route::middleware(['guest'])->group(function() {
     // Authentication
     Route::get('register',[RegisterController::class, 'index']);
     Route::get('login', [LoginController::class, 'index'])->name('login');
     Route::post('login', [LoginController::class, 'authenticate']);
+    Route::post('register', [RegisterController::class, 'registerUser'])->name('register');
 });
 
 // Logout for all users role
@@ -63,7 +67,7 @@ Route::middleware(['auth', 'user-access:staff'])->prefix('staff')->group(functio
 
 // Members routes
 Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(function () {
-    Route::get('dashboard', [MemberController::class, 'viewMemberDashboard']);
+    Route::get('dashboard', [MemberController::class, 'home']);
 });
 
 

@@ -43,7 +43,7 @@
                        <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-customize bx-sm'></i></span>
                        <div>
                           <h5 class="mb-0">568</h5>
-                          <span>Projects Done</span>
+                          <span>Workout done</span>
                        </div>
                     </div>
                  </div>
@@ -97,15 +97,15 @@
                  <div class="d-flex justify-content-between align-items-start">
                     <span class="badge bg-label-primary">Standard</span>
                     <div class="d-flex justify-content-center">
-                       <sup class="h5 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup>
-                       <h1 class="display-5 mb-0 text-primary">99</h1>
+                       <sup class="h5 pricing-currency mt-3 mb-0 me-1 text-primary">₱</sup>
+                       <h1 class="display-5 mb-0 text-primary">1000</h1>
                        <sub class="fs-6 pricing-duration mt-auto mb-3">/month</sub>
                     </div>
                  </div>
                  <ul class="ps-3 g-2 my-4">
-                    <li class="mb-2">10 Users</li>
-                    <li class="mb-2">Up to 10 GB storage</li>
-                    <li>Basic Support</li>
+                    <li class="mb-2">All Utilities</li>
+                    <li class="mb-2">All Equipments</li>
+                    <li>Basic Training</li>
                  </ul>
                  <div class="d-flex justify-content-between align-items-center mb-1">
                     <span>Days</span>
@@ -128,13 +128,13 @@
         <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
 
            <!-- User Pills -->
-           <ul class="nav nav-pills flex-column flex-md-row mb-3">
+           {{-- <ul class="nav nav-pills flex-column flex-md-row mb-3">
               <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i>Account</a></li>
               <li class="nav-item"><a class="nav-link" href="app-user-view-security.html"><i class="bx bx-lock-alt me-1"></i>Security</a></li>
               <li class="nav-item"><a class="nav-link" href="app-user-view-billing.html"><i class="bx bx-detail me-1"></i>Billing & Plans</a></li>
               <li class="nav-item"><a class="nav-link" href="app-user-view-notifications.html"><i class="bx bx-bell me-1"></i>Notifications</a></li>
               <li class="nav-item"><a class="nav-link" href="app-user-view-connections.html"><i class="bx bx-link-alt me-1"></i>Connections</a></li>
-           </ul>
+           </ul> --}}
            <!--/ User Pills -->
 
            <!-- Project table -->
