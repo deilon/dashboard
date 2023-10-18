@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class MemberController extends Controller
 {
     public function home() {
-        return view('member.dashboard');
+        return view('dashboard.member.home');
     }
 }

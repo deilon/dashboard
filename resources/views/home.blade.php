@@ -20,7 +20,7 @@
                     just a gym; we're a community of fitness enthusiasts, a hub for<br/>
                     transformation, and a place where your health and well-being<br/>
                     come first.</p>
-                <a href="{{url('register')}}" class="font-bold bg-blue-800 text-white mt-10 py-2 px-10 rounded-md">Create account and Login</a>
+                <a href="{{ url('register') }}" class="font-bold bg-blue-800 text-white mt-10 py-2 px-10 rounded-md">Create account and Login</a>
             </div>
         </div>
         <div class="relative flex-initial px-10 py-10 w-[45%] min-h-screen header-right" style="background-image: url({{asset('storage/assets/img/landingpage/header_bg_right.jpg')}})">
