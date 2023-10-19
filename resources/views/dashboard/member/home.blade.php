@@ -4,8 +4,8 @@
     Member Dashboard
 @endsection
 
-@section('sidebar')
-    <x-sidebar/>
+@section('member-sidebar')
+    <x-member-sidebar/>
 @endsection
 
 @section('navbar-top')

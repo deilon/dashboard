@@ -27,6 +27,8 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('storage/assets/js/config.js') }}"></script>
+    {{-- Custom CSS --}}
+    @yield('custom-css')
   </head>
 
   <body>
@@ -35,6 +37,7 @@
       <div class="layout-container">
 
         @yield('sidebar')
+        @yield('member-sidebar')
 
         <!-- Layout container -->
         <div class="layout-page">

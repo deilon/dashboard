@@ -67,6 +67,11 @@ Route::middleware(['auth', 'user-access:staff'])->prefix('staff')->group(functio
 // Members routes
 Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(function () {
     Route::get('dashboard', [MemberController::class, 'home']);
+    Route::get('available-packages', [MemberController::class, 'packages']);
+    Route::get('account-settings', [MemberController::class, 'accountSettings']);
+    Route::get('change-password', [MemberController::class, 'changePassword']);
+    Route::put('profile-update', [MemberController::class, 'updateProfile']);
+    Route::post('change-password', [MemberController::class, 'updatePassword']);
 });
 
 
