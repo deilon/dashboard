@@ -26,7 +26,7 @@
               <h4 class="my-0 fw-normal">2 Months</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">₱750<small class="text-muted fw-light">/mo</small></h1>
+              <h1 class="card-title pricing-card-title">₱1,500</h1>
               {{-- <h1 class="card-title pricing-card-title">₱1,500</h1> --}}
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Unlimited Sessions</li>
@@ -35,8 +35,7 @@
                 <li>All Access to Utilites</li>
                 <li>All Access to Gym Equipments</li>
               </ul>
-              <h6 class="fw-light fst-italic">*Total Cost ₱1,500</h6>
-              <button type="button" class="w-100 btn btn-lg btn-outline-primary">Purchase</button>
+              <button type="button" class="w-100 btn btn-lg btn-outline-primary">Subscribe</button>
             </div>
           </div>
         </div>
@@ -46,7 +45,7 @@
               <h4 class="my-0 fw-normal">3 Months</h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">₱733.33<small class="text-muted fw-light">/mo</small></h1>
+                <h1 class="card-title pricing-card-title">₱2,200</h1>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Unlimited Sessions</li>
                 <li>Trainer Included</li>
@@ -54,8 +53,7 @@
                 <li>All Access to Utilites</li>
                 <li>All Access to Gym Equipments</li>
               </ul>
-              <h6 class="fw-light fst-italic">*Total Cost ₱2,200</h6>
-              <button type="button" class="w-100 btn btn-lg btn-primary">Purchase</button>
+              <button type="button" class="w-100 btn btn-lg btn-primary">Subscribe</button>
             </div>
           </div>
         </div>
@@ -65,7 +63,7 @@
               <h4 class="my-0 fw-normal">6 Months</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">₱483.33<small class="text-muted fw-light">/mo</small></h1>
+              <h1 class="card-title pricing-card-title">₱2,900</h1>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Unlimited Sessions</li>
                 <li>Trainer Included</li>
@@ -73,8 +71,7 @@
                 <li>All Access to Utilites</li>
                 <li>All Access to Gym Equipments</li>
               </ul>
-              <h6 class="fw-light fst-italic">*Total Cost ₱2,900</h6>
-              <button type="button" class="w-100 btn btn-lg btn-primary">Purchase</button>
+              <button type="button" class="w-100 btn btn-lg btn-primary">Subscribe</button>
             </div>
           </div>
         </div>
@@ -87,7 +84,7 @@
                 <h4 class="my-0 fw-normal">Annually</h4>
               </div>
               <div class="card-body">
-                <h1 class="card-title pricing-card-title">₱416.67<small class="text-muted fw-light">/mo</small></h1>
+                <h1 class="card-title pricing-card-title">₱5,000</h1>
                 <ul class="list-unstyled mt-3 mb-4">
                     <li>Unlimited Sessions</li>
                     <li>Trainer Included</li>
@@ -95,8 +92,7 @@
                     <li>All Access to Utilites</li>
                     <li>All Access to Gym Equipments</li>
                 </ul>
-                <h6 class="fw-light fst-italic">*Total Cost ₱5,000</h6>
-                <button type="button" class="w-100 btn btn-lg btn-primary">Purchase</button>
+                <button type="button" class="w-100 btn btn-lg btn-primary">Subscribe</button>
               </div>
             </div>
           </div>
