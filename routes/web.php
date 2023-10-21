@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\SubscriptionPlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,7 +68,7 @@ Route::middleware(['auth', 'user-access:staff'])->prefix('staff')->group(functio
 // Members routes
 Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(function () {
     Route::get('dashboard', [MemberController::class, 'home']);
-    Route::get('available-packages', [MemberController::class, 'packages']);
+    Route::get('available-packages', [SubscriptionPlanController::class, 'index']);
     Route::get('account-settings', [MemberController::class, 'accountSettings']);
     Route::get('change-password', [MemberController::class, 'changePassword']);
     Route::put('profile-update', [MemberController::class, 'updateProfile']);
