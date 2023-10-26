@@ -10,6 +10,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use App\Models\Subscription;
+use App\Models\SubscriptionTier;
 
 
 class MemberController extends Controller
@@ -103,5 +105,12 @@ class MemberController extends Controller
         ]);
     
         return redirect()->back()->with('success', 'Password updated successfully.');
+    }
+
+    public function membershipDetails() {
+        $subscription = Subscription::where('user_id', Auth::user()->id)->first();
+        $data['subscription'] = $subscription;
+        $data['user'] = Auth::user();
+        return view('dashboard.member.membership-details', $data);
     }
 }

@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // ======= SubscriptionPlan & SubscriptionTier =======
-        // \App\Models\SubscriptionPlan::factory(1)->create();
+        // \App\Models\SubscriptionArrangement::factory(1)->create();
         \App\Models\SubscriptionTier::factory(1)->create();
     }
 }

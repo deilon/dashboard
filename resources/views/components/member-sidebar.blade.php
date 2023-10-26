@@ -34,28 +34,23 @@
             <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="layouts-without-menu.html" class="menu-link">
-                        <div data-i18n="Without menu">Without menu</div>
+                        <div data-i18n="Without menu">Today</div>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="layouts-without-navbar.html" class="menu-link">
-                        <div data-i18n="Without navbar">Without navbar</div>
+                        <div data-i18n="Without navbar">Completed</div>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="layouts-container.html" class="menu-link">
-                        <div data-i18n="Container">Container</div>
+                        <div data-i18n="Container">Queues</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="layouts-fluid.html" class="menu-link">
-                        <div data-i18n="Fluid">Fluid</div>
+                    <a href="layouts-container.html" class="menu-link">
+                        <div data-i18n="Container">All</div>
                     </a>
-                </li>
-                <li class="menu-item">
-                <a href="layouts-blank.html" class="menu-link">
-                    <div data-i18n="Blank">Blank</div>
-                </a>
                 </li>
             </ul>
         </li>
@@ -92,7 +87,7 @@
             <span class="menu-header-text">Membership</span>
         </li>
         <li class="menu-item">
-            <a href="" class="menu-link">
+            <a href="{{ url('member/membership-details') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-id-card"></i>
                 <div data-i18n="Membership details">Membership Details</div>
             </a>

@@ -6,7 +6,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\StaffController;
-use App\Http\Controllers\SubscriptionPlanController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\SubscriptionArrangementController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,11 +70,20 @@ Route::middleware(['auth', 'user-access:staff'])->prefix('staff')->group(functio
 // Members routes
 Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(function () {
     Route::get('dashboard', [MemberController::class, 'home']);
-    Route::get('available-packages', [SubscriptionPlanController::class, 'index']);
+    Route::get('available-packages', [SubscriptionArrangementController::class, 'index']);
     Route::get('account-settings', [MemberController::class, 'accountSettings']);
     Route::get('change-password', [MemberController::class, 'changePassword']);
     Route::put('profile-update', [MemberController::class, 'updateProfile']);
     Route::post('change-password', [MemberController::class, 'updatePassword']);
+    
+    // Checkout
+    Route::get('checkout/plan/{subscriptionArrangement}/tier_id/{tier_id}', [CheckoutController::class, 'checkoutPage'])->name('checkout.plan');
+
+    // Subscription
+    Route::post('subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+
+    // Membership details
+    Route::get('membership-details', [MemberController::class, 'membershipDetails']);
 });
 
 

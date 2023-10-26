@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class SubscriptionPlan extends Model
+class SubscriptionArrangement extends Model
 {
     use HasFactory;
 
@@ -16,7 +16,7 @@ class SubscriptionPlan extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'subscription_name',
+        'arrangement_name',
         'status',
         'start_date',
         'end_date',
@@ -24,6 +24,6 @@ class SubscriptionPlan extends Model
 
     public function subscriptionTiers(): HasMany
     {
-        return $this->hasMany(SubscriptionTier::class, 'subscription_plan_id');
+        return $this->hasMany(SubscriptionTier::class);
     }
 }

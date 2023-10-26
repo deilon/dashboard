@@ -17,25 +17,29 @@ class SubscriptionTierFactory extends Factory
     public function definition(): array
     {
         return [
-            // 'subscription_plan_id' => 16, // Replace with the actual subscription plan ID
-            // 'tier_name' => '2 Months',
+            // 'subscription_arrangement_id' => 1, // Replace with the actual subscription plan ID
+            // 'tier_name' => 'basic',
+            // 'duration' => '2 Months',
             // 'price' => 1500,
             // 'status' => 'active',
 
-            // 'subscription_plan_id' => 16, // Replace with the actual subscription plan ID
-            // 'tier_name' => '3 Months',
+            // 'subscription_arrangement_id' => 1, // Replace with the actual subscription plan ID
+            // 'tier_name' => 'standard',
+            // 'duration' => '3 Months',
             // 'price' => 2200,
             // 'status' => 'active',
 
-            // 'subscription_plan_id' => 16, // Replace with the actual subscription plan ID
-            // 'tier_name' => '6 Months',
+            // 'subscription_arrangement_id' => 1, // Replace with the actual subscription plan ID
+            // 'tier_name' => 'premium',
+            // 'duration' => '6 Months',
             // 'price' => 2900,
             // 'status' => 'active',
 
-            'subscription_plan_id' => 16, // Replace with the actual subscription plan ID
-            'tier_name' => 'Annual',
-            'price' => 5000,
-            'status' => 'active',
+            // 'subscription_arrangement_id' => 1, // Replace with the actual subscription plan ID
+            // 'tier_name' => 'ultimate',
+            // 'duration' => '12 Months',
+            // 'price' => 5000,
+            // 'status' => 'active',
         ];
     }
 }

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subscription_plans', function (Blueprint $table) {
+        Schema::create('sales_reports', function (Blueprint $table) {
             $table->id();
-            $table->string('subscription_name');
-            $table->enum('status', ['active', 'disabled']);
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->string('subscription_model');
+            $table->string('tier_name');
+            $table->date('date');
+            $table->decimal('amount', 10, 2);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subscription_plans');
+        Schema::dropIfExists('sales_reports');
     }
 };
