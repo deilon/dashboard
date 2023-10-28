@@ -86,7 +86,7 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Membership</span>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ (request()->is('member/membership-details')) ? 'active' : '' }}">
             <a href="{{ url('member/membership-details') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-id-card"></i>
                 <div data-i18n="Membership details">Membership Details</div>
