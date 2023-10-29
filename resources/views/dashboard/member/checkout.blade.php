@@ -102,10 +102,11 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <select class="form-select" id="paymentOption" name="paymentOption">
-                              <option selected value="credit card">Credit card</option>
+                              <option selected value="creditCard">Credit card</option>
+                              <option value="gcash">Gcash</option>
                             </select>
                         </div>
-                        <div class="card shadow-none bg-transparent border border-secondary mb-3">
+                        <div id="creditCard" class="card shadow-none bg-transparent border border-secondary mb-3 payment-content">
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="cardNumber">Card number</label> <span class="text-danger">*</span>
@@ -125,6 +126,18 @@
                                 <div class="mb-3">
                                     <label for="cardHolderName">Cardholder's name</label> <span class="text-danger">*</span>
                                     <input type="text" class="form-control" id="cardHolderName" name="cardHolderName" />
+                                </div>
+                            </div>
+                        </div>
+                        <div id="gcash" class="card shadow-none bg-transparent border border-secondary mb-3 payment-content d-none">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="mobileNumber">Mobile/Gcash number</label> <span class="text-danger">*</span>
+                                    <input type="text" class="form-control" id="mobileNumber" name="mobile_number" />
+                                </div>
+                                <div class="mb-3">
+                                  <label for="gCashFile" class="form-label">Upload your Gcash Receipt or Proof of Payment</label>
+                                  <input class="form-control" type="file" id="gCashFile" />
                                 </div>
                             </div>
                         </div>
@@ -180,4 +193,19 @@
 
 @section('page-js')
 <script src="{{ asset('storage/assets/js/dashboards-analytics.js') }}"></script>
+<script>
+  $(document).ready(function() {
+      // Listen for changes in the selected payment option
+      $('#paymentOption').change(function() {
+          // Get the selected option
+          var selectedOption = $(this).val();
+          
+          // Hide all content divs
+          $('.payment-content').addClass('d-none');
+          
+          // Show the content div corresponding to the selected option
+          $('#' + selectedOption).removeClass('d-none');
+      });
+  });
+</script>
 @endsection
