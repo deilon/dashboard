@@ -136,9 +136,10 @@
                                     <input type="text" class="form-control" id="mobileNumber" name="mobile_number" required />
                                 </div>
                                 <div class="mb-3">
+                                  <label for="amount">Amount</label> <span class="text-danger">*</span>
                                   <div class="input-group input-group-merge">
                                     <span class="input-group-text">₱</span>
-                                    <input type="text" class="form-control" placeholder="100" name="amount" aria-label="Amount (to the nearest peso)" />
+                                    <input type="text" class="form-control" placeholder="100" id="amount" name="amount" aria-label="Amount (to the nearest peso)" />
                                     <span class="input-group-text">.00</span>
                                   </div>
                                 </div>
