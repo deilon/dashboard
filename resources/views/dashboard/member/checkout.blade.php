@@ -120,8 +120,8 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cvvcvc">CVV/CVC</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" id="cvvcvc" name="cvvcvc" required />
+                                    <label for="cvv_cvc">CVV/CVC</label> <span class="text-danger">*</span>
+                                    <input type="text" class="form-control" id="cvv_cvc" name="cvv_cvc" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="cardHolderName">Cardholder's name</label> <span class="text-danger">*</span>
@@ -134,6 +134,13 @@
                                 <div class="mb-3">
                                     <label for="mobileNumber">Mobile/Gcash number</label> <span class="text-danger">*</span>
                                     <input type="text" class="form-control" id="mobileNumber" name="mobile_number" required />
+                                </div>
+                                <div class="mb-3">
+                                  <div class="input-group input-group-merge">
+                                    <span class="input-group-text">₱</span>
+                                    <input type="text" class="form-control" placeholder="100" name="amount" aria-label="Amount (to the nearest peso)" />
+                                    <span class="input-group-text">.00</span>
+                                  </div>
                                 </div>
                                 <div class="mb-3">
                                   <label for="gCashFile" class="form-label">Upload your Gcash Receipt or Proof of Payment <span class="text-danger">*</span></label>

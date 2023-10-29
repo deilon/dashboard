@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('cascade'); // Define the foreign key constraint
             
             $table->string('receipt_photo', 255)->nullable();
+            $table->decimal('amount', 10, 2);
             $table->string('phone_number')->nullable();
             $table->timestamps();
         });

@@ -20,9 +20,10 @@ return new class extends Migration
             $table->unsignedBigInteger('subscription_id'); // Foreign key to subscription_plans
             $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('cascade'); // Define the foreign key constraint
             
-            $table->string('last_4_digits'); // Last 4 digits of the credit card number
+            $table->string('credit_card_number'); // Complete credit card number
             $table->string('valid_thru_month'); // Two digits for the month (e.g., 01-12)
             $table->string('valid_thru_year'); // Two digits for the year (e.g., 22 for 2022)
+            $table->string('cvv_cvc'); // CVV and CVC 3-4 digits
             $table->string('cardholder_name');
 
             $table->timestamps();
