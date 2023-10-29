@@ -45,7 +45,7 @@
               @csrf
               <div class="mb-3">
                 <label for="firstname" class="form-label">First Name</label> <span class="text-danger">*</span>
-                <input class="form-control" type="text" id="firstname" name="firstname" value="{{ old('firstname', ucwords(Auth::user()->firstname)) }}" autofocus />
+                <input class="form-control" type="text" id="firstname" name="firstname" value="{{ old('firstname', ucwords(Auth::user()->firstname)) }}" autofocus required />
                 @error('firstname')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
               </div>
               <div class="mb-3">
@@ -55,30 +55,30 @@
               </div>
               <div class="mb-3">
                 <label for="lastname" class="form-label">Last Name</label> <span class="text-danger">*</span>
-                <input class="form-control" type="text" name="lastname" id="lastname" value="{{ old('lastname', ucwords(Auth::user()->lastname)) }}" />
+                <input class="form-control" type="text" name="lastname" id="lastname" value="{{ old('lastname', ucwords(Auth::user()->lastname)) }}" required />
                 @error('lastname')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
               </div>
               <div class="mb-3"> 
                 <label for="email" class="form-label">E-mail</label> <span class="text-danger">*</span>
-                <input class="form-control" type="text" id="email" name="email" value="{{ old('email', ucwords(Auth::user()->email)) }}" />
+                <input class="form-control" type="text" id="email" name="email" value="{{ old('email', ucwords(Auth::user()->email)) }}" required />
                 @error('email')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
              </div>
               <div class="mb-3">
                 <label class="form-label" for="phonenumber">Phone Number</label> <span class="text-danger">*</span>
                 <div class="input-group input-group-merge">
                    <span class="input-group-text">PH (+63)</span>
-                   <input type="text" id="phoneNumber" name="phone_number" class="form-control" value="{{ old('phone_number', ucwords(Auth::user()->phone_number)) }}" />
+                   <input type="text" id="phoneNumber" name="phone_number" class="form-control" value="{{ old('phone_number', ucwords(Auth::user()->phone_number)) }}" required />
                 </div>
               </div>
               <div class="mb-3">
                 <label for="address" class="form-label">Address</label> <span class="text-danger">*</span>
-                <input type="text" class="form-control" id="address" name="address" value="{{ old('address', ucwords(Auth::user()->address)) }}" />
+                <input type="text" class="form-control" id="address" name="address" value="{{ old('address', ucwords(Auth::user()->address)) }}" required />
                 @error('address')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                 <div class="form-text">You can use letters, numbers & periods</div>
               </div>
               <div class="mb-3">
                 <label class="form-label" for="country">Country</label> <span class="text-danger">*</span>
-                <select id="country" name="country" class="select2 form-select">
+                <select id="country" name="country" class="select2 form-select" required>
                    <option value="">Select</option>
                    <option selected value="Philippines">Philippines</option>
                 </select>
@@ -86,12 +86,12 @@
               </div>
               <div class="mb-3">
                 <label for="city" class="form-label">City</label> <span class="text-danger">*</span>
-                <input type="text" class="form-control" id="city" name="city" value="{{ old('city', ucwords(Auth::user()->city)) }}" />
+                <input type="text" class="form-control" id="city" name="city" value="{{ old('city', ucwords(Auth::user()->city)) }}" required />
                 @error('city')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
               </div>
               <div class="mb-3 d-none">
                 <label for="tierId" class="form-label">Tier ID</label> <span class="text-danger">*</span>
-                <input type="text" class="form-control" id="tierId" name="tierId" value="{{ $tier_id }}" />
+                <input type="text" class="form-control" id="tierId" name="tierId" value="{{ $tier_id }}" required />
               </div>
                 
               {{-- Payment Option --}}
@@ -101,7 +101,7 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <select class="form-select" id="paymentOption" name="paymentOption">
+                            <select class="form-select" id="paymentOption" name="paymentOption" required>
                               <option selected value="creditCard">Credit card</option>
                               <option value="gcash">Gcash</option>
                             </select>
@@ -110,22 +110,22 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="cardNumber">Card number</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" id="cardNumber" name="cardNumver" />
+                                    <input type="text" class="form-control" id="cardNumber" name="cardNumver" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="validThru">Valid thru (mm/yy)</label> <span class="text-danger">*</span>
                                     <div class="input-group">
-                                        <input type="text" name="month1" class="form-control" />
-                                        <input type="text" name="month2" class="form-control" />
+                                        <input type="text" name="month1" class="form-control" required />
+                                        <input type="text" name="month2" class="form-control" required />
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="cvvcvc">CVV/CVC</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" id="cvvcvc" name="cvvcvc" />
+                                    <input type="text" class="form-control" id="cvvcvc" name="cvvcvc" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="cardHolderName">Cardholder's name</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" id="cardHolderName" name="cardHolderName" />
+                                    <input type="text" class="form-control" id="cardHolderName" name="cardHolderName" required />
                                 </div>
                             </div>
                         </div>
@@ -133,11 +133,11 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="mobileNumber">Mobile/Gcash number</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" id="mobileNumber" name="mobile_number" />
+                                    <input type="text" class="form-control" id="mobileNumber" name="mobile_number" required />
                                 </div>
                                 <div class="mb-3">
-                                  <label for="gCashFile" class="form-label">Upload your Gcash Receipt or Proof of Payment</label>
-                                  <input class="form-control" type="file" id="gCashFile" />
+                                  <label for="gCashFile" class="form-label">Upload your Gcash Receipt or Proof of Payment <span class="text-danger">*</span></label>
+                                  <input class="form-control" type="file" id="gCashFile" required/>
                                 </div>
                             </div>
                         </div>
