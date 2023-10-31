@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('end_date');
             
             $table->decimal('amount_paid', 10, 2);
-            $table->enum('payment_option', ['credit card', 'gcash']);
+            $table->enum('payment_option', ['credit card', 'gcash', 'manual payment']);
             $table->enum('status', ['active', 'expired', 'pending']);
             $table->timestamps();
         });

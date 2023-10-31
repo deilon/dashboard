@@ -115,6 +115,7 @@
                             <select class="form-select" id="paymentOption" name="paymentOption" required>
                               <option selected value="creditCard">Credit card</option>
                               <option value="gcash">Gcash</option>
+                              <option value="manualPayment">Manual Payment</option>
                             </select>
                         </div>
                         <div id="creditCard" class="card shadow-none bg-transparent border border-secondary mb-3 payment-content">
@@ -165,6 +166,24 @@
                                   <label for="gCashFile" class="form-label">Upload your Gcash Receipt or Proof of Payment <span class="text-danger">*</span></label>
                                   <input class="form-control" type="file" id="gCashFile" name="gCashFile" value="{{ old('gCashFile') }}" />
                                   @error('gCashFile')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div id="manualPayment" class="card shadow-none bg-transparent border border-secondary mb-3 payment-content d-none">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="fullName">Full Name</label> <span class="text-danger">*</span>
+                                    <input type="text" class="form-control" id="fullName" name="fullName" value="{{ old('fullName') }}" />
+                                    @error('fullName')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
+                                </div>
+                                <div class="mb-3">
+                                  <label for="amount">Amount</label> <span class="text-danger">*</span>
+                                  <div class="input-group input-group-merge">
+                                    <span class="input-group-text">₱</span>
+                                    <input type="text" class="form-control" placeholder="100" id="amount" name="amount" value="{{ old('amount') }}" aria-label="Amount (to the nearest peso)" />
+                                    <span class="input-group-text">.00</span>
+                                  </div>
+                                  @error('amount')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                 </div>
                             </div>
                         </div>
@@ -222,10 +241,37 @@
 <script src="{{ asset('storage/assets/js/dashboards-analytics.js') }}"></script>
 <script>
   $(document).ready(function() {
+      // Check local storage for the selected payment option
+      var selectedOption = localStorage.getItem('selected_payment_option');
+
+      // If a selection is found, set the select element to that value
+      if (selectedOption) {
+          $('#paymentOption').val(selectedOption);
+
+          // Show the content div corresponding to the selected option
+          if(selectedOption == 'creditCard') {
+            $('#creditCard').removeClass('d-none');
+            $('#gcash').addClass('d-none');
+            $('#manualPayment').addClass('d-none');
+          } else if (selectedOption == 'gcash') {
+            $('#creditCard').addClass('d-none');
+            $('#gcash').removeClass('d-none');
+            $('#manualPayment').addClass('d-none');
+          } else {
+            $('#creditCard').addClass('d-none');
+            $('#gcash').addClass('d-none');
+            $('#manualPayment').removeClass('d-none');
+          }
+
+      }
+
       // Listen for changes in the selected payment option
       $('#paymentOption').change(function() {
           // Get the selected option
           var selectedOption = $(this).val();
+
+          // Store the selected option in local storage
+          localStorage.setItem('selected_payment_option', selectedOption);
           
           // Hide all content divs
           $('.payment-content').addClass('d-none');

@@ -12,6 +12,7 @@ use App\Models\Subscription;
 use App\Models\SubscriptionTier;
 use App\Models\Gcash;
 use App\Models\CreditCard;
+use App\Models\ManualPayment;
 
 class SubscriptionController extends Controller
 {
@@ -40,12 +41,17 @@ class SubscriptionController extends Controller
                 'cvv_cvc' => 'required|numeric|digits_between:3,4',
                 'cardHolderName' => 'required|string|max:255', // Adjust the max length as needed
             ];
-        } else {
+        } else if($request->paymentOption == 'gcash') {
             $paymentOptionValidationRules = [
                 'mobile_number' => ['required', 'regex:/^(09|\+639)\d{9}$/'], // Validates a Philippine mobile number format
                 'amount' => ['required', 'numeric'], // Validates that 'amount' is a numeric value
                 'gCashFile' => ['required', 'image', 'max:2048'] // Validates file format (PDF, JPG/JPEG, PNG)
             ];
+        } else {
+            $paymentOptionValidationRules = [
+                'fullName' => ['required', 'string', 'max:255'],
+                'amount' => ['required', 'numeric'], // Validates that 'amount' is a numeric value
+            ]; 
         }
         
 
@@ -91,8 +97,10 @@ class SubscriptionController extends Controller
 
             if($request->paymentOption == 'creditCard') {
                 $subscription->payment_option = 'credit card';
-            } else {
+            } else if($request->paymentOption == 'gCash') {
                 $subscription->payment_option = 'gcash';
+            } else {
+                $subscription->payment_option = 'manual payment';
             }
     
             $subscription->save();
@@ -108,7 +116,7 @@ class SubscriptionController extends Controller
                 ]);
                 $creditCard->user()->associate($user);
                 $subscription->creditCard()->save($creditCard);
-            } else {
+            } else if($request->paymentOption == 'gcash') {
                 $gCash = new Gcash([
                     'phone_number' => $request->mobile_number,
                     'amount' => $request->amount,
@@ -126,6 +134,13 @@ class SubscriptionController extends Controller
 
                 $gCash->user()->associate($user);
                 $subscription->gcash()->save($gCash);
+            } else {
+                $manualPayment = new ManualPayment([
+                    'full_name' => $request->fullName,
+                    'amount' => $request->amount,
+                ]);
+                $manualPayment->user()->associate($user);
+                $subscription->manualPayment()->save($manualPayment);
             }
             
         }

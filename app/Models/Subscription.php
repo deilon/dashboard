@@ -27,4 +27,9 @@ class Subscription extends Model
     {
         return $this->hasMany(Gcash::class);
     }
+
+    public function manualPayment(): HasMany 
+    {
+        return $this->hasMany(ManualPayment::class);
+    }
 }

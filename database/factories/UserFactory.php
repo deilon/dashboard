@@ -25,7 +25,7 @@ class UserFactory extends Factory
             'lastname' => $faker->lastName(),
             'middlename' => $faker->lastName(),
             'email' => $faker->unique()->safeEmail(),
-            'phone_number' => $faker->mobileNumber(),
+            'phone_number' => '09182132918',
             'country' => $faker->country(),
             'city' => $faker->city(),
             'address' => $faker->address(),

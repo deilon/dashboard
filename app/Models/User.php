@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->hasMany(Gcash::class);
     }
 
+    public function manualPayment(): HasMany 
+    {
+        return $this->hasMany(ManualPayment::class);
+    }
+
     /**
      * Interact with the user's role name.
      *
