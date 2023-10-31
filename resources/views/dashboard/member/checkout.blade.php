@@ -30,6 +30,16 @@
             </div>
          </div>
       @endif
+      @if ($errors->any())
+      <div class="row">
+        <div class="col-md">
+           <div class="alert alert-danger alert-dismissible" role="alert">
+            Some input fields values are incorrect. Please check
+           </div>
+        </div>
+     </div>
+      @endif
+  
 
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Checkout /</span> Subscription: {{ ucfirst($arrangement_name) }}</h4>
 
@@ -41,7 +51,7 @@
             <h5 class="mb-0">Personal Details</h5>
           </div>
           <div class="card-body">
-            <form action="{{ route('subscribe') }}" method="POST">
+            <form action="{{ route('subscribe') }}" method="POST" enctype="multipart/form-data">
               @csrf
               <div class="mb-3">
                 <label for="firstname" class="form-label">First Name</label> <span class="text-danger">*</span>
@@ -69,6 +79,7 @@
                    <span class="input-group-text">PH (+63)</span>
                    <input type="text" id="phoneNumber" name="phone_number" class="form-control" value="{{ old('phone_number', ucwords(Auth::user()->phone_number)) }}" required />
                 </div>
+                @error('phone_number')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
               </div>
               <div class="mb-3">
                 <label for="address" class="form-label">Address</label> <span class="text-danger">*</span>
@@ -110,22 +121,27 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="cardNumber">Card number</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" id="cardNumber" name="cardNumver" required />
+                                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" value="{{ old('cardNumber') }}" />
+                                    @error('cardNumber')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="validThru">Valid thru (mm/yy)</label> <span class="text-danger">*</span>
                                     <div class="input-group">
-                                        <input type="text" name="month1" class="form-control" required />
-                                        <input type="text" name="month2" class="form-control" required />
+                                        <input type="text" name="month" class="form-control" value="{{ old('month') }}" />
+                                        <input type="text" name="year" class="form-control" value="{{ old('year') }}" />
                                     </div>
+                                    @error('month')<div class="text-danger d-block pt-2">{{ $message }}</div>@enderror
+                                    @error('year')<div class="text-danger d-block pt-2">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="cvv_cvc">CVV/CVC</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" id="cvv_cvc" name="cvv_cvc" required />
+                                    <input type="text" class="form-control" id="cvv_cvc" name="cvv_cvc" value="{{ old('cvv_cvc') }}" />
+                                    @error('cvv_cvc')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="cardHolderName">Cardholder's name</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" id="cardHolderName" name="cardHolderName" required />
+                                    <input type="text" class="form-control" id="cardHolderName" name="cardHolderName" value="{{ old('cardHolderName') }}" />
+                                    @error('cardHolderName')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                 </div>
                             </div>
                         </div>
@@ -133,19 +149,22 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="mobileNumber">Mobile/Gcash number</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" id="mobileNumber" name="mobile_number" required />
+                                    <input type="text" class="form-control" id="mobileNumber" name="mobile_number" value="{{ old('mobile_number') }}" />
+                                    @error('mobile_number')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
                                   <label for="amount">Amount</label> <span class="text-danger">*</span>
                                   <div class="input-group input-group-merge">
                                     <span class="input-group-text">₱</span>
-                                    <input type="text" class="form-control" placeholder="100" id="amount" name="amount" aria-label="Amount (to the nearest peso)" />
+                                    <input type="text" class="form-control" placeholder="100" id="amount" name="amount" value="{{ old('amount') }}" aria-label="Amount (to the nearest peso)" />
                                     <span class="input-group-text">.00</span>
                                   </div>
+                                  @error('amount')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
                                   <label for="gCashFile" class="form-label">Upload your Gcash Receipt or Proof of Payment <span class="text-danger">*</span></label>
-                                  <input class="form-control" type="file" id="gCashFile" required/>
+                                  <input class="form-control" type="file" id="gCashFile" name="gCashFile" value="{{ old('gCashFile') }}" />
+                                  @error('gCashFile')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                 </div>
                             </div>
                         </div>

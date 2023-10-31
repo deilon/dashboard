@@ -10,12 +10,17 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Carbon;
 use App\Models\Subscription;
 use App\Models\SubscriptionTier;
+use App\Models\Gcash;
+use App\Models\CreditCard;
 
 class SubscriptionController extends Controller
 {
+   
     public function subscribe(Request $request) {
-        // Validate and update the user...
-        $request->validate([
+
+
+        // User details Validation / Validation Rules
+        $userDetailsValidationRules = [
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'middlename' => ['sometimes', 'nullable', 'string', 'max:255'],
@@ -24,78 +29,110 @@ class SubscriptionController extends Controller
             'city' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
-        ]);
+        ];
 
-        // Store update
-        $user = Auth::user();
-        $user->firstname = strtolower($request->firstname);
-        $user->lastname = strtolower($request->lastname);
-        $user->middlename = strtolower($request->middlename);
-        $user->phone_number = $request->phone_number;
-        $user->country = $request->country;
-        $user->city = $request->city;
-        $user->address = $request->address;
-        $user->email = strtolower($request->email);
-        $user->save();
-
-        $tier = SubscriptionTier::find($request->tierId);
-        if($tier->duration == "2 Months") {
-            $this->subscribeTwoMonths($user, $tier);
-        } else if($tier->duration == "3 Months") {
-            $this->subscribeThreeMonths($user, $tier);
-        } else if($tier->duration == "6 Months") {
-            $this->subscribeSixMonths($user, $tier);
+        // Payment Option Validation / Validation Rules
+        if($request->paymentOption == 'creditCard') {
+            $paymentOptionValidationRules = [                
+                'cardNumber' => 'required|numeric|digits_between:13,19',
+                'month' => ['required', 'digits:2', 'regex:/^(0[1-9]|1[0-2])$/'], // Validate month is between 01 and 12
+                'year' => ['required', 'digits:2', 'after_or_equal:' . date('y')], // Validate year is in the future or the current year]
+                'cvv_cvc' => 'required|numeric|digits_between:3,4',
+                'cardHolderName' => 'required|string|max:255', // Adjust the max length as needed
+            ];
         } else {
-            $this->subscribeTwelveMonths($user, $tier);
+            $paymentOptionValidationRules = [
+                'mobile_number' => ['required', 'regex:/^(09|\+639)\d{9}$/'], // Validates a Philippine mobile number format
+                'amount' => ['required', 'numeric'], // Validates that 'amount' is a numeric value
+                'gCashFile' => ['required', 'image', 'max:2048'] // Validates file format (PDF, JPG/JPEG, PNG)
+            ];
         }
+        
+
+        // Merge and validate the two validation rules
+        $validationRules = array_merge($userDetailsValidationRules, $paymentOptionValidationRules);
+        $validator = validator($request->all(), $validationRules);
+
+        // Check the validity of all fields and Update user, Store subscription, Store Credit cards or gcashes
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            // Save user details
+            $user = Auth::user();
+            $user->firstname = strtolower($request->firstname);
+            $user->lastname = strtolower($request->lastname);
+            $user->middlename = strtolower($request->middlename);
+            $user->phone_number = $request->phone_number;
+            $user->country = $request->country;
+            $user->city = $request->city;
+            $user->address = $request->address;
+            $user->email = strtolower($request->email);
+            $user->save();
+
+            // Create subscription
+            $tier = SubscriptionTier::find($request->tierId);
+            $subscription = new Subscription;
+            $subscription->user_id = $user->id;
+            $subscription->subscription_tier_id = $tier->id;
+            $subscription->amount_paid = $tier->price;
+            $subscription->status = 'active';
+            $subscription->start_date = Carbon::now();
             
+            
+            if($tier->duration == '2 Months') {
+                $subscription->end_date = Carbon::now()->addMonths(2);
+            } else if ($tier->duration == '3 Months') {
+                $subscription->end_date = Carbon::now()->addMonths(3);
+            } else if ($tier->duration == '6 Months') {
+                $subscription->end_date = Carbon::now()->addMonths(6);
+            } else {
+                $subscription->end_date = Carbon::now()->addYear();
+            }
+
+            if($request->paymentOption == 'creditCard') {
+                $subscription->payment_option = 'credit card';
+            } else {
+                $subscription->payment_option = 'gcash';
+            }
+    
+            $subscription->save();
+
+            // Create Payment option Credit Card / Gcash
+            if($request->paymentOption == 'creditCard') {
+                $creditCard = new CreditCard([
+                    'credit_card_number' => $request->cardNumber,
+                    'valid_thru_month' => $request->month,
+                    'valid_thru_year' => $request->year,
+                    'cvv_cvc' => $request->cvv_cvc,
+                    'cardholder_name' => $request->cardHolderName,
+                ]);
+                $creditCard->user()->associate($user);
+                $subscription->creditCard()->save($creditCard);
+            } else {
+                $gCash = new Gcash([
+                    'phone_number' => $request->mobile_number,
+                    'amount' => $request->amount,
+                ]);
+
+                // Get the uploaded file
+                $file = $request->file('gCashFile');
+
+                // Define the file name (you can customize it as per your requirements)
+                $fileName = time() . '_' . $file->getClientOriginalName();
+        
+                // Store the file in the public directory (you can change the storage path)
+                $file->storeAs('public/assets/img/gcash_receipts', $fileName);
+                $gCash->receipt_photo = $fileName;
+
+                $gCash->user()->associate($user);
+                $subscription->gcash()->save($gCash);
+            }
+            
+        }
 
         // redirect
         return redirect()->back()->with('success', 'You have successfully subscribed.');
-    }
 
-    public function subscribeTwoMonths($user, $tier) {
-        $subscription = new Subscription;
-        $subscription->user_id = $user->id;
-        $subscription->subscription_tier_id = $tier->id;
-        $subscription->amount_paid = $tier->price;
-        $subscription->status = 'active';
-        $subscription->start_date = Carbon::now();
-        $subscription->end_date = Carbon::now()->addMonths(2);
-        $subscription->save();
-    }
-
-    public function subscribeThreeMonths($user, $tier) {
-        $subscription = new Subscription;
-        $subscription->user_id = $user->id;
-        $subscription->subscription_tier_id = $tier->id;
-        $subscription->amount_paid = $tier->price;
-        $subscription->status = 'active';
-        $subscription->start_date = Carbon::now();
-        $subscription->end_date = Carbon::now()->addMonths(3);
-        $subscription->save();
-    }
-
-    public function subscribeSixMonths($user, $tier) {
-        $subscription = new Subscription;
-        $subscription->user_id = $user->id;
-        $subscription->subscription_tier_id = $tier->id;
-        $subscription->amount_paid = $tier->price;
-        $subscription->status = 'active';
-        $subscription->start_date = Carbon::now();
-        $subscription->end_date = Carbon::now()->addMonths(6);
-        $subscription->save();
-    }
-
-    public function subscribeTwelveMonths($user, $tier) {
-        $subscription = new Subscription;
-        $subscription->user_id = $user->id;
-        $subscription->subscription_tier_id = $tier->id;
-        $subscription->amount_paid = $tier->price;
-        $subscription->status = 'active';
-        $subscription->start_date = Carbon::now();
-        $subscription->end_date = Carbon::now()->addYear();
-        $subscription->save();
     }
 
 }

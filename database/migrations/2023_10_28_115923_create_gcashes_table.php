@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gcash', function (Blueprint $table) {
+        Schema::create('gcashes', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('user_id'); // Foreign key to subscription_plans
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gcash');
+        Schema::dropIfExists('gcashes');
     }
 };

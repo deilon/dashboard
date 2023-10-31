@@ -9,6 +9,22 @@ class Gcash extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'receipt_photo',
+        'amount',
+        'phone_number'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function subscription()
     {
         return $this->belongsTo(Subscription::class);

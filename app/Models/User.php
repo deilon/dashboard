@@ -51,6 +51,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(subscriptions::class);
     }
+    
+    public function creditCard(): HasMany 
+    {
+        return $this->hasMany(CreditCard::class);
+    }
+
+    public function gcash(): HasMany 
+    {
+        return $this->hasMany(Gcash::class);
+    }
 
     /**
      * Interact with the user's role name.
