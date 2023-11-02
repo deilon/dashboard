@@ -12,7 +12,7 @@ class SubscriptionArrangementController extends Controller
         // In your controller method
         $activeSubscriptionArrangement = SubscriptionArrangement::where('status', 'active')->first();
         $data['tiers'] = $activeSubscriptionArrangement->subscriptionTiers->where('status', 'active')->all();
-        $data['subscriptionArrangement'] = $activeSubscriptionArrangement->arrangement_name;
+        $data['subscriptionArrangement'] = $activeSubscriptionArrangement;
         return view('dashboard.member.packages', $data);
     }
 }

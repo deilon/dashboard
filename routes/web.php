@@ -79,7 +79,7 @@ Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(funct
     // Non subscriber access only
     Route::middleware(['auth', 'subscriber-access'])->group(function() {
         // Checkout
-        Route::get('checkout/plan/{subscriptionArrangement}/tier_id/{tier_id}', [CheckoutController::class, 'checkoutPage'])->name('checkout.plan');
+        Route::get('checkout/plan/{subscription_arrangement_id}/tier_id/{tier_id}', [CheckoutController::class, 'checkoutPage'])->name('checkout.plan');
 
         // Subscription
         Route::post('subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');

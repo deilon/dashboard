@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Carbon;
 use App\Models\Subscription;
 use App\Models\SubscriptionTier;
+use App\Models\SubscriptionArrangement;
 use App\Models\Gcash;
 use App\Models\CreditCard;
 use App\Models\ManualPayment;
@@ -33,6 +34,7 @@ class SubscriptionController extends Controller
         ];
 
         // Payment Option Validation / Validation Rules
+        $paymentOptionValidationRules = [];
         if($request->paymentOption == 'creditCard') {
             $paymentOptionValidationRules = [                
                 'cardNumber' => 'required|numeric|digits_between:13,19',
@@ -47,10 +49,10 @@ class SubscriptionController extends Controller
                 'amount' => ['required', 'numeric'], // Validates that 'amount' is a numeric value
                 'gCashFile' => ['required', 'image', 'max:2048'] // Validates file format (PDF, JPG/JPEG, PNG)
             ];
-        } else {
+        } else if($request->paymentOption == 'manualPayment') {
             $paymentOptionValidationRules = [
                 'fullName' => ['required', 'string', 'max:255'],
-                'amount' => ['required', 'numeric'], // Validates that 'amount' is a numeric value
+                'manual_payment_amount' => ['required', 'numeric'], // Validates that 'amount' is a numeric value
             ]; 
         }
         
@@ -77,8 +79,10 @@ class SubscriptionController extends Controller
 
             // Create subscription
             $tier = SubscriptionTier::find($request->tierId);
+            $subscriptionArrangement = SubscriptionArrangement::find($request->subscriptionArrangementId);
             $subscription = new Subscription;
             $subscription->user_id = $user->id;
+            $subscription->subscription_arrangement_id = $subscriptionArrangement->id;
             $subscription->subscription_tier_id = $tier->id;
             $subscription->amount_paid = $tier->price;
             $subscription->status = 'active';
@@ -137,7 +141,7 @@ class SubscriptionController extends Controller
             } else {
                 $manualPayment = new ManualPayment([
                     'full_name' => $request->fullName,
-                    'amount' => $request->amount,
+                    'amount' => $request->manual_payment_amount,
                 ]);
                 $manualPayment->user()->associate($user);
                 $subscription->manualPayment()->save($manualPayment);
@@ -146,7 +150,7 @@ class SubscriptionController extends Controller
         }
 
         // redirect
-        return redirect()->back()->with('success', 'You have successfully subscribed.');
+        return redirect('member/membership-details')->with('success', 'You have successfully subscribed.');
 
     }
 

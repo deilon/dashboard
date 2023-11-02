@@ -16,6 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id'); // Foreign key to subscription_plans
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Define the foreign key constraint
             
+            $table->unsignedBigInteger('subscription_arrangement_id'); // Foreign key to subscription_plans
+            $table->foreign('subscription_arrangement_id')->references('id')->on('subscription_arrangements')->onDelete('cascade'); // Define the foreign key constraint
+
             $table->unsignedBigInteger('subscription_tier_id'); // Foreign key to subscription_plans
             $table->foreign('subscription_tier_id')->references('id')->on('subscription_tiers')->onDelete('cascade'); // Define the foreign key constraint
             

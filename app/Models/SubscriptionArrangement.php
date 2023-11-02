@@ -26,4 +26,9 @@ class SubscriptionArrangement extends Model
     {
         return $this->hasMany(SubscriptionTier::class);
     }
+
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
 }

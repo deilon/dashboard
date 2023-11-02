@@ -41,7 +41,7 @@
       @endif
   
 
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Checkout /</span> Subscription: {{ ucfirst($arrangement_name) }}</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Checkout /</span> Subscription: {{ ucfirst($subscription_arrangement->arrangement_name) }}</h4>
 
     <!-- Basic Layout -->
     <div class="row">
@@ -103,6 +103,10 @@
               <div class="mb-3 d-none">
                 <label for="tierId" class="form-label">Tier ID</label> <span class="text-danger">*</span>
                 <input type="text" class="form-control" id="tierId" name="tierId" value="{{ $tier_id }}" required />
+              </div>
+              <div class="mb-3 d-none">
+                <label for="subscriptionArrangementId" class="form-label">Tier ID</label> <span class="text-danger">*</span>
+                <input type="text" class="form-control" id="subscriptionArrangementId" name="subscriptionArrangementId" value="{{ $subscription_arrangement->id }}" required />
               </div>
                 
               {{-- Payment Option --}}
@@ -177,10 +181,10 @@
                                     @error('fullName')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="mb-3">
-                                  <label for="amount">Amount</label> <span class="text-danger">*</span>
+                                  <label for="manualPaymentAmount">Amount</label> <span class="text-danger">*</span>
                                   <div class="input-group input-group-merge">
                                     <span class="input-group-text">₱</span>
-                                    <input type="text" class="form-control" placeholder="100" id="amount" name="amount" value="{{ old('amount') }}" aria-label="Amount (to the nearest peso)" />
+                                    <input type="text" class="form-control" placeholder="100" id="manualPaymentAmount" name="manual_payment_amount" value="{{ old('manual_payment_amount') }}" aria-label="Amount (to the nearest peso)" />
                                     <span class="input-group-text">.00</span>
                                   </div>
                                   @error('amount')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror

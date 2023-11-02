@@ -18,7 +18,7 @@
 @section('content')
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Packages /</span> {{ ucfirst($subscriptionArrangement) }}</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Packages /</span> {{ ucfirst($subscriptionArrangement->arrangement_name) }}</h4>
 
       <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
         @foreach($tiers as $tier)
@@ -46,7 +46,7 @@
               @if(Auth::user()->subscriptions->count() > 0)
                 <a class="w-100 btn btn-lg btn-secondary" disabled data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="" data-bs-original-title="<i class='bx bx-lock-alt bx-xs' ></i> <span>You have an existing subscription</span>">Subscribe</a> 
               @else
-                <a href="{{ route('checkout.plan', ['subscriptionArrangement' => $subscriptionArrangement, 'tier_id' => $tier->id]) }}" class="w-100 btn btn-lg btn-outline-primary">Subscribe</a>
+                <a href="{{ route('checkout.plan', ['subscription_arrangement_id' => $subscriptionArrangement->id, 'tier_id' => $tier->id]) }}" class="w-100 btn btn-lg btn-outline-primary">Subscribe</a>
               @endif
             </div>
           </div>
