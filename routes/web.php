@@ -70,17 +70,23 @@ Route::middleware(['auth', 'user-access:staff'])->prefix('staff')->group(functio
 // Members routes
 Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(function () {
     Route::get('dashboard', [MemberController::class, 'home']);
-    Route::get('available-packages', [SubscriptionArrangementController::class, 'index']);
+    
     Route::get('account-settings', [MemberController::class, 'accountSettings']);
     Route::get('change-password', [MemberController::class, 'changePassword']);
     Route::put('profile-update', [MemberController::class, 'updateProfile']);
     Route::post('change-password', [MemberController::class, 'updatePassword']);
     
-    // Checkout
-    Route::get('checkout/plan/{subscriptionArrangement}/tier_id/{tier_id}', [CheckoutController::class, 'checkoutPage'])->name('checkout.plan');
+    // Non subscriber access only
+    Route::middleware(['auth', 'subscriber-access'])->group(function() {
+        // Availables Subscription Plan & Packages
+        Route::get('available-packages', [SubscriptionArrangementController::class, 'index']);
+        
+        // Checkout
+        Route::get('checkout/plan/{subscriptionArrangement}/tier_id/{tier_id}', [CheckoutController::class, 'checkoutPage'])->name('checkout.plan');
 
-    // Subscription
-    Route::post('subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+        // Subscription
+        Route::post('subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+    });
 
     // Membership details
     Route::get('membership-details', [MemberController::class, 'membershipDetails']);

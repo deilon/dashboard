@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function subscriptions(): HasMany 
     {
-        return $this->hasMany(subscriptions::class);
+        return $this->hasMany(Subscription::class);
     }
     
     public function creditCard(): HasMany 
