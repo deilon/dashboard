@@ -101,7 +101,7 @@ class SubscriptionController extends Controller
 
             if($request->paymentOption == 'creditCard') {
                 $subscription->payment_option = 'credit card';
-            } else if($request->paymentOption == 'gCash') {
+            } else if($request->paymentOption == 'gcash') {
                 $subscription->payment_option = 'gcash';
             } else {
                 $subscription->payment_option = 'manual payment';

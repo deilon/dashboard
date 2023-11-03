@@ -14,6 +14,9 @@ use App\Models\User;
 use App\Models\Subscription;
 use App\Models\SubscriptionTier;
 use App\Models\SubscriptionArrangement;
+use App\Models\CreditCard;
+use App\Models\Gcash;
+use App\Models\ManualPayment;
 
 
 class MemberController extends Controller
@@ -127,6 +130,14 @@ class MemberController extends Controller
             
             $data['tier'] = SubscriptionTier::where('id', $subscription->subscription_tier_id)->first();
             $data['user'] = Auth::user();
+
+            if($subscription->payment_option == 'credit card') {
+                $data['creditCard'] = CreditCard::where('subscription_id', $subscription->id)->first();
+            } else if ($subscription->payment_option == 'gcash') {
+                $data['gCash'] = Gcash::where('subscription_id', $subscription->id)->first();
+            } else if ($subscription->payment_option == 'manual payment') {
+                $data['manualPayment'] = ManualPayment::where('subscription_id', $subscription->id)->first();
+            }
 
             return view('dashboard.member.membership-details', $data);
         }
