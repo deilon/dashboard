@@ -100,7 +100,7 @@
                         </td>
                         <td>
                             <div class="d-inline-block text-nowrap">
-                                <button class="btn btn-sm btn-icon"><i class="bx bx-edit"></i></button>
+                                <button class="btn btn-sm btn-icon" data-bs-toggle="modal" data-bs-target="#subscriptionModal{{ $subscription->id }}"><i class="bx bx-edit"></i></button>
                                 <button class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></button>
                                 <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bx bx-dots-vertical-rounded me-2"></i>
@@ -109,7 +109,50 @@
                                     <a href="app-user-view-account.html" class="dropdown-item"><i class="bx bx-show me-2"></i> View</a>
                                     {{-- <a href="javascript:;" class="dropdown-item">Suspend</a> --}}
                                 </div>
-                            </div>                     
+                            </div>
+                            
+                            <div class="modal fade" id="subscriptionModal{{ $subscription->id }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel2">Subscription Status</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col mb-3">
+                                                    <label for="nameSmall" class="form-label">Full Name</label>
+                                                    <input type="text" id="nameSmall" class="form-control" value="{{ ucwords($subscription->user->firstname.' '.$subscription->user->lastname) }}" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col mb-3">
+                                                    <label class="form-label">Status</label>
+                                                    <select class="form-select subscription-status" name="subscription_status" aria-label="Subscription status" data-subscription-id="{{ $subscription->id }}">
+                                                        <option value="active" {{ $subscription->status == 'active' ? 'selected' : '' }}>Active</option>
+                                                        <option value="pending" {{ $subscription->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row {{ $subscription->status == 'pending' ? 'd-none' : '' }}" id="staffSelection{{ $subscription->id }}">
+                                                <div class="col mb-3">
+                                                    <label class="form-label">Assigned Staff/Trainer</label>
+                                                    <select class="form-select"aria-label="Staffs">
+                                                        <option selected>Select trainer</option>
+                                                        @foreach ($staffs as $staff)
+                                                            <option value="{{ $staff->id }}">{{ ucwords($staff->firstname.' '.$staff->lastname) }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                   @endforeach
@@ -174,4 +217,17 @@
 <script src="{{ asset('storage/assets/js/dashboards-analytics.js') }}"></script>
 <script src="{{ asset('storage/assets/js/ui-toasts.js')}} "></script>
 <script src="{{ asset('storage/assets/js/custom/users-records.js')}} "></script>
+<script>
+  $(document).ready(function() {
+      // Listen for changes in the selected payment option
+      $('.subscription-status').change(function() {
+          // Subscription ID
+          var subscriptionId = $(this).data("subscription-id");
+
+          // Toggle row
+          $('#staffSelection'+subscriptionId).toggleClass('d-none');
+    
+      });
+  });
+</script>
 @endsection

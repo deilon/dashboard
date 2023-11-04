@@ -109,6 +109,7 @@ class AdminController extends Controller
 
     public function subscribers() {
         $data['subscriptions'] = Subscription::paginate(10);
+        $data['staffs'] = User::where('role', 'staff')->where('status', 'active')->get();
         return view('dashboard.admin.subscribers', $data);
     }
 
