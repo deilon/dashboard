@@ -76,7 +76,7 @@
                         <td>
                             <div class="d-flex justify-content-start align-items-center user-name">
                                 <div class="avatar-wrapper"><div class="avatar avatar-sm me-3">
-                                    <img src="{{ asset('storage/assets/img/avatars/default.jpg') }}" alt="Avatar" class="rounded-circle">
+                                    <img src="{{ $subscription->user->photo ? asset('storage/assets/img/avatars/'. $subscription->user->photo) : asset('storage/assets/img/avatars/default.jpg') }}" alt="Avatar" class="rounded-circle">
                                 </div>
                             </div>
                             <div class="d-flex flex-column">
