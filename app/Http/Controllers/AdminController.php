@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use App\Models\Subscription;
 
 class AdminController extends Controller
 {
@@ -104,6 +105,11 @@ class AdminController extends Controller
         $data['users'] = User::where('role', $role)->paginate(10);
         $data['role'] = $role;
         return view('dashboard.admin.users-records', $data);
+    }
+
+    public function subscribers() {
+        $data['subscriptions'] = Subscription::paginate(10);
+        return view('dashboard.admin.subscribers', $data);
     }
 
     public function updateStatus(Request $request)

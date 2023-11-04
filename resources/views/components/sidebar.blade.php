@@ -107,13 +107,13 @@
         <li class="menu-item {{ (request()->is('admin/users-records/member')) ? 'active' : '' }}">
             <a href="{{ url('admin/users-records/member') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
-                <div data-i18n="Members">Members</div>
+                <div data-i18n="Members">Registered Users</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="#" class="menu-link">
+        <li class="menu-item {{ (request()->is('admin/subscribers')) ? 'active' : '' }}">
+            <a href="{{ url('admin/subscribers') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
-                <div data-i18n="Registered">Registered</div>
+                <div data-i18n="Registered">Gym Subscribers</div>
             </a>
         </li>
 

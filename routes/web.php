@@ -50,6 +50,7 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     
     // Users records
     Route::get('users-records/{role}', [AdminController::class, 'usersRecords']);
+    Route::get('subscribers', [AdminController::class, 'subscribers']);
 
     // Status update
     Route::post('status-update', [AdminController::class, 'updateStatus'])->name('update-status');

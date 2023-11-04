@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Subscription extends Model
 {
     use HasFactory;
-    public function subcriptionArrangement()
+    public function subscriptionArrangement()
     {
         return $this->belongsTo(SubscriptionArrangement::class);
     }
 
-    public function subcriptionTier()
+    public function subscriptionTier()
     {
         return $this->belongsTo(SubscriptionTier::class);
     }
