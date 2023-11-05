@@ -73,7 +73,7 @@
                </thead>
                <tbody class="table-border-bottom-0">
                   @foreach ($subscriptions as $subscription)
-                    <tr>
+                    <tr class="subscription-record-row-{{ $subscription->id }}">
                         <td>
                             <div class="d-flex justify-content-start align-items-center user-name">
                                 <div class="avatar-wrapper">
@@ -124,7 +124,7 @@
                         </td>
                         <td>
                             <div class="d-inline-block text-nowrap">
-                                <a class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></a>
+                                <a class="btn btn-sm btn-icon delete-subscription-btn" data-subscription-id="{{ $subscription->id }}" data-route-url="{{ url('admin/delete-subscription/'.$subscription->id) }}"><i class="bx bx-trash"></i></a>
                                 <a href="{{ url('admin/view-subscription/'.$subscription->user->id) }}" class="btn btn-sm btn-icon" target="_blank"><i class="bx bx-show me-2"></i></a>
                             </div>
                         </td>

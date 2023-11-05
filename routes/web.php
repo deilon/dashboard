@@ -61,6 +61,8 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::post('remove-trainer', [AdminController::class, 'removeTrainer'])->name('remove-trainer');
     Route::get('view-subscription/{subscriber_id}', [AdminController::class, 'viewSubscription']);
 
+    Route::post('delete-subscription/{subscription_id}', [SubscriptionController::class, 'deleteSubscription']);
+
     // View
     Route::get('view-profile/{user}', [AdminController::class, 'viewProfile']);
 

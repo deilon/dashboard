@@ -154,4 +154,18 @@ class SubscriptionController extends Controller
 
     }
 
-}
+
+    public function deleteSubscription($subscription_id) {
+        $subscription = Subscription::find($subscription_id);
+        if(!$subscription) {
+            return response()->json([
+                'message' => 'We can\'t find that subscription'
+            ]); 
+        }
+        $subscription->delete();
+        return response()->json([
+            'message' => 'Subscription for <strong>'.ucwords($subscription->user->firstname.' '.$subscription->user->lastname).'</strong> successfully deleted.'
+        ]);
+    }
+
+}   
