@@ -86,7 +86,7 @@
                      <img class="img-fluid rounded my-4" src="{{ $assigned_staff->photo ? asset('storage/assets/img/avatars/'. $assigned_staff->photo) : asset('storage/assets/img/avatars/default.jpg') }}" height="110" width="110" alt="User avatar" />            
                      <div class="user-info text-center">
                         <h4 class="mb-2">{{ ucwords($assigned_staff->firstname.' '.$assigned_staff->lastname) }}</h4>
-                        <span class="badge bg-label-secondary">{{ ucfirst($user->role) }}</span>
+                        <span class="badge bg-label-secondary">{{ ucfirst($assigned_staff->role) }}</span>
                      </div>
                   </div>
                </div>
