@@ -83,9 +83,9 @@
                <h5 class="card-title text-center">Trainer Details</h5>
                <div class="user-avatar-section">
                   <div class=" d-flex align-items-center flex-column">
-                     <img class="img-fluid rounded my-4" src="{{ $user->photo ? asset('storage/assets/img/avatars/'. $user->photo) : asset('storage/assets/img/avatars/default.jpg') }}" height="110" width="110" alt="User avatar" />            
+                     <img class="img-fluid rounded my-4" src="{{ $assigned_staff->photo ? asset('storage/assets/img/avatars/'. $assigned_staff->photo) : asset('storage/assets/img/avatars/default.jpg') }}" height="110" width="110" alt="User avatar" />            
                      <div class="user-info text-center">
-                        <h4 class="mb-2">{{ ucwords($user->firstname.' '.$user->lastname) }}</h4>
+                        <h4 class="mb-2">{{ ucwords($assigned_staff->firstname.' '.$assigned_staff->lastname) }}</h4>
                         <span class="badge bg-label-secondary">{{ ucfirst($user->role) }}</span>
                      </div>
                   </div>
@@ -127,11 +127,11 @@
                      </li>
                      <li class="mb-3">
                         <span class="fw-medium me-2">Role:</span>
-                        <span>{{$user->role}}</span>
+                        <span>{{$assigned_staff->role}}</span>
                      </li>
                      <li class="mb-3">
                         <span class="fw-medium me-2">Country:</span>
-                        <span>{{ $user->country }}</span>
+                        <span>{{ $assigned_staff->country }}</span>
                      </li>
                   </ul>
                </div>
