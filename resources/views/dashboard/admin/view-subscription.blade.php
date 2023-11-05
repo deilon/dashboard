@@ -1,7 +1,7 @@
 @extends('components.layouts.dashboard')
 
 @section('title')
-    Membership Details
+    Subscription Details
 @endsection
 @section('custom-css')
 
@@ -194,7 +194,7 @@
                      <label class="form-label" for="creditCardNumber">Credit Card Number</label>
                      <div class="input-group input-group-merge">
                         <span class="input-group-text"><i class="bx bx-credit-card-alt"></i></span>
-                        <input type="text" class="form-control ps-3" id="creditCardNumber" value="{{ $creditCard->credit_card_number }}" disabled>
+                        <input type="text" class="form-control ps-3" id="creditCardNumber" value="XXXXXXXXXX-{{ substr($creditCard->credit_card_number, -4) }}" disabled>
                      </div>
                   </div>
                   <div class="mb-3">
@@ -209,7 +209,7 @@
                      <label class="form-label" for="cvv_cvc">CVV/CVC</label>
                      <div class="input-group input-group-merge">
                         <span class="input-group-text"><i class="bx bx-credit-card"></i></span>
-                        <input type="text" class="form-control ps-3" id="cvv_cvc" name="cvv_cvc" value="{{ $creditCard->cvv_cvc }}" disabled />
+                        <input type="text" class="form-control ps-3" id="cvv_cvc" name="cvv_cvc" value="XXX" disabled />
                      </div>
                   </div>
                   <div class="mb-3">
@@ -265,7 +265,7 @@
       <h4 class="py-3 mb-4"><span class="text-muted fw-light">Membership Details /</span> Not Subscribed to any Subscription Plan yet</h4>
       <div class="row">
          <div class="col">
-               <h1>You're not subscribed yet. Please meake a subscription <a href="{{ url('member/available-packages') }}">Here</a></h1>
+               <h1>Subscription not found</h1>
          </div>
       </div>
     @endif

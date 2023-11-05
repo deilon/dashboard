@@ -124,8 +124,8 @@
                         </td>
                         <td>
                             <div class="d-inline-block text-nowrap">
-                                <button class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></button>
-                                <button class="btn btn-sm btn-icon"><i class="bx bx-show me-2"></i></button>
+                                <a class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></a>
+                                <a href="{{ url('admin/view-subscription/'.$subscription->user->id) }}" class="btn btn-sm btn-icon" target="_blank"><i class="bx bx-show me-2"></i></a>
                             </div>
                         </td>
                     </tr>
