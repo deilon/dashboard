@@ -131,7 +131,7 @@ class MemberController extends Controller
             $data['tier'] = SubscriptionTier::where('id', $subscription->subscription_tier_id)->first();
             $data['user'] = Auth::user();
 
-            $data['assigned_staff'] = User::find($subscription->assigned_staff_id);
+            $data['assigned_staff'] = User::find($subscription->staff_assigned_id);
 
             if($subscription->payment_option == 'credit card') {
                 $data['creditCard'] = CreditCard::where('subscription_id', $subscription->id)->first();

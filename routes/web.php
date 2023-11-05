@@ -56,7 +56,7 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::post('status-update', [AdminController::class, 'updateStatus'])->name('update-status');
 
     // Manage Subscribers
-    Route::post('update-subscription-status', [AdminController::class, 'updateSubscriptionStatus'])->name('update-subscription-status');
+    Route::post('update-subscription-status', [AdminController::class, 'updateSubscriptionStatus'])->name('update-sub-status');
     Route::post('update-subscription-trainer', [AdminController::class, 'updateSubscriptionTrainer'])->name('update-trainer');
     Route::post('remove-trainer', [AdminController::class, 'removeTrainer'])->name('remove-trainer');
 

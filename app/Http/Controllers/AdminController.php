@@ -159,6 +159,25 @@ class AdminController extends Controller
         ]); 
     }
 
+    public function updateSubscriptionStatus(Request $request) {
+        $status = $request->input('status');
+        $subscriptionId = $request->input('subscription');
+        $subscription = Subscription::find($subscriptionId);
+        $subscriber = User::find($request->subscriber_id);
+        if(!$subscription) {
+            return response()->json([
+                'message' => 'We can\'t find that subscription'
+            ]); 
+        }
+
+        $subscription->status = $status;
+        $subscription->save();
+
+        return response()->json([
+            'message' => 'Subscription status for <strong>'.ucwords($subscriber->firstname.' '.$subscriber->lastname).'</strong> successfully udpated.'
+        ]);         
+    }
+
     public function updateStatus(Request $request)
     {  
         $status = $request->input('status');
