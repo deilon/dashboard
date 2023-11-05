@@ -22,7 +22,9 @@ return new class extends Migration
             $table->unsignedBigInteger('subscription_tier_id'); // Foreign key to subscription_plans
             $table->foreign('subscription_tier_id')->references('id')->on('subscription_tiers')->onDelete('cascade'); // Define the foreign key constraint
             
-            
+            $table->string('staff_assigned_id')->nullable();
+            $table->index('staff_assigned_id');
+
             $table->date('start_date');
             $table->date('end_date');
             

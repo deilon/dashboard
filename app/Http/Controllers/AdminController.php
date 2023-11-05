@@ -113,6 +113,52 @@ class AdminController extends Controller
         return view('dashboard.admin.subscribers', $data);
     }
 
+    public function updateSubscriptionTrainer(Request $request) {
+        $staffId = $request->input('staff');
+        $subscriptionId = $request->input('subscription_id');
+        $subscriberId = $request->input('subscriber_id');
+
+        $staff = User::find($staffId);
+        $subscription = Subscription::find($subscriptionId);
+        $subscriber = User::find($subscriberId);
+        if(!$subscription) {
+            return response()->json([
+                'message' => 'We can\'t find the subscription'
+            ]); 
+        }
+        
+        $staffImageUrl = $staff->photo ? asset('storage/assets/img/avatars/'.$staff->photo) : asset('storage/assets/img/avatars/default.jpg');
+        $staffName = ucwords($staff->firstname.' '.$staff->lastname);
+        $subscription->staff_assigned_id = $staffId;
+        $subscription->save();
+
+        return response()->json([
+            'message' => 'Assigned Staff/Trainer for <strong>'.ucwords($subscriber->firstname.' '.$subscriber->lastname).'</strong> successfully udpated.',
+            'staffImageUrl' => $staffImageUrl,
+            'staffName' => $staffName
+        ]); 
+    }
+
+    public function removeTrainer(Request $request) {
+        $subscriptionId = $request->input('subscription_id');
+        $subscriberId = $request->input('subscriber_id');
+
+        $subscription = Subscription::find($subscriptionId);
+        $subscriber = User::find($subscriberId);
+        if(!$subscription) {
+            return response()->json([
+                'message' => 'We can\'t find the subscription'
+            ]); 
+        }
+        
+        $subscription->staff_assigned_id = null;
+        $subscription->save();
+
+        return response()->json([
+            'message' => 'Assigned Staff/Trainer for <strong>'.ucwords($subscriber->firstname.' '.$subscriber->lastname).'</strong> successfully deleted.'
+        ]); 
+    }
+
     public function updateStatus(Request $request)
     {  
         $status = $request->input('status');

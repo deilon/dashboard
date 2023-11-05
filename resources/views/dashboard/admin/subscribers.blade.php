@@ -21,7 +21,7 @@
     <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
         <div class="toast-header">
             <i class='bx bx-bell me-2'></i>
-        <div class="me-auto fw-semibold">User update</div>
+        <div class="me-auto fw-semibold">Subscription update</div>
             <small>1 sec ago</small>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -67,6 +67,7 @@
                      <th>Tier</th>
                      <th>Payment Option</th>
                      <th>Status</th>
+                     <th>Trainer</th>
                      <th>Actions</th>
                   </tr>
                </thead>
@@ -75,86 +76,109 @@
                     <tr>
                         <td>
                             <div class="d-flex justify-content-start align-items-center user-name">
-                                <div class="avatar-wrapper"><div class="avatar avatar-sm me-3">
-                                    <img src="{{ $subscription->user->photo ? asset('storage/assets/img/avatars/'. $subscription->user->photo) : asset('storage/assets/img/avatars/default.jpg') }}" alt="Avatar" class="rounded-circle">
+                                <div class="avatar-wrapper">
+                                    <div class="avatar avatar-sm me-3">
+                                        <img src="{{ $subscription->user->photo ? asset('storage/assets/img/avatars/'. $subscription->user->photo) : asset('storage/assets/img/avatars/default.jpg') }}" alt="Avatar" class="rounded-circle">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="app-user-view-account.html" class="text-body text-truncate">
-                                    <span class="fw-medium">{{ ucwords($subscription->user->firstname.' '.$subscription->user->lastname) }}</span>
-                                </a>
-                                <small class="text-muted">{{ $subscription->user->email }}</small>
-                            </div>
+                                <div class="d-flex flex-column">
+                                    <a href="app-user-view-account.html" class="text-body text-truncate">
+                                        <span class="fw-medium">{{ ucwords($subscription->user->firstname.' '.$subscription->user->lastname) }}</span>
+                                    </a>
+                                    <small class="text-muted">{{ $subscription->user->email }}</small>
+                                </div>
+                             </div>
                         </td>
                         <td>{{ ucwords($subscription->subscriptionArrangement->arrangement_name) }}</td>
                         <td>{{ ucwords($subscription->subscriptionTier->tier_name) }}</td>
                         <td>{{ ucwords($subscription->payment_option) }}</td>
                         <td>
-                            @if($subscription->status == 'active')
-                                <span class="badge bg-label-success me-1">Active</span>
-                            @elseif($subscription->status == 'pending')
-                                <span class="badge bg-label-warning me-1">Pending</span>
-                            @elseif($subscription->status == 'expired')
-                                <span class="badge bg-label-danger me-1">Expired</span>
-                            @endif
+                            <div class="dropdown position-static">
+                                <button type="button" id="statusBtn{{ $subscription->id }}" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    @if($subscription->status == 'active')
+                                        <span class="badge bg-label-success me-1">Active</span>
+                                    @elseif($subscription->status == 'pending')
+                                        <span class="badge bg-label-warning me-1">Pending</span>
+                                    @endif
+                                </button>
+                                <div class="dropdown-menu position-absolute">
+                                    <a class="dropdown-item cursor-pointer status-item" data-status="active" data-subscription="{{$subscription->id}}" data-route-url="{{ route('update-subscription-status') }}"><span class="badge bg-label-success me-1">Active</span></a>
+                                    <a class="dropdown-item cursor-pointer status-item" data-status="pending" data-subscriptiopn="{{$subscription->id}}" data-route-url="{{ route('update-subscription-status') }}"><span class="badge bg-label-warning me-1">Pending</span></a>
+                                </div>
+                            </div>   
+                        </td>
+                        <td class="text-center">
+                            <div  class="d-flex">
+                                <ul id="trainerList{{ $subscription->id }}" class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                    @php
+                                        $staff = App\Models\User::find($subscription->staff_assigned_id);
+                                    @endphp
+                                    @if($subscription->staff_assigned_id)
+                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="{{ ucwords($staff->firstname.' '.$staff->lastname) }}"> <img src="{{ $staff->photo ? asset('storage/assets/img/avatars/'. $staff->photo) : asset('storage/assets/img/avatars/default.jpg') }}" alt="Avatar" class="rounded-circle" /></li>
+                                    @else
+                                        <li></li>
+                                    @endif
+                                </ul>
+                                <button class="btn btn-sm btn-icon" data-bs-toggle="modal" data-bs-target="#addTrainerModal{{ $subscription->id }}"><i class="bx bx-edit"></i></button>
+                            </div>
                         </td>
                         <td>
                             <div class="d-inline-block text-nowrap">
-                                <button class="btn btn-sm btn-icon" data-bs-toggle="modal" data-bs-target="#subscriptionModal{{ $subscription->id }}"><i class="bx bx-edit"></i></button>
                                 <button class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></button>
-                                <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bx bx-dots-vertical-rounded me-2"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                                    <a href="app-user-view-account.html" class="dropdown-item"><i class="bx bx-show me-2"></i> View</a>
-                                    {{-- <a href="javascript:;" class="dropdown-item">Suspend</a> --}}
-                                </div>
-                            </div>
-                            
-                            <div class="modal fade" id="subscriptionModal{{ $subscription->id }}" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-sm" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel2">Subscription Status</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col mb-3">
-                                                    <label for="nameSmall" class="form-label">Full Name</label>
-                                                    <input type="text" id="nameSmall" class="form-control" value="{{ ucwords($subscription->user->firstname.' '.$subscription->user->lastname) }}" disabled />
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col mb-3">
-                                                    <label class="form-label">Status</label>
-                                                    <select class="form-select subscription-status" name="subscription_status" aria-label="Subscription status" data-subscription-id="{{ $subscription->id }}">
-                                                        <option value="active" {{ $subscription->status == 'active' ? 'selected' : '' }}>Active</option>
-                                                        <option value="pending" {{ $subscription->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row {{ $subscription->status == 'pending' ? 'd-none' : '' }}" id="staffSelection{{ $subscription->id }}">
-                                                <div class="col mb-3">
-                                                    <label class="form-label">Assigned Staff/Trainer</label>
-                                                    <select class="form-select"aria-label="Staffs">
-                                                        <option selected>Select trainer</option>
-                                                        @foreach ($staffs as $staff)
-                                                            <option value="{{ $staff->id }}">{{ ucwords($staff->firstname.' '.$staff->lastname) }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button class="btn btn-sm btn-icon"><i class="bx bx-show me-2"></i></button>
                             </div>
                         </td>
                     </tr>
+
+                    <!-- Modal: Add Trainer -->
+                    <div class="modal fade" id="addTrainerModal{{ $subscription->id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-sm modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add Trainer / Staff</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="fs-6">For: <span class="fw-bold">{{ ucwords($subscription->user->firstname.' '.$subscription->user->lastname) }}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <div class="form-check mt-3" id="inputUniqueness{{ $subscription->id }}">
+                                                @foreach($staffs as $staff)
+                                                <div class="d-flex justify-content-start align-items-center py-2 user-name">
+                                                    <input name="staff" class="form-check-input me-3" type="radio" value="{{ $staff->id }}" {{ $staff->id == $subscription->staff_assigned_id ? 'checked' : '' }} id="trainerSelect{{ $staff->id }}"/>
+                                                    <label for="trainerSelect{{ $staff->id }}" class="d-flex justify-content-start align-items-center">
+                                                        <div class="avatar-wrapper">
+                                                            <div class="avatar avatar-sm me-3">
+                                                                <img src="{{ $staff->photo ? asset('storage/assets/img/avatars/'. $staff->photo) : asset('storage/assets/img/avatars/default.jpg') }}" alt="Avatar" class="rounded-circle">
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex flex-column">
+                                                            <span class="text-body text-truncate">
+                                                                <span class="fw-medium">{{ ucwords($staff->firstname.' '.$staff->lastname) }}</span>
+                                                            </span>
+                                                            <small class="text-muted">{{ $staff->email }}</small>
+                                                        </div>
+                                                    </label>
+                                                 </div>
+                                                 @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-sm btn-danger remove-trainer-btn" data-modal-id="{{ $subscription->id }}" data-subscriber-id="{{ $subscription->user->id }}" data-route-url="{{ route('remove-trainer') }}">Remove Trainer</button>
+                                    <button type="button" class="btn btn-sm btn-primary add-trainer-btn" data-modal-id="{{ $subscription->id }}" data-subscriber-id="{{ $subscription->user->id }}" data-route-url="{{ route('update-trainer') }}">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- / Modal: Assign Trainer -->
+
                   @endforeach
                </tbody>
             </table>
@@ -216,18 +240,6 @@
 @section('page-js')
 <script src="{{ asset('storage/assets/js/dashboards-analytics.js') }}"></script>
 <script src="{{ asset('storage/assets/js/ui-toasts.js')}} "></script>
-<script src="{{ asset('storage/assets/js/custom/users-records.js')}} "></script>
-<script>
-  $(document).ready(function() {
-      // Listen for changes in the selected payment option
-      $('.subscription-status').change(function() {
-          // Subscription ID
-          var subscriptionId = $(this).data("subscription-id");
-
-          // Toggle row
-          $('#staffSelection'+subscriptionId).toggleClass('d-none');
-    
-      });
-  });
-</script>
+<script src="{{ asset('storage/assets/js/ui-modals.js') }}"></script>
+<script src="{{ asset('storage/assets/js/custom/subscribers-records.js')}} "></script>
 @endsection

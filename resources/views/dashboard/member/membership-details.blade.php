@@ -75,6 +75,7 @@
       </div>
       <!--/ User Sidebar -->
 
+      @if($assigned_staff)
       <!-- Trainer details -->
       <div class="col-xl-4 col-lg-5 col-md-5 order-2 order-md-0">
          <div class="card mb-4">
@@ -82,7 +83,7 @@
                <h5 class="card-title text-center">Trainer Details</h5>
                <div class="user-avatar-section">
                   <div class=" d-flex align-items-center flex-column">
-                      <img class="img-fluid rounded my-4" src="{{ $user->photo ? asset('storage/assets/img/avatars/'. $user->photo) : asset('storage/assets/img/avatars/default.jpg') }}" height="110" width="110" alt="User avatar" />            
+                     <img class="img-fluid rounded my-4" src="{{ $user->photo ? asset('storage/assets/img/avatars/'. $user->photo) : asset('storage/assets/img/avatars/default.jpg') }}" height="110" width="110" alt="User avatar" />            
                      <div class="user-info text-center">
                         <h4 class="mb-2">{{ ucwords($user->firstname.' '.$user->lastname) }}</h4>
                         <span class="badge bg-label-secondary">{{ ucfirst($user->role) }}</span>
@@ -114,15 +115,15 @@
                      </li>
                      <li class="mb-3">
                         <span class="fw-medium me-2">Status:</span>
-                         @if($user->status == 'active')
-                            <span class="badge bg-label-success me-1">Active</span>
-                         @elseif($user->status == 'inactive')
-                            <span class="badge bg-label-warning me-1">Inactive</span>
-                         @elseif($user->status == 'disabled')
-                            <span class="badge bg-label-secondary me-1">Disabled</span>
-                         @else
-                            <span class="badge bg-label-warning me-1">Suspended</span>
-                         @endif
+                        @if($user->status == 'active')
+                           <span class="badge bg-label-success me-1">Active</span>
+                        @elseif($user->status == 'inactive')
+                           <span class="badge bg-label-warning me-1">Inactive</span>
+                        @elseif($user->status == 'disabled')
+                           <span class="badge bg-label-secondary me-1">Disabled</span>
+                        @else
+                           <span class="badge bg-label-warning me-1">Suspended</span>
+                        @endif
                      </li>
                      <li class="mb-3">
                         <span class="fw-medium me-2">Role:</span>
@@ -138,8 +139,49 @@
          </div>
       </div>
       <!--/ Trainer Details -->
+      @else
+      <!-- Pending Trainer details -->
+      <div class="col-xl-4 col-lg-5 col-md-5 order-2 order-md-0">
+         <div class="card mb-4">
+            <div class="card-body">
+               <h5 class="card-title text-center">Trainer Details</h5>
+               <div class="user-avatar-section">
+                  <div class=" d-flex align-items-center flex-column">
+                     <img class="img-fluid rounded my-4" src="{{ asset('storage/assets/img/avatars/default.jpg') }}" height="110" width="110" alt="User avatar" />            
+                     <div class="user-info text-center">
+                        <h4 class="mb-2">...</h4>
+                        <span class="badge bg-label-secondary">Trainer / Staff</span>
+                     </div>
+                  </div>
+               </div>
+               <h5 class="pb-2 border-bottom mb-4">Details</h5>
+               <div class="info-container">
+                  <ul class="list-unstyled">
+                     <li class="mb-3">
+                        <span class="fw-medium me-2">Email:</span>
+                        <span>Pending</span>
+                     </li>
+                     <li class="mb-3">
+                        <span class="fw-medium me-2">Status:</span>
+                        <span class="badge bg-label-secondary me-1">Pending</span>
+                     </li>
+                     <li class="mb-3">
+                        <span class="fw-medium me-2">Role:</span>
+                        <span>Trainer / Staff</span>
+                     </li>
+                     <li class="mb-3">
+                        <span class="fw-medium me-2">Country:</span>
+                        <span>Philippines</span>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!--/ Pending Trainer Details -->
+      @endif
 
-      <!-- Trainer details -->
+      <!-- Payment details -->
       <div class="col-xl-4 col-lg-5 col-md-5 order-3 order-md-0">
          <div class="card mb-4">
             <div class="card-header">
@@ -217,7 +259,7 @@
             </div>
           </div>
       </div>
-      <!--/ User Sidebar -->
+      <!--/ Payment Details -->
     </div>
     @else
       <h4 class="py-3 mb-4"><span class="text-muted fw-light">Membership Details /</span> Not Subscribed to any Subscription Plan yet</h4>

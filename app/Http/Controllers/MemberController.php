@@ -131,6 +131,8 @@ class MemberController extends Controller
             $data['tier'] = SubscriptionTier::where('id', $subscription->subscription_tier_id)->first();
             $data['user'] = Auth::user();
 
+            $data['assigned_staff'] = User::find($subscription->assigned_staff_id);
+
             if($subscription->payment_option == 'credit card') {
                 $data['creditCard'] = CreditCard::where('subscription_id', $subscription->id)->first();
             } else if ($subscription->payment_option == 'gcash') {
@@ -138,6 +140,7 @@ class MemberController extends Controller
             } else if ($subscription->payment_option == 'manual payment') {
                 $data['manualPayment'] = ManualPayment::where('subscription_id', $subscription->id)->first();
             }
+
 
             return view('dashboard.member.membership-details', $data);
         }

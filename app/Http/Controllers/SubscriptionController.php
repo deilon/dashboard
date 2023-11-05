@@ -85,7 +85,7 @@ class SubscriptionController extends Controller
             $subscription->subscription_arrangement_id = $subscriptionArrangement->id;
             $subscription->subscription_tier_id = $tier->id;
             $subscription->amount_paid = $tier->price;
-            $subscription->status = 'active';
+            $subscription->status = 'pending';
             $subscription->start_date = Carbon::now();
             
             
