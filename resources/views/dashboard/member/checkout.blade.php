@@ -187,7 +187,7 @@
                                     <input type="text" class="form-control" placeholder="100" id="manualPaymentAmount" name="manual_payment_amount" value="{{ old('manual_payment_amount') }}" aria-label="Amount (to the nearest peso)" />
                                     <span class="input-group-text">.00</span>
                                   </div>
-                                  @error('amount')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
+                                  @error('manual_payment_amount')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                 </div>
                             </div>
                         </div>
