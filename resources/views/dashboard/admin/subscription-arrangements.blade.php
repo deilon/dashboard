@@ -93,7 +93,7 @@
                             <div class="dropdown position-static">
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                                 <div class="dropdown-menu position-absolute">
-                                    <button class="dropdown-item cursor-pointer"><i class="bx bx-edit"></i> Edit Arrangement</button>
+                                    <button class="dropdown-item cursor-pointer" data-bs-toggle="modal" data-bs-target="#arrangementEditModal{{ $arrangement->id }}"><i class="bx bx-edit"></i> Edit Arrangement</button>
                                     <button class="dropdown-item cursor-pointer"><i class="bx bx-plus"></i> Add New Tier</button>
                                     <a class="dropdown-item cursor-pointer"><i class="bx bx-trash"></i> Delete Arrangement</a>
                                     <a class="dropdown-item cursor-pointer" target="_blank"><i class="bx bx-show me-2"></i> View Arrangement</a>
@@ -101,6 +101,44 @@
                              </div>
                         </td>
                      </tr>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="arrangementEditModal{{ $arrangement->id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Edit "{{ ucwords($arrangement->arrangement_name) }}" arrangement</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="arrangementName" class="form-label">Arrangement Name</label>
+                                            <input type="text" id="arrangementName" class="form-control" placeholder="{{ $arrangement->arrangement_name }}" value="{{ old('arrangement_name', ucwords($arrangement->arrangement_name)) }}"  />
+                                        </div>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col mb-0">
+                                            <label for="html5-date-input" class="col-md-2 col-form-label">Start Date</label>
+                                            <div class="col-md-10">
+                                              <input class="form-control" type="date" value="{{ $arrangement->start_date }}" id="html5-date-input" />
+                                            </div>
+                                        </div>
+                                        <div class="col mb-0">
+                                            <label for="html5-date-input" class="col-md-2 col-form-label">End Date</label>
+                                            <div class="col-md-10">
+                                              <input class="form-control" type="date" value="{{ $arrangement->end_date }}" id="html5-date-input" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                   @endforeach
                </tbody>
             </table>
@@ -162,5 +200,6 @@
 @section('page-js')
 <script src="{{ asset('storage/assets/js/dashboards-analytics.js') }}"></script>
 <script src="{{ asset('storage/assets/js/ui-toasts.js')}} "></script>
+<script src="{{ asset('storage/assets/js/ui-modals.js') }}"></script>
 <script src="{{ asset('storage/assets/js/custom/subscription-arrangement.js')}} "></script>
 @endsection
