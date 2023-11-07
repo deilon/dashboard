@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('arrangement_name');
             $table->enum('status', ['active', 'disabled']);
+            $table->enum('countdown', ['active', 'disabled']);
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->timestamps();

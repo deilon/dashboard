@@ -68,6 +68,12 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
 
     // Delete user 
     Route::post('delete-user/{user}', [AdminController::class, 'deleteUser']);
+
+    // SUBSCRIPTION ARRANGEMENTS
+    Route::get('subscription-arrangements', [SubscriptionController::class, 'subscriptionArrangements']);
+    Route::post('update-arrangement-status', [SubscriptionController::class, 'toggleArrangementStatus'])->name('toggleArrStatus');
+    Route::post('update-arrangement-countdown', [SubscriptionController::class, 'toggleArrangementCountdown'])->name('toggleArrCountdown');
+
 });
 
 // Staff routes

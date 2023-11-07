@@ -19,6 +19,7 @@ class SubscriptionArrangementFactory extends Factory
         return [
             "arrangement_name" => "regular",
             "status" => "active",
+            "countdown" => "disabled",
         ];
     }
 }

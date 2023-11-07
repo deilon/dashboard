@@ -122,10 +122,10 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Actions</span>
         </li>
-        <li class="menu-item">
-            <a href="#" class="menu-link">
+        <li class="menu-item {{ (request()->is('admin/subscription-arrangements')) ? 'active' : '' }}">
+            <a href="{{ url('admin/subscription-arrangements') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-package"></i>
-                <div data-i18n="Package settings">Package Settings</div>
+                <div data-i18n="Subscription settings">Subscription Arrangements</div>
             </a>
         </li>
         <li class="menu-item">
