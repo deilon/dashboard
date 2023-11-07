@@ -117,17 +117,25 @@
                         @endif
                         <td>
                             <div class="dropdown position-static">
-                                <button type="button" id="statusBtn{{ $arrangement->id }}" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                @if($subscriptionArrangements->count() < 2)
                                     @if($arrangement->status == 'active')
                                         <span class="badge bg-label-success me-1">Active</span>
                                     @elseif($arrangement->status == 'disabled')
                                         <span class="badge bg-label-warning me-1">Disabled</span>
                                     @endif
-                                </button>
-                                <div class="dropdown-menu position-absolute">
-                                    <a class="dropdown-item cursor-pointer status-item" data-status="active" data-arrangement="{{$arrangement->id}}" data-route-url="{{ route('toggleArrStatus') }}"><span class="badge bg-label-success me-1">Active</span></a>
-                                    <a class="dropdown-item cursor-pointer status-item" data-status="disabled" data-arrangement="{{$arrangement->id}}" data-route-url="{{ route('toggleArrStatus') }}"><span class="badge bg-label-warning me-1">Disabled</span></a>
-                                </div>
+                                @else
+                                    <button type="button" id="statusBtn{{ $arrangement->id }}" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                        @if($arrangement->status == 'active')
+                                            <span class="badge bg-label-success me-1">Active</span>
+                                        @elseif($arrangement->status == 'disabled')
+                                            <span class="badge bg-label-warning me-1">Disabled</span>
+                                        @endif
+                                    </button>
+                                    <div class="dropdown-menu position-absolute">
+                                        <a href="{{ url('admin/update-arrangement-status/active/'.$arrangement->id) }}" class="dropdown-item cursor-pointer"><span class="badge bg-label-success me-1">Active</span></a>
+                                        <a href="{{ url('admin/update-arrangement-status/disabled/'.$arrangement->id) }}" class="dropdown-item cursor-pointer"><span class="badge bg-label-warning me-1">Disabled</span></span></a>
+                                    </div>
+                                @endif
                             </div>                               
                         </td>
                         <td>
@@ -147,7 +155,7 @@
                     <div class="modal fade" id="arrangementEditModal{{ $arrangement->id }}" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <form action="{{ route('saveArrangement') }}" method="POST">
+                                <form action="{{ route('updateArrangement') }}" method="POST">
                                     @csrf
                                     <div class="modal-header">
                                         <h5 class="modal-title">Edit "{{ ucwords($arrangement->arrangement_name) }}" arrangement</h5>
@@ -171,6 +179,7 @@
                                                 <label for="html5-date-input" class="col-md-2 col-form-label">End Date</label>
                                                 <div class="col-md-10">
                                                   <input class="form-control" type="date" name="end_date" value="{{ $arrangement->end_date }}" id="editEndDate" />
+                                                  <input class="form-control" type="hidden" name="arrangement_id" value="{{ $arrangement->id }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -194,7 +203,7 @@
         <div class="modal fade" id="addNewArrangement" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form action="{{ route('saveArrangement') }}" method="POST">
+                    <form action="{{ route('addArrangement') }}" method="POST">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title">Add new arrangement</h5>

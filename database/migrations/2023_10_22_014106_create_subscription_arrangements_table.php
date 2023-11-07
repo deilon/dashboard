@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('countdown', ['active', 'disabled']);
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->enum('default', ['yes', 'no']);
             $table->timestamps();
         });
     }
