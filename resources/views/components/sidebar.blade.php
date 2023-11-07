@@ -34,27 +34,27 @@
             <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="layouts-without-menu.html" class="menu-link">
-                        <div data-i18n="Without menu">Without menu</div>
+                        <div data-i18n="Without menu">Option 1</div>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="layouts-without-navbar.html" class="menu-link">
-                        <div data-i18n="Without navbar">Without navbar</div>
+                        <div data-i18n="Without navbar">Option 2</div>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="layouts-container.html" class="menu-link">
-                        <div data-i18n="Container">Container</div>
+                        <div data-i18n="Container">Option 3</div>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="layouts-fluid.html" class="menu-link">
-                        <div data-i18n="Fluid">Fluid</div>
+                        <div data-i18n="Fluid">Option 4</div>
                     </a>
                 </li>
                 <li class="menu-item">
                 <a href="layouts-blank.html" class="menu-link">
-                    <div data-i18n="Blank">Blank</div>
+                    <div data-i18n="Blank">Option 5</div>
                 </a>
                 </li>
             </ul>
