@@ -168,30 +168,4 @@ class SubscriptionController extends Controller
         ]);
     }
 
-
-    public function subscriptionArrangements() {
-        $data['subscriptionArrangements'] = SubscriptionArrangement::paginate(10);
-        return view('dashboard.admin.subscription-arrangements', $data);
-    }
-
-    public function updateSubscriptionArrangement() {
-
-    }
-
-    public function viewSubscriptionArrangement() {
-
-    }
-
-    public function toggleArrangementStatus() {
-
-    }
-
-    public function toggleArrangementCountdown() {
-
-    }
-
-    public function deleteSubscriptionArrangement() {
-
-    }
-
 }   

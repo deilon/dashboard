@@ -70,9 +70,9 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::post('delete-user/{user}', [AdminController::class, 'deleteUser']);
 
     // SUBSCRIPTION ARRANGEMENTS
-    Route::get('subscription-arrangements', [SubscriptionController::class, 'subscriptionArrangements']);
-    Route::post('update-arrangement-status', [SubscriptionController::class, 'toggleArrangementStatus'])->name('toggleArrStatus');
-    Route::post('update-arrangement-countdown', [SubscriptionController::class, 'toggleArrangementCountdown'])->name('toggleArrCountdown');
+    Route::get('subscription-arrangements', [SubscriptionArrangementController::class, 'subscriptionArrangements']);
+    Route::post('update-arrangement-status', [SubscriptionArrangementController::class, 'toggleArrangementStatus'])->name('toggleArrStatus');
+    Route::post('update-arrangement-countdown', [SubscriptionArrangementController::class, 'toggleArrangementCountdown'])->name('toggleArrCountdown');
 
 });
 

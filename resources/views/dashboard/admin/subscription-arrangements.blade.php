@@ -21,7 +21,7 @@
     <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
         <div class="toast-header">
             <i class='bx bx-bell me-2'></i>
-        <div class="me-auto fw-semibold">User update</div>
+        <div class="me-auto fw-semibold">Subscription Arrangement Update</div>
             <small>1 sec ago</small>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -54,7 +54,7 @@
                         <td>{{ ucwords($arrangement->arrangement_name) }}</td>
                         <td>
                             <div class="dropdown position-static">
-                                <button type="button" id="countdownBtn{{ $arrangement->id }}" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <button type="button" id="countdownToggleBtn{{ $arrangement->id }}" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                     @if($arrangement->countdown == 'active')
                                         <span class="badge bg-label-success me-1">Active</span>
                                     @elseif($arrangement->countdown == 'disabled')
@@ -62,8 +62,8 @@
                                     @endif
                                 </button>
                                 <div class="dropdown-menu position-absolute">
-                                    <a class="dropdown-item cursor-pointer status-item" data-status="active" data-arrangement="{{$arrangement->id}}" data-route-url="{{ route('toggleArrCountdown') }}"><span class="badge bg-label-success me-1">Active</span></a>
-                                    <a class="dropdown-item cursor-pointer status-item" data-status="disabled" data-arrangement="{{$arrangement->id}}" data-route-url="{{ route('toggleArrCountdown') }}"><span class="badge bg-label-warning me-1">Disabled</span></a>
+                                    <a class="dropdown-item cursor-pointer countdown-status-item" data-status="active" data-arrangement="{{$arrangement->id}}" data-route-url="{{ route('toggleArrCountdown') }}"><span class="badge bg-label-success me-1">Active</span></a>
+                                    <a class="dropdown-item cursor-pointer countdown-status-item" data-status="disabled" data-arrangement="{{$arrangement->id}}" data-route-url="{{ route('toggleArrCountdown') }}"><span class="badge bg-label-warning me-1">Disabled</span></a>
                                 </div>
                             </div>
                         </td>
@@ -162,4 +162,5 @@
 @section('page-js')
 <script src="{{ asset('storage/assets/js/dashboards-analytics.js') }}"></script>
 <script src="{{ asset('storage/assets/js/ui-toasts.js')}} "></script>
+<script src="{{ asset('storage/assets/js/custom/subscription-arrangement.js')}} "></script>
 @endsection
