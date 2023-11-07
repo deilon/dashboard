@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 use App\Models\SubscriptionArrangement;
 
 class SubscriptionArrangementController extends Controller
@@ -19,6 +21,33 @@ class SubscriptionArrangementController extends Controller
     public function subscriptionArrangements() {
         $data['subscriptionArrangements'] = SubscriptionArrangement::paginate(10);
         return view('dashboard.admin.subscription-arrangements', $data);
+    }
+
+    public function addNewArrangement(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'arrangement_name' => ['required', 'string', 'max:255'],
+            'start_date' => 'required_with:end_date|nullable|date|after_or_equal:'. Carbon::now()->format('m-d-Y'),
+            'end_date' => 'required_with:start_date|nullable|date|after:start_date',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($validator)
+                ->with('error', 'Something went wrong. Please check the form and try again.');
+        }
+    
+        $subscriptionArrangement = new SubscriptionArrangement();
+        $subscriptionArrangement->arrangement_name = $request->arrangement_name;
+        $subscriptionArrangement->start_date = $request->start_date;
+        $subscriptionArrangement->end_date = $request->end_date;
+        $subscriptionArrangement->status = "disabled";
+        $subscriptionArrangement->countdown = "disabled";
+        $subscriptionArrangement->save();
+    
+        // redirect with success message
+        return redirect()->back()->with('success', 'New Subscription Arrangement has been created.');
     }
 
     public function updateSubscriptionArrangement() {

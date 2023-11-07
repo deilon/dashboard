@@ -73,6 +73,7 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::get('subscription-arrangements', [SubscriptionArrangementController::class, 'subscriptionArrangements']);
     Route::post('update-arrangement-status', [SubscriptionArrangementController::class, 'toggleArrangementStatus'])->name('toggleArrStatus');
     Route::post('update-arrangement-countdown', [SubscriptionArrangementController::class, 'toggleArrangementCountdown'])->name('toggleArrCountdown');
+    Route::post('add-arrangement', [SubscriptionArrangementController::class, 'addNewArrangement'])->name('addArrangement');
 
 });
 

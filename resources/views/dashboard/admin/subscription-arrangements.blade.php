@@ -16,6 +16,28 @@
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
 
+    {{-- Alerts for form --}}
+    @if(session('success'))
+    <div class="row">
+        <div class="col-md">
+        <div class="alert alert-success alert-dismissible" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="row">
+        <div class="col-md">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    @endif
 
     <!-- Toast with Placements -->
     <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
@@ -37,6 +59,25 @@
       <div class="card">
          <h5 class="card-header">Arrangements</h5>
          <div class="table-responsive text-nowrap">
+            <div class="row mb-4 mx-2">
+                <div class="col border-top border-bottom">
+                    <div class="text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
+                        <div class="py-3">
+                            <label>
+                                <input type="search" class="form-control" placeholder="Search..">
+                            </label>
+                        </div>
+                        <div class="py-3 ms-3"> 
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewArrangement" tabindex="0" type="button">
+                                <span>
+                                    <i class="bx bx-plus me-0 me-sm-1"></i>
+                                    <span class="d-none d-sm-inline-block">Add New Arrangement</span>
+                                </span>
+                            </button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
             <table class="table table-hover">
                <thead>
                   <tr>
@@ -68,8 +109,8 @@
                             </div>
                         </td>
                         @if($arrangement->start_date && $arrangement->end_date)
-                            <td>{{ \Carbon\Carbon::parse($arrangement->start_date) }}</td>
-                            <td>{{ \Carbon\Carbon::parse($arrangement->end_date) }}</td>
+                            <td>{{ \Carbon\Carbon::parse($arrangement->start_date)->format('M d, Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($arrangement->end_date)->format('M d, Y') }}</td>
                         @else 
                             <td>N/A</td>
                             <td>N/A</td>
@@ -145,6 +186,50 @@
          </div>
       </div>
       <!--/ Hoverable Table rows -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="addNewArrangement" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="{{ route('addArrangement') }}" method="POST">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add new arrangement</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="addArrangementName" class="form-label">Arrangement Name</label>
+                                    <input type="text" id="addArrangementName" name="arrangement_name" class="form-control" placeholder="Arrangement name" value="{{ old('arrangement_name') }}"/>
+                                </div>
+                                @error('arrangement_name')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="row g-2">
+                                <div class="col mb-0">
+                                    <label for="addStartDate" class="col-md-2 col-form-label">Start Date</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" name="start_date" type="date" id="addStartDate" value="{{ old('start_date') }}" />
+                                    </div>
+                                    @error('start_date')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
+                                </div>
+                                <div class="col mb-0">
+                                    <label for="addEndDate" class="col-md-2 col-form-label">End Date</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" name="end_date" type="date" id="addEndDate" value="{{ old('end_date') }}" />
+                                    </div>
+                                    @error('end_date')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
       <div class="card bg-transparent shadow-none px-5 mt-3">
          <div class="demo-inline-spacing">
