@@ -23,7 +23,7 @@ class SubscriptionArrangementController extends Controller
         return view('dashboard.admin.subscription-arrangements', $data);
     }
 
-    public function addNewArrangement(Request $request) {
+    public function saveArrangement(Request $request) {
         $validator = Validator::make($request->all(), [
             'arrangement_name' => ['required', 'string', 'max:255'],
             'start_date' => 'required_with:end_date|nullable|date|after_or_equal:'. Carbon::now()->format('m-d-Y'),
@@ -47,11 +47,7 @@ class SubscriptionArrangementController extends Controller
         $subscriptionArrangement->save();
     
         // redirect with success message
-        return redirect()->back()->with('success', 'New Subscription Arrangement has been created.');
-    }
-
-    public function updateSubscriptionArrangement() {
-
+        return redirect()->back()->with('success', 'Subscription Arrangement has been saved.');
     }
 
     public function viewSubscriptionArrangement() {

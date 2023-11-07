@@ -147,36 +147,39 @@
                     <div class="modal fade" id="arrangementEditModal{{ $arrangement->id }}" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Edit "{{ ucwords($arrangement->arrangement_name) }}" arrangement</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col mb-3">
-                                            <label for="arrangementName" class="form-label">Arrangement Name</label>
-                                            <input type="text" id="arrangementName" class="form-control" placeholder="{{ $arrangement->arrangement_name }}" value="{{ old('arrangement_name', ucwords($arrangement->arrangement_name)) }}"  />
-                                        </div>
+                                <form action="{{ route('saveArrangement') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Edit "{{ ucwords($arrangement->arrangement_name) }}" arrangement</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="row g-2">
-                                        <div class="col mb-0">
-                                            <label for="html5-date-input" class="col-md-2 col-form-label">Start Date</label>
-                                            <div class="col-md-10">
-                                              <input class="form-control" type="date" value="{{ $arrangement->start_date }}" id="html5-date-input" />
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col mb-3">
+                                                <label for="arrangementName" class="form-label">Arrangement Name</label>
+                                                <input type="text" id="arrangementName" class="form-control" name="arrangement_name" placeholder="{{ $arrangement->arrangement_name }}" value="{{ old('arrangement_name', ucwords($arrangement->arrangement_name)) }}"  />
                                             </div>
                                         </div>
-                                        <div class="col mb-0">
-                                            <label for="html5-date-input" class="col-md-2 col-form-label">End Date</label>
-                                            <div class="col-md-10">
-                                              <input class="form-control" type="date" value="{{ $arrangement->end_date }}" id="html5-date-input" />
+                                        <div class="row g-2">
+                                            <div class="col mb-0">
+                                                <label for="editStartDate" class="col-md-2 col-form-label">Start Date</label>
+                                                <div class="col-md-10">
+                                                  <input class="form-control" type="date" name="start_date" value="{{ $arrangement->start_date }}" id="editStartDate" />
+                                                </div>
+                                            </div>
+                                            <div class="col mb-0">
+                                                <label for="html5-date-input" class="col-md-2 col-form-label">End Date</label>
+                                                <div class="col-md-10">
+                                                  <input class="form-control" type="date" name="end_date" value="{{ $arrangement->end_date }}" id="editEndDate" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -191,7 +194,7 @@
         <div class="modal fade" id="addNewArrangement" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form action="{{ route('addArrangement') }}" method="POST">
+                    <form action="{{ route('saveArrangement') }}" method="POST">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title">Add new arrangement</h5>
