@@ -29,8 +29,21 @@ class SubscriptionArrangementController extends Controller
 
     }
 
-    public function toggleArrangementStatus() {
+    public function toggleArrangementStatus(Request $request) {
+        $status = $request->input('status');
+        $subscriptionArrangement = SubscriptionArrangement::find($request->input('arrangement_id'));
+        if(!$subscriptionArrangement) {
+            return response()->json([
+                'message' => 'We can\'t find that Subscription Arrangement'
+            ]); 
+        }
 
+        $subscriptionArrangement->status = $status;
+        $subscriptionArrangement->save();
+
+        return response()->json([
+            'message' => 'Status for <strong>'.ucwords($subscriptionArrangement->arrangement_name).'</strong> successfully udpated.'
+        ]); 
     }
 
     public function toggleArrangementCountdown(Request $request) {
