@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Define the foreign key constraint
 
             $table->string('ap_title');
-            $table->string('ap_description');
             $table->string('ap_tag');
+            $table->string('ap_description')->nullable();
             $table->string('photo', 255)->nullable();
             $table->timestamps();
         });

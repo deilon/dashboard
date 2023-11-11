@@ -82,6 +82,8 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
 
     // ANNOUNCEMENT AND PROMOTIONS
     Route::get('announcements-promotions', [AnnouncementsPromotionsController::class, 'index']);
+    Route::post('announcements-promotions', [AnnouncementsPromotionsController::class, 'create'])->name('create.ap');
+    Route::post('update-ap', [AnnouncementsPromotionsController::class, 'update'])->name('update.ap');
 });
 
 // Staff routes
