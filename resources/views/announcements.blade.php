@@ -93,40 +93,37 @@
 <!-- Promotion/Announcement Start -->
 <section class="home-blog-area pt-40 pb-50">
     <div class="container">
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6">
-                <div class="home-blog-single mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
-                    <div class="blog-img-cap">
-                        <div class="blog-img">
-                            <img src="{{ asset('storage/frontend_assets/img/gallery/blog1.png') }}" alt="">
-                        </div>
-                        <div class="blog-cap">
-                            <div>
-                                <span class="text-dark">Gym & Fitness</span>
-                                <span class="text-dark float-right">January 1, 2024</span>
+        @if($aps)
+            <div class="row">
+                @foreach($aps as $ap)
+                    <div class="col-xl-6 col-lg-6 col-md-6">
+                        <div class="home-blog-single mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                            <div class="blog-img-cap">
+                                <div class="blog-img">
+                                    @if($ap->photo)
+                                        <img src="{{ asset('storage/assets/img/layouts/'.$ap->photo) }}" alt="caption photo">
+                                    @else
+                                        <img src="{{ asset('storage/assets/img/layouts/default_announcement.png') }}" alt="caption photo">
+                                    @endif
+                                </div>
+                                <div class="blog-cap">
+                                    <div>
+                                        <div>
+                                            <span class="text-dark">{{ $ap->ap_tag }}</span>
+                                            <span class="text-dark float-right">{{ $ap->created_at->format('F j, Y') }}</span>
+                                        </div>
+                                    </div>
+                                    <h3><a href="#" class="text-dark">{{ $ap->ap_title }}</a></h3>
+                                    @if($ap->ap_description)
+                                        <p class="text-dark">{{ ucfirst($ap->ap_description) }}</p>
+                                    @endif
+                                </div>
                             </div>
-                            <h3><a href="blog_details.html" class="text-dark">Your Antibiotic One Day To 10 Day Options</a></h3>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6">
-                <div class="home-blog-single mb-30 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".6s">
-                    <div class="blog-img-cap">
-                        <div class="blog-img">
-                            <img src="{{ asset('storage/frontend_assets/img/gallery/blog2.png') }}" alt="">
-                        </div>
-                        <div class="blog-cap">
-                            <div>
-                                <span class="text-dark">Gym & Fitness</span>
-                                <span class="text-dark float-right">January 1, 2024</span>
-                            </div>
-                            <h3><a href="blog_details.html" class="text-dark">Your Antibiotic One Day To 10 Day Options</a></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
 </section>
 <!-- Promotion/Announcement End -->

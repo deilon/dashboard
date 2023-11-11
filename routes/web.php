@@ -10,6 +10,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SubscriptionArrangementController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\AnnouncementsPromotionsController;
+use App\Http\Controllers\FrontController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,15 +23,10 @@ use App\Http\Controllers\AnnouncementsPromotionsController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-Route::get('home', function () {
-    return view('home');
-});
-Route::get('announcements', function() {
-    return view('announcements');
-});
+Route::get('/', [FrontController::class, 'index']);
+Route::get('home', [FrontController::class, 'index']);
+
+Route::get('announcements', [FrontController::class, 'announcementsPromotions']);
 
 Route::middleware(['guest'])->group(function() {
     // Authentication
