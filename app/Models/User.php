@@ -67,6 +67,11 @@ class User extends Authenticatable
         return $this->hasMany(ManualPayment::class);
     }
 
+    public function announcementPromotions(): HasMany 
+    {
+        return $this->hasMany(AnnouncementPromotions::class);
+    }
+
     /**
      * Interact with the user's role name.
      *

@@ -128,6 +128,12 @@
                 <div data-i18n="Subscription settings">Subscription Arrangements</div>
             </a>
         </li>
+        <li class="menu-item {{ (request()->is('admin/announcements-promotions')) ? 'active' : '' }}">
+            <a href="{{ url('admin/announcements-promotions') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-megaphone"></i>
+                <div data-i18n="Announcements and Promotions">Announcements and Promotions</div>
+            </a>
+        </li>
         <li class="menu-item">
             <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
