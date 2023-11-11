@@ -27,6 +27,9 @@ Route::get('/', function () {
 Route::get('home', function () {
     return view('home');
 });
+Route::get('announcements', function() {
+    return view('announcements');
+});
 
 Route::middleware(['guest'])->group(function() {
     // Authentication
