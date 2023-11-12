@@ -137,7 +137,7 @@
                                     <button class="dropdown-item cursor-pointer" data-bs-toggle="modal" data-bs-target="#arrangementEditModal{{ $arrangement->id }}"><i class="bx bx-edit"></i> Edit Arrangement</button>
                                     <button class="dropdown-item cursor-pointer"><i class="bx bx-plus"></i> Add New Tier</button>
                                     <a class="dropdown-item cursor-pointer"><i class="bx bx-trash"></i> Delete Arrangement</a>
-                                    <a class="dropdown-item cursor-pointer" target="_blank"><i class="bx bx-show me-2"></i> View Arrangement</a>
+                                    <a href="{{ url('admin/packages/sub-plan/'.$arrangement->id) }}" class="dropdown-item cursor-pointer" target="_blank"><i class="bx bx-show me-2"></i> View Arrangement</a>
                                 </div>
                              </div>
                         </td>

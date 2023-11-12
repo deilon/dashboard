@@ -8,6 +8,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SubscriptionArrangementController;
+use App\Http\Controllers\SubscriptionTierController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\AnnouncementsPromotionsController;
 use App\Http\Controllers\FrontController;
@@ -75,6 +76,12 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::post('update-arrangement-countdown', [SubscriptionArrangementController::class, 'toggleArrangementCountdown'])->name('toggleArrCountdown');
     Route::post('add-arrangement', [SubscriptionArrangementController::class, 'addArrangement'])->name('addArrangement');
     Route::post('update-arrangement', [SubscriptionArrangementController::class, 'updateArrangement'])->name('updateArrangement');
+
+    // SUBSCRIPTION PACKAGES / TIERS
+    Route::get('packages/sub-plan/{sub_plan_id}', [SubscriptionTierController::class, 'index']);
+    Route::post('package/create', [SubscriptionTierController::class, 'create'])->name('create.package');
+    Route::post('package/update', [SubscriptionTierController::class, 'update'])->name('update.package');
+    Route::post('package/delete/{package_id}', [SubscriptionTierController::class, 'delete'])->name('delete.package');
 
     // ANNOUNCEMENTS AND PROMOTIONS
     Route::get('announcements-promotions', [AnnouncementsPromotionsController::class, 'index']);

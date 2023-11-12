@@ -18,6 +18,7 @@ class SubscriptionTier extends Model
     protected $fillable = [
         'tier_name',
         'price',
+        'duration',
         'status',
     ];
 

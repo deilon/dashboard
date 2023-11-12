@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use App\Models\SubscriptionArrangement;
+use App\Models\SubscriptionTier;
 
 class SubscriptionArrangementController extends Controller
 {
     public function index() {
         // In your controller method
         $activeSubscriptionArrangement = SubscriptionArrangement::where('status', 'active')->first();
-        $data['tiers'] = $activeSubscriptionArrangement->subscriptionTiers->where('status', 'active')->all();
+        $data['tiers'] = SubscriptionTier::where('subscription_arrangement_id', $activeSubscriptionArrangement->id)->orderBy('duration')->get();
         $data['subscriptionArrangement'] = $activeSubscriptionArrangement;
         return view('dashboard.member.packages', $data);
     }
