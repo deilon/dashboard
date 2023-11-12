@@ -158,20 +158,23 @@
                                             <div class="col mb-3">
                                                 <label for="arrangementName" class="form-label">Arrangement Name</label>
                                                 <input type="text" id="arrangementName" class="form-control" name="arrangement_name" placeholder="{{ $arrangement->arrangement_name }}" value="{{ old('arrangement_name', ucwords($arrangement->arrangement_name)) }}"  />
+                                                @error('arrangement_name')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                             </div>
                                         </div>
                                         <div class="row g-2">
                                             <div class="col mb-0">
                                                 <label for="editStartDate" class="col-md-2 col-form-label">Start Date</label>
                                                 <div class="col-md-10">
-                                                  <input class="form-control" type="date" name="start_date" value="{{ $arrangement->start_date }}" id="editStartDate" />
+                                                  <input class="form-control" type="date" name="start_date" value="{{ old('start_date', $arrangement->start_date) }}" id="editStartDate" />
+                                                  @error('start_date')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                                 </div>
                                             </div>
                                             <div class="col mb-0">
                                                 <label for="html5-date-input" class="col-md-2 col-form-label">End Date</label>
                                                 <div class="col-md-10">
-                                                  <input class="form-control" type="date" name="end_date" value="{{ $arrangement->end_date }}" id="editEndDate" />
-                                                  <input class="form-control" type="hidden" name="arrangement_id" value="{{ $arrangement->id }}" />
+                                                  <input class="form-control" type="date" name="end_date" value="{{ old('end_date', $arrangement->end_date) }}" id="editEndDate" />
+                                                  <input class="form-control" type="hidden" name="arrangement_id" value="{{ $arrangement->id }}"/>
+                                                  @error('end_date')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                                 </div>
                                             </div>
                                         </div>
