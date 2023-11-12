@@ -93,4 +93,12 @@ class AnnouncementsPromotionsController extends Controller
         // redirect
         return redirect('admin/announcements-promotions')->with('success', 'You have successfully updated Announcement/Promotion.');
     }
+
+    public function delete($ap_id) {
+        $ap = AnnouncementsPromotion::find($ap_id);
+        $ap->delete();
+        return response()->json([
+            'message' => '<strong>'.ucfirst($ap->ap_title).'</strong> successfully deleted.'
+        ]); 
+    }
 }

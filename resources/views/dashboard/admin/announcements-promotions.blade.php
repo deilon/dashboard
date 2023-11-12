@@ -16,6 +16,20 @@
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
 
+    <!-- Toast with Placements -->
+    <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+        <div class="toast-header">
+            <i class='bx bx-bell me-2'></i>
+        <div class="me-auto fw-semibold">User update</div>
+            <small>1 sec ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <span id="status-message">Null</span>
+        </div>
+    </div>
+    <!-- Toast with Placements -->
+
       {{-- Alerts for form --}}
       @if(session('success'))
          <div class="row">
@@ -55,7 +69,7 @@
     @if($aps)
         <div class="row">
             @foreach($aps as $ap)
-                <div class="col-md-6 col-lg-4 mb-3">
+                <div class="col-md-6 col-lg-4 mb-3" id="apItem{{ $ap->id }}">
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">{{ $ap->ap_title }}</h5>
@@ -69,7 +83,7 @@
                                 <p class="card-text">{{ $ap->ap_description }}</p>
                             @endif
                             <a href="javascript:void(0);" class="btn btn-primary me-3" type="button" data-bs-toggle="modal" data-bs-target="#editAPModal{{ $ap->id }}">Edit</a>
-                            <a href="javascript:void(0);" class="btn btn-danger">Delete</a>
+                            <a href="javascript:void(0);" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAPModal{{ $ap->id }}">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -129,7 +143,25 @@
                             </div>
                         </div>
                     </form>
+                </div>
 
+                <!-- Delete Confirmation Modal -->
+                <div class="modal fade" id="deleteAPModal{{ $ap->id }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Delete Announcement/Promotion </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="modal-text">Are you sure you want to delete "<span class="fw-bold">{{ ucfirst($ap->ap_title) }}</span>" ?</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-danger delete-ap-btn" data-ap="{{ $ap->id }}" data-route-url="{{ url('admin/delete-ap/'.$ap->id) }}">Delete</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             @endforeach
         </div>
@@ -192,4 +224,5 @@
 @section('page-js')
 <script src="{{ asset('storage/assets/js/ui-toasts.js')}} "></script>
 <script src="{{ asset('storage/assets/js/ui-modals.js') }}"></script>
+<script src="{{ asset('storage/assets/js/custom/announcement.js') }}"></script>
 @endsection

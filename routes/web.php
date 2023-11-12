@@ -76,10 +76,11 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::post('add-arrangement', [SubscriptionArrangementController::class, 'addArrangement'])->name('addArrangement');
     Route::post('update-arrangement', [SubscriptionArrangementController::class, 'updateArrangement'])->name('updateArrangement');
 
-    // ANNOUNCEMENT AND PROMOTIONS
+    // ANNOUNCEMENTS AND PROMOTIONS
     Route::get('announcements-promotions', [AnnouncementsPromotionsController::class, 'index']);
     Route::post('announcements-promotions', [AnnouncementsPromotionsController::class, 'create'])->name('create.ap');
     Route::post('update-ap', [AnnouncementsPromotionsController::class, 'update'])->name('update.ap');
+    Route::post('delete-ap/{ap_id}', [AnnouncementsPromotionsController::class, 'delete'])->name('delete.ap');
 });
 
 // Staff routes
