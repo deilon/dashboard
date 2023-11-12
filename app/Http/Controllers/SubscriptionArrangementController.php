@@ -83,53 +83,22 @@ class SubscriptionArrangementController extends Controller
 
     }
 
-    public function toggleArrangementStatus($arrangement_status, $arrangement_id) {
-        $status = $arrangement_status;
-        $subscriptionArrangement = SubscriptionArrangement::find($arrangement_id);
-        if(!$subscriptionArrangement) {
+    public function toggleArrangementStatus(Request $request)
+    {  
+        $status = $request->input('status');
+        $arrangement = SubscriptionArrangement::find($request->input('arrangement_id'));
+        if(!$arrangement) {
             return response()->json([
-                'message' => 'We can\'t find that Subscription Arrangement'
+                'message' => 'We can\'t find that arrangement'
             ]); 
         }
 
-        // Toggle back arrangement status and prioritize the default
-        if ($subscriptionArrangement->default == 'yes') {
-            // Toggle the status of the default user
-            $subscriptionArrangement->status = $subscriptionArrangement->status === 'active' ? 'disabled' : 'active';
-            $subscriptionArrangement->save();
-    
-            // Find the immediate user next to the default user
-            $nextSubscriptionArrangement = SubscriptionArrangement::where('id', '>', $subscriptionArrangement->id)
-                ->where('default', 'no')
-                ->first();
-    
-            if ($nextSubscriptionArrangement) {
-                // Toggle the status of the next user
-                $nextSubscriptionArrangement->status = $nextSubscriptionArrangement->status === 'active' ? 'disabled' : 'active';
-                $nextSubscriptionArrangement->save();
-            }
-        } else {
-            // Toggle the status of a non-default user
-            $subscriptionArrangement->status = $subscriptionArrangement->status === 'active' ? 'disabled' : 'active';
-            $subscriptionArrangement->save();
-    
-            // Find the default user
-            $defaultSubscriptionArrangement = SubscriptionArrangement::where('default', 'yes')->first();
-    
-            if ($defaultSubscriptionArrangement) {
-                // Toggle the status of the default user
-                $defaultSubscriptionArrangement->status = $defaultSubscriptionArrangement->status === 'active' ? 'disabled' : 'active';
-                $defaultSubscriptionArrangement->save();
-            }
-        }
+        $arrangement->status = $status;
+        $arrangement->save();
 
-
-
-        // return response()->json([
-        //     'message' => 'Status for <strong>'.ucwords($subscriptionArrangement->arrangement_name).'</strong> successfully udpated.'
-        // ]); 
-        // redirect with success message
-        return redirect()->back()->with('success', 'Status for '.ucwords($subscriptionArrangement->arrangement_name).' successfully udpated.');
+        return response()->json([
+            'message' => 'Status for <strong>'.ucfirst($arrangement->arrangement_name).'</strong> successfully udpated.'
+        ]); 
     }
 
     public function toggleArrangementCountdown(Request $request) {

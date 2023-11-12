@@ -117,25 +117,17 @@
                         @endif
                         <td>
                             <div class="dropdown position-static">
-                                @if($subscriptionArrangements->count() < 2)
+                                <button type="button" id="statusBtn{{ $arrangement->id }}" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                     @if($arrangement->status == 'active')
                                         <span class="badge bg-label-success me-1">Active</span>
                                     @elseif($arrangement->status == 'disabled')
                                         <span class="badge bg-label-warning me-1">Disabled</span>
                                     @endif
-                                @else
-                                    <button type="button" id="statusBtn{{ $arrangement->id }}" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                        @if($arrangement->status == 'active')
-                                            <span class="badge bg-label-success me-1">Active</span>
-                                        @elseif($arrangement->status == 'disabled')
-                                            <span class="badge bg-label-warning me-1">Disabled</span>
-                                        @endif
-                                    </button>
-                                    <div class="dropdown-menu position-absolute">
-                                        <a href="{{ url('admin/update-arrangement-status/active/'.$arrangement->id) }}" class="dropdown-item cursor-pointer"><span class="badge bg-label-success me-1">Active</span></a>
-                                        <a href="{{ url('admin/update-arrangement-status/disabled/'.$arrangement->id) }}" class="dropdown-item cursor-pointer"><span class="badge bg-label-warning me-1">Disabled</span></span></a>
-                                    </div>
-                                @endif
+                                </button>
+                                <div class="dropdown-menu position-absolute">
+                                    <a class="dropdown-item cursor-pointer status-item" data-status="active" data-arrangement="{{ $arrangement->id }}" data-route-url="{{ route('toggleArrStatus') }}"><span class="badge bg-label-success me-1">Active</span></a>
+                                    <a class="dropdown-item cursor-pointer status-item" data-status="disabled" data-arrangement="{{ $arrangement->id }}" data-route-url="{{ route('toggleArrStatus') }}"><span class="badge bg-label-warning me-1">Disabled</span></span></a>
+                                </div>
                             </div>                               
                         </td>
                         <td>
