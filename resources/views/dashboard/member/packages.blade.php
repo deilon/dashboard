@@ -34,6 +34,13 @@
               </div>
             </div>
             <div class="card-body">
+              @if($subscriptionArrangement->promo == 'yes')
+                @php
+                  $basedArrangement = App\Models\SubscriptionArrangement::find(1);
+                  $regularTier = App\Models\SubscriptionTier::where('subscription_arrangement_id', $basedArrangement->id)->where('duration', $tier->duration)->first();
+                @endphp
+                <s class="text-gray"><h4 class="card-title pricing-card-title text-muted">₱{{ ceil($regularTier->price) }}</h4></s>
+              @endif
               <h1 class="card-title pricing-card-title">₱{{ ceil($tier->price) }}</h1>
               {{-- <h1 class="card-title pricing-card-title">₱1,500</h1> --}}
               <ul class="list-unstyled mt-3 mb-4">

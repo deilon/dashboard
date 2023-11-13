@@ -27,8 +27,8 @@ class SubscriptionArrangementController extends Controller
     public function addArrangement(Request $request) {
         $validator = Validator::make($request->all(), [
             'arrangement_name' => ['required', 'string', 'max:255'],
-            'start_date' => 'required_with:end_date|nullable|date|after_or_equal:'. Carbon::now()->format('m-d-Y'),
-            'end_date' => 'required_with:start_date|nullable|date|after:start_date',
+            'start_date' => 'required_with:end_date|nullable|date|after_or_equal:today',
+            'end_date' => 'required_with:start_date|nullable|date|after:today',
         ]);
     
         if ($validator->fails()) {
@@ -46,6 +46,7 @@ class SubscriptionArrangementController extends Controller
         $subscriptionArrangement->status = "disabled";
         $subscriptionArrangement->countdown = "disabled";
         $subscriptionArrangement->default = "no";
+        $subscriptionArrangement->promo = $request->has('promo') ? 'yes' : 'no';
         $subscriptionArrangement->save();
     
         // redirect with success message
@@ -55,8 +56,8 @@ class SubscriptionArrangementController extends Controller
     public function updateArrangement(Request $request) {
         $validator = Validator::make($request->all(), [
             'arrangement_name' => ['required', 'string', 'max:255'],
-            'start_date' => 'required_with:end_date|nullable|date|after_or_equal:tomorrow',
-            'end_date' => 'required_with:start_date|nullable|date|after:start_date',
+            'start_date' => 'required_with:end_date|nullable|date|after_or_equal:today',
+            'end_date' => 'required_with:start_date|nullable|date|after:today',
         ]);
     
         if ($validator->fails()) {
@@ -71,6 +72,7 @@ class SubscriptionArrangementController extends Controller
         $subscriptionArrangement->arrangement_name = $request->arrangement_name;
         $subscriptionArrangement->start_date = $request->start_date;
         $subscriptionArrangement->end_date = $request->end_date;
+        $subscriptionArrangement->promo = $request->has('promo') ? 'yes' : 'no';
         $subscriptionArrangement->save();
     
         // redirect with success message

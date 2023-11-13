@@ -135,15 +135,14 @@
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                                 <div class="dropdown-menu position-absolute">
                                     <button class="dropdown-item cursor-pointer" data-bs-toggle="modal" data-bs-target="#arrangementEditModal{{ $arrangement->id }}"><i class="bx bx-edit"></i> Edit Arrangement</button>
-                                    <button class="dropdown-item cursor-pointer"><i class="bx bx-plus"></i> Add New Tier</button>
                                     <a class="dropdown-item cursor-pointer"><i class="bx bx-trash"></i> Delete Arrangement</a>
-                                    <a href="{{ url('admin/packages/sub-plan/'.$arrangement->id) }}" class="dropdown-item cursor-pointer" target="_blank"><i class="bx bx-show me-2"></i> View Arrangement</a>
+                                    <a href="{{ url('admin/packages/sub-plan/'.$arrangement->id) }}" class="dropdown-item cursor-pointer" target="_blank"><i class="bx bx-cog me-2"></i> Manage Arrangement</a>
                                 </div>
                              </div>
                         </td>
                      </tr>
 
-                    <!-- Modal -->
+                    <!-- Edit Modal -->
                     <div class="modal fade" id="arrangementEditModal{{ $arrangement->id }}" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -169,7 +168,7 @@
                                                   @error('start_date')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                                                 </div>
                                             </div>
-                                            <div class="col mb-0">
+                                            <div class="col mb-3">
                                                 <label for="html5-date-input" class="col-md-2 col-form-label">End Date</label>
                                                 <div class="col-md-10">
                                                   <input class="form-control" type="date" name="end_date" value="{{ old('end_date', $arrangement->end_date) }}" id="editEndDate" />
@@ -178,6 +177,17 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @if($arrangement->default != "yes")
+                                        <div class="row g-2">
+                                            <div class="col">
+                                                <div class="form-check form-check-inline mt-3">
+                                                <input class="form-check-input" type="checkbox" id="promo" name="promo" value="yes" {{ $arrangement->promo == 'yes' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="promo">Mark as promo</label>
+                                                </div>
+                                                <div class="alert alert-warning mt-2" role="alert"><i class="menu-icon tf-icons bx bx-info-circle"></i>Mark as promo will show previous based prices (regular).</div>
+                                            </div>
+                                        </div>
+                                        @endif
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -187,6 +197,7 @@
                             </div>
                         </div>
                     </div>
+
                   @endforeach
                </tbody>
             </table>
@@ -194,7 +205,7 @@
       </div>
       <!--/ Hoverable Table rows -->
 
-        <!-- Modal -->
+        <!-- Create Modal -->
         <div class="modal fade" id="addNewArrangement" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -226,6 +237,15 @@
                                         <input class="form-control" name="end_date" type="date" id="addEndDate" value="{{ old('end_date') }}" />
                                     </div>
                                     @error('end_date')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col">
+                                    <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="checkbox" id="promo" name="promo" value="yes">
+                                        <label class="form-check-label" for="promo">Mark as promo</label>
+                                    </div>
+                                    <div class="alert alert-warning mt-2" role="alert"><i class="menu-icon tf-icons bx bx-info-circle"></i>Mark as promo will show previous based prices (regular).</div>
                                 </div>
                             </div>
                         </div>

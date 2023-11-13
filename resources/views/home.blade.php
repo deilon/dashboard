@@ -242,6 +242,7 @@
             </div>
         </div>
         <div class="row">
+            @foreach($activeArrangement->subscriptionTiers as $tier)
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="properties mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
                     <div class="properties__card">
@@ -250,8 +251,15 @@
                         </div>
                         <div class="properties__caption">
                             <div class="text-center">
-                                <span class="month">2 months</span>
-                                <p class="mb-25">₱1500.00 <span>(BASIC)</span></p>
+                                <span class="month">{{ $tier->duration }}</span>
+                                @if($activeArrangement->promo == 'yes')
+                                    @php
+                                    $basedArrangement = App\Models\SubscriptionArrangement::find(1);
+                                    $regularTier = App\Models\SubscriptionTier::where('subscription_arrangement_id', $basedArrangement->id)->where('duration', $tier->duration)->first();
+                                    @endphp
+                                    <s class="text-white"><p class="mb-25 text-white">₱{{ ceil($regularTier->price) }}</p></s>
+                                @endif
+                                <p class="mb-25">₱{{ $tier->price }} <span>({{ strToUpper($tier->tier_name) }})</span></p>
                             </div>
                             <div class="single-features">
                                 <div class="features-icon">
@@ -298,174 +306,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="properties mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
-                    <div class="properties__card">
-                        <div class="about-icon">
-                            <img src="{{ asset('storage/frontend_assets/img/icon/price.svg') }}" alt="">
-                        </div>
-                        <div class="properties__caption">
-                            <div class="text-center">
-                                <span class="month">3 months</span>
-                                <p class="mb-25">₱2200.00 <span>(STANDARD)</span></p>
-                            </div>
-                            <div class="single-features">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>Unlimited Sessions </p>
-                                </div>
-                            </div>
-                            <div class="single-features">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>Trainer Included</p>
-                                </div>
-                            </div>
-                            <div class="single-features">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>No Hidden Charges</p>
-                                </div>
-                            </div>
-                            <div class="single-features">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>All Access to Utilities</p>
-                                </div>
-                            </div>
-                            <div class="single-features mb-20">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>All Access to Gym Equipments</p>
-                                </div>
-                            </div>
-                            <a href="#" class="border-btn border-btn2">Join Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="properties mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
-                    <div class="properties__card">
-                        <div class="about-icon">
-                            <img src="{{ asset('storage/frontend_assets/img/icon/price.svg') }}" alt="">
-                        </div>
-                        <div class="properties__caption">
-                            <div class="text-center">
-                                <span class="month">6 months</span>
-                                <p class="mb-25">₱2900.00 <span>(PREMIUM)</span></p>
-                            </div>
-                            <div class="single-features">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>Unlimited Sessions </p>
-                                </div>
-                            </div>
-                            <div class="single-features">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>Trainer Included</p>
-                                </div>
-                            </div>
-                            <div class="single-features">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>No Hidden Charges</p>
-                                </div>
-                            </div>
-                            <div class="single-features">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>All Access to Utilities</p>
-                                </div>
-                            </div>
-                            <div class="single-features mb-20">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>All Access to Gym Equipments</p>
-                                </div>
-                            </div>
-                            <a href="#" class="border-btn border-btn2">Join Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="properties mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
-                    <div class="properties__card">
-                        <div class="about-icon">
-                            <img src="{{ asset('storage/frontend_assets/img/icon/price.svg') }}" alt="">
-                        </div>
-                        <div class="properties__caption">
-                            <div class="text-center">
-                                <span class="month">12 months</span>
-                                <p class="mb-25">₱5000.00 <span>(ULTIMATE)</span></p>
-                            </div>
-                            <div class="single-features">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>Unlimited Sessions </p>
-                                </div>
-                            </div>
-                            <div class="single-features">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>Trainer Included</p>
-                                </div>
-                            </div>
-                            <div class="single-features">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>No Hidden Charges</p>
-                                </div>
-                            </div>
-                            <div class="single-features">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>All Access to Utilities</p>
-                                </div>
-                            </div>
-                            <div class="single-features mb-20">
-                                <div class="features-icon">
-                                    <img src="{{ asset('storage/frontend_assets/img/icon/check.svg') }}" alt="">
-                                </div>
-                                <div class="features-caption">
-                                    <p>All Access to Gym Equipments</p>
-                                </div>
-                            </div>
-                            <a href="#" class="border-btn border-btn2">Join Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>

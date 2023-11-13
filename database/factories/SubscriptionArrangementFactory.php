@@ -21,6 +21,7 @@ class SubscriptionArrangementFactory extends Factory
             "status" => "active",
             "countdown" => "disabled",
             "default" => "yes",
+            "promo" => "no",
         ];
     }
 }
