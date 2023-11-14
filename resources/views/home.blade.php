@@ -239,6 +239,10 @@
                 <div class="section-tittle text-center mb-55 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".1s">
                     <h2>Pricing</h2>
                 </div>
+                @if($activeArrangement->countdown === 'active')
+                    <!-- Display the countdown timer -->
+                    <div id="countdown" class="alert alert-dark text-center" style="font-size: 40px !important;" role="alert"></div>
+                @endif
             </div>
         </div>
         <div class="row">
@@ -506,6 +510,42 @@
 <!-- Jquery Plugins, main Jquery -->	
 <script src="{{ asset('storage/frontend_assets/js/plugins.js') }}"></script>
 <script src="{{ asset('storage/frontend_assets/js/main.js') }}"></script>
+
+@if ($activeArrangement->countdown === 'active')
+  <script>
+    // Get the start and end dates from Blade (replace with your actual Blade variables)
+    var startDate = new Date("{{ $activeArrangement->start_date }}");
+    var endDate = new Date("{{ $activeArrangement->end_date }}");
+
+    // Function to update the countdown display
+    function updateCountdown() {
+        // Get the current date and time
+        var now = new Date();
+
+        // Calculate the time difference between now and the end date
+        var timeDifference = endDate - now;
+
+        // Check if the countdown has reached zero or is negative
+        if (timeDifference <= 0) {
+            // Stop the countdown and update the display
+            clearInterval(countdownInterval);
+            $("#countdown").html("Countdown expired!");
+        } else {
+            // Calculate days, hours, minutes, and seconds
+            var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            // Update the countdown display
+            $("#countdown").html("<span style='font-weight: 700 !important;'>{{ ucwords($activeArrangement->arrangement_name) }}</span> Ends in " + days + "d " + hours + "h " + minutes + "m " + seconds + "s");
+        }
+    }
+
+    // Update the countdown every second
+    var countdownInterval = setInterval(updateCountdown, 1000);
+  </script>
+@endif
 
 </body>
 </html>

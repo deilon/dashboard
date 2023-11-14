@@ -19,6 +19,11 @@
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="py-3 mb-4"><span class="text-muted fw-light">Packages /</span> {{ ucfirst($subscriptionArrangement->arrangement_name) }}</h4>
+    
+    @if($subscriptionArrangement->countdown === 'active')
+      <!-- Display the countdown timer -->
+      <div id="countdown" class="alert alert-success text-center fs-3" role="alert"></div>
+    @endif
 
       <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
         @foreach($tiers as $tier)
@@ -67,4 +72,41 @@
 
 @section('page-js')
 <script src="{{ asset('storage/assets/js/dashboards-analytics.js') }}"></script>
+
+@if ($subscriptionArrangement->countdown === 'active')
+  <script>
+    // Get the start and end dates from Blade (replace with your actual Blade variables)
+    var startDate = new Date("{{ $subscriptionArrangement->start_date }}");
+    var endDate = new Date("{{ $subscriptionArrangement->end_date }}");
+
+    // Function to update the countdown display
+    function updateCountdown() {
+        // Get the current date and time
+        var now = new Date();
+
+        // Calculate the time difference between now and the end date
+        var timeDifference = endDate - now;
+
+        // Check if the countdown has reached zero or is negative
+        if (timeDifference <= 0) {
+            // Stop the countdown and update the display
+            clearInterval(countdownInterval);
+            $("#countdown").html("Countdown expired!");
+        } else {
+            // Calculate days, hours, minutes, and seconds
+            var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            // Update the countdown display
+            $("#countdown").html("<span class='fw-bold'>{{ ucwords($subscriptionArrangement->arrangement_name) }}</span> Ends in " + days + "d " + hours + "h " + minutes + "m " + seconds + "s");
+        }
+    }
+
+    // Update the countdown every second
+    var countdownInterval = setInterval(updateCountdown, 1000);
+  </script>
+@endif
+
 @endsection

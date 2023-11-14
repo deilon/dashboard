@@ -27,7 +27,7 @@ class SubscriptionArrangementController extends Controller
     public function addArrangement(Request $request) {
         $validator = Validator::make($request->all(), [
             'arrangement_name' => ['required', 'string', 'max:255'],
-            'start_date' => 'required_with:end_date|nullable|date|after_or_equal:today',
+            'start_date' => 'required_with:end_date|nullable|date|after_or_equal:today|before:end_date',
             'end_date' => 'required_with:start_date|nullable|date|after:today',
         ]);
     
@@ -56,8 +56,8 @@ class SubscriptionArrangementController extends Controller
     public function updateArrangement(Request $request) {
         $validator = Validator::make($request->all(), [
             'arrangement_name' => ['required', 'string', 'max:255'],
-            'start_date' => 'required_with:end_date|nullable|date|after_or_equal:today',
-            'end_date' => 'required_with:start_date|nullable|date|after:today',
+            'start_date' => 'required_with:end_date|nullable|date|before:end_date',
+            'end_date' => 'required_with:start_date|nullable|date|after:today', 
         ]);
     
         if ($validator->fails()) {
