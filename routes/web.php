@@ -91,7 +91,8 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::post('delete-ap/{ap_id}', [AnnouncementsPromotionsController::class, 'delete'])->name('delete.ap');
 
     // SALES REVENUE VIEW
-    Route::get('sales', [SalesRevenueController::class, 'index']);
+    Route::get('sales/month', [SalesRevenueController::class, 'getCurrentMonth']);
+    Route::get('sales/all', [SalesRevenueController::class, 'getAllSales']);
     Route::get('/sales/search', [SalesRevenueController::class, 'search'])->name('sales.search');
 
     // SALES REVENUE EXPORT 

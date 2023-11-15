@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class SalesRevenueController extends Controller
 {
 
-    public function index() {
+    public function getCurrentMonth() {
         $data['sales'] = Sale::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
             ->orderBy('amount', 'desc')
@@ -20,7 +20,13 @@ class SalesRevenueController extends Controller
         $data['total'] = Sale::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
             ->sum('amount');
-        return view('dashboard.admin.sales', $data);
+        return view('dashboard.admin.sales-month', $data);
+    }
+
+    public function getAllSales() {
+        $data['sales'] = Sale::orderBy('amount', 'desc')->paginate(15);
+        $data['total'] = Sale::sum('amount');
+        return view('dashboard.admin.sales-all', $data);
     }
 
     public function export() {
@@ -46,11 +52,11 @@ class SalesRevenueController extends Controller
         foreach($sales as $sale) {
             $output.= "<tr class=\"user-sales-row-".$sale->id."\">
                     <td>".$sale->id."</td>
-                    <td>".$sale->subscription_arrangement."</td>
-                    <td>".$sale->tier_name."</td>
-                    <td>".$sale->payment_method."</td>
+                    <td>".ucwords($sale->subscription_arrangement)."</td>
+                    <td>".ucwords($sale->tier_name)."</td>
+                    <td>".ucwords($sale->payment_method)."</td>
                     <td>".$sale->date."</td>
-                    <td>".$sale->customer_name."</td>
+                    <td>".ucwords($sale->customer_name)."</td>
                     <td>".$sale->amount."</td>
                 </tr>";
         }

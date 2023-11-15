@@ -16,21 +16,6 @@
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
 
-
-    <!-- Toast with Placements -->
-    <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
-        <div class="toast-header">
-            <i class='bx bx-bell me-2'></i>
-        <div class="me-auto fw-semibold">User update</div>
-            <small>1 sec ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            <span id="status-message">Null</span>
-        </div>
-    </div>
-    <!-- Toast with Placements -->
-
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Monthly Sales Report /</span> {{ now()->format('F Y') }}</h4>
 
       <!-- Hoverable Table rows -->
