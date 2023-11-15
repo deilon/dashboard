@@ -30,4 +30,31 @@ class SalesRevenueController extends Controller
     public function salesExportCurrentMonth() {
         return Excel::download(new SalesExportCurrentMonth, 'salesRevenueReport-'.now()->format('F-Y').'.xlsx');
     }
+
+    public function search(Request $request) {
+        $query = $request->input('query');
+
+        $sales = Sale::where('subscription_arrangement', 'like', '%'.$query.'%')
+                    ->orWhere('tier_name', 'like', '%'.$query.'%')
+                    ->orWhere('payment_method', 'like', '%'.$query.'%')
+                    ->orWhere('date', 'like', '%'.$query.'%')
+                    ->orWhere('customer_name', 'like', '%'.$query.'%')
+                    ->orWhere('amount', 'like', '%'.$query.'%')
+                    ->get();
+
+        $output = '';
+        foreach($sales as $sale) {
+            $output.= "<tr class=\"user-sales-row-".$sale->id."\">
+                    <td>".$sale->id."</td>
+                    <td>".$sale->subscription_arrangement."</td>
+                    <td>".$sale->tier_name."</td>
+                    <td>".$sale->payment_method."</td>
+                    <td>".$sale->date."</td>
+                    <td>".$sale->customer_name."</td>
+                    <td>".$sale->amount."</td>
+                </tr>";
+        }
+
+        return response($output);
+    }
 }

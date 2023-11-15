@@ -42,7 +42,7 @@
                     <div class="text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
                         <div class="py-3">
                             <label>
-                                <input type="search" class="form-control" placeholder="Search..">
+                                <input type="search" name="searchSales" id="searchSales" class="form-control" placeholder="Search..">
                             </label>
                         </div>
                         <div class="py-3"> 
@@ -66,7 +66,7 @@
                      <th>Amount</th>
                   </tr>
                </thead>
-               <tbody class="table-border-bottom-0">
+               <tbody id="allData" class="table-border-bottom-0">
                   @foreach ($sales as $srr)
                      <tr class="user-sales-row-{{ $srr->id }}">
                         <td>{{ $srr->id }}</td>
@@ -79,6 +79,7 @@
                      </tr>
                   @endforeach
                </tbody>
+               <tbody id="searchData" class="table-border-bottom-0"></tbody>
                <tfoot class="table-border-bottom-0">
                     <tr>
                         <th class="text-end" colspan="7">Month Total: <span class="fs-5 text-primary">₱{{ $total }}</span></th>
@@ -168,5 +169,28 @@
     $("#exportModalBtn").click(function() {
         $("#exportModal").modal('hide');
     })
+
+    $(document).ready(function () {
+        $('#searchSales').on('keyup', function () {
+            $query = $(this).val();
+
+            if($query) {
+                $("#allData").hide();
+                $('#searchData').show();
+            } else {
+                $("#allData").show();
+                $('#searchData').hide();
+            }
+
+            $.ajax({
+                url: '{{ route('sales.search') }}',
+                method: 'get',
+                data: { 'query': $query },
+                success: function (data) {
+                    $('#searchData').html(data);
+                }
+            });
+        });
+    });
 </script>
 @endsection

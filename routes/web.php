@@ -92,6 +92,7 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
 
     // SALES REVENUE VIEW
     Route::get('sales', [SalesRevenueController::class, 'index']);
+    Route::get('/sales/search', [SalesRevenueController::class, 'search'])->name('sales.search');
 
     // SALES REVENUE EXPORT 
     Route::get('sales/export/all', [SalesRevenueController::class, 'export'])->name('sales.export');
