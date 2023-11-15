@@ -31,7 +31,7 @@
     </div>
     <!-- Toast with Placements -->
 
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Daily Sales Report /</span> January</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Monthly Sales Report /</span> {{ now()->format('F Y') }}</h4>
 
       <!-- Hoverable Table rows -->
       <div class="card">
@@ -46,7 +46,7 @@
                             </label>
                         </div>
                         <div class="py-3"> 
-                            <button class="btn btn-secondary mx-3" tabindex="0" type="button">
+                            <button class="btn btn-secondary mx-3" type="button" data-bs-toggle="modal" data-bs-target="#exportModal">
                                 <span><i class="bx bx-export me-1"></i>Export</span>
                             </button>
                         </div>
@@ -71,7 +71,7 @@
                      <tr class="user-sales-row-{{ $srr->id }}">
                         <td>{{ $srr->id }}</td>
                         <td>{{ $srr->subscription_arrangement }}</td>
-                        <td>{{ $srr->tier_name }}</td>
+                        <td>{{ ucwords($srr->tier_name) }}</td>
                         <td>{{ ucwords($srr->payment_method) }}</td>
                         <td>{{ $srr->date }}</td>
                         <td>{{ ucwords($srr->customer_name) }}</td>
@@ -136,6 +136,26 @@
           </div>
       </div>
 
+
+        <!-- Export Confirmation Modal -->
+        <div class="modal fade" id="exportModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Export Sales Revenue</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-text">Export <span class="fw-bold">{{ now()->format('F Y') }}</span>?</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a href="{{ route('sales.this.month') }}" class="btn btn-primary" id="exportModalBtn">Export</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </div>
 <!-- / Content -->
 @endsection
@@ -143,4 +163,10 @@
 @section('page-js')
 <script src="{{ asset('storage/assets/js/dashboards-analytics.js') }}"></script>
 <script src="{{ asset('storage/assets/js/ui-toasts.js')}} "></script>
+<script src="{{ asset('storage/assets/js/ui-modals.js') }}"></script>
+<script>
+    $("#exportModalBtn").click(function() {
+        $("#exportModal").modal('hide');
+    })
+</script>
 @endsection

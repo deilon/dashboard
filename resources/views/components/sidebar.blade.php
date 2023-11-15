@@ -23,7 +23,7 @@
             </a>
         </li>
 
-        <!-- Layouts -->
+        <!-- Sales Revenue Report -->
         <li class="menu-item {{ (request()->is('admin/sales')) ? 'active' : '' }}"">
             <a href="{{ url('admin/sales') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-layout"></i>

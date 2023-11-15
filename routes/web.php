@@ -90,8 +90,12 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::post('update-ap', [AnnouncementsPromotionsController::class, 'update'])->name('update.ap');
     Route::post('delete-ap/{ap_id}', [AnnouncementsPromotionsController::class, 'delete'])->name('delete.ap');
 
-    // SALES REVENUE
+    // SALES REVENUE VIEW
     Route::get('sales', [SalesRevenueController::class, 'index']);
+
+    // SALES REVENUE EXPORT 
+    Route::get('sales/export/all', [SalesRevenueController::class, 'export'])->name('sales.export');
+    Route::get('sales/export/this/month', [SalesRevenueController::class, 'salesExportCurrentMonth'])->name('sales.this.month');
 });
 
 // Staff routes

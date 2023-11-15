@@ -105,7 +105,7 @@
                                     <a class="dropdown-item cursor-pointer status-item" data-status="active" data-subscription-id="{{ $subscription->id }}" data-subscriber-id="{{ $subscription->user->id }}" data-route-url="{{ route('update-sub-status') }}"><span class="badge bg-label-success me-1">Active</span></a>
                                     <a class="dropdown-item cursor-pointer status-item" data-status="pending" data-subscription-id="{{ $subscription->id }}" data-subscriber-id="{{ $subscription->user->id }}" data-route-url="{{ route('update-sub-status') }}"><span class="badge bg-label-warning me-1">Pending</span></a>
                                 </div>
-                            </div>   
+                            </div>
                         </td>
                         <td class="text-center">
                             <div  class="d-flex">
