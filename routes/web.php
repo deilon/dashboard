@@ -12,6 +12,7 @@ use App\Http\Controllers\SubscriptionTierController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\AnnouncementsPromotionsController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\SalesRevenueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,6 +89,9 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::post('announcements-promotions', [AnnouncementsPromotionsController::class, 'create'])->name('create.ap');
     Route::post('update-ap', [AnnouncementsPromotionsController::class, 'update'])->name('update.ap');
     Route::post('delete-ap/{ap_id}', [AnnouncementsPromotionsController::class, 'delete'])->name('delete.ap');
+
+    // SALES REVENUE
+    Route::get('sales', [SalesRevenueController::class, 'index']);
 });
 
 // Staff routes

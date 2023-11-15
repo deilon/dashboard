@@ -14,6 +14,7 @@ use App\Models\SubscriptionArrangement;
 use App\Models\Gcash;
 use App\Models\CreditCard;
 use App\Models\ManualPayment;
+use App\Models\Sale;
 
 class SubscriptionController extends Controller
 {
@@ -98,15 +99,7 @@ class SubscriptionController extends Controller
             } else {
                 $subscription->end_date = Carbon::now()->addYear();
             }
-
-            if($request->paymentOption == 'creditCard') {
-                $subscription->payment_option = 'credit card';
-            } else if($request->paymentOption == 'gcash') {
-                $subscription->payment_option = 'gcash';
-            } else {
-                $subscription->payment_option = 'manual payment';
-            }
-    
+            $subscription->payment_option = $request->paymentOption;
             $subscription->save();
 
             // Create Payment option Credit Card / Gcash
@@ -146,6 +139,18 @@ class SubscriptionController extends Controller
                 $manualPayment->user()->associate($user);
                 $subscription->manualPayment()->save($manualPayment);
             }
+
+            
+            $sale = new Sale([
+                'subscription_arrangement' => $subscriptionArrangement->arrangement_name,
+                'tier_name' => $tier->tier_name,
+                'date' => Carbon::now(),
+                'payment_method' => $request->paymentOption,
+                'customer_name' => $request->firstname.' '.$request->lastname,
+                'amount' => $tier->price
+            ]);
+            $sale->subscription()->associate($subscription);
+            $sale->save();
             
         }
 
@@ -167,5 +172,7 @@ class SubscriptionController extends Controller
             'message' => 'Subscription for <strong>'.ucwords($subscription->user->firstname.' '.$subscription->user->lastname).'</strong> successfully deleted.'
         ]);
     }
+
+
 
 }   

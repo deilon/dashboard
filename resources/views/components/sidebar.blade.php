@@ -24,40 +24,11 @@
         </li>
 
         <!-- Layouts -->
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <li class="menu-item {{ (request()->is('admin/sales')) ? 'active' : '' }}"">
+            <a href="{{ url('admin/sales') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Sales Revenue Report</div>
-                {{-- <div data-i18n="Layouts">Layouts</div> --}}
+                <div data-i18n="Sales Revenue Report">Sales Revenue Report</div>
             </a>
-
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="layouts-without-menu.html" class="menu-link">
-                        <div data-i18n="Without menu">Option 1</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="layouts-without-navbar.html" class="menu-link">
-                        <div data-i18n="Without navbar">Option 2</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="layouts-container.html" class="menu-link">
-                        <div data-i18n="Container">Option 3</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="layouts-fluid.html" class="menu-link">
-                        <div data-i18n="Fluid">Option 4</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                <a href="layouts-blank.html" class="menu-link">
-                    <div data-i18n="Blank">Option 5</div>
-                </a>
-                </li>
-            </ul>
         </li>
 
         <li class="menu-header small text-uppercase">

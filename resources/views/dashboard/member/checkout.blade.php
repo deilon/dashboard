@@ -117,9 +117,9 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <select class="form-select" id="paymentOption" name="paymentOption" required>
-                              <option selected value="creditCard">Credit card</option>
+                              <option value="credit card" selected>Credit card</option>
                               <option value="gcash">Gcash</option>
-                              <option value="manualPayment">Manual Payment</option>
+                              <option value="manual payment">Manual Payment</option>
                             </select>
                         </div>
                         <div id="creditCard" class="card shadow-none bg-transparent border border-secondary mb-3 payment-content">
@@ -272,7 +272,7 @@
       // Listen for changes in the selected payment option
       $('#paymentOption').change(function() {
           // Get the selected option
-          var selectedOption = $(this).val();
+          var selectedOption = toCamelCase($(this).val());
 
           // Store the selected option in local storage
           localStorage.setItem('selected_payment_option', selectedOption);
@@ -283,6 +283,12 @@
           // Show the content div corresponding to the selected option
           $('#' + selectedOption).removeClass('d-none');
       });
+
+      function toCamelCase(str) {
+        return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+            return index === 0 ? word.toLowerCase() : word.toUpperCase();
+        }).replace(/\s+/g, '');
+      }
   });
 </script>
 @endsection
