@@ -91,7 +91,7 @@
                </thead>
                <tbody class="table-border-bottom-0">
                   @foreach ($subscriptionArrangements as $arrangement)
-                     <tr class="arrangement-row-{{ $arrangement->id }}">
+                     <tr id="arrangementItem{{ $arrangement->id }}" class="arrangement-row-{{ $arrangement->id }}">
                         <td>{{ ucwords($arrangement->arrangement_name) }}</td>
                         <td>
                             <div class="dropdown position-static">
@@ -135,7 +135,7 @@
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                                 <div class="dropdown-menu position-absolute">
                                     <button class="dropdown-item cursor-pointer" data-bs-toggle="modal" data-bs-target="#arrangementEditModal{{ $arrangement->id }}"><i class="bx bx-edit"></i> Edit Arrangement</button>
-                                    <a class="dropdown-item cursor-pointer"><i class="bx bx-trash"></i> Delete Arrangement</a>
+                                    <button class="dropdown-item cursor-pointer" data-bs-toggle="modal" data-bs-target="#deleteArrangementModal{{ $arrangement->id }}"><i class="bx bx-trash"></i> Delete Arrangement</button>
                                     <a href="{{ url('admin/packages/sub-plan/'.$arrangement->id) }}" class="dropdown-item cursor-pointer" target="_blank"><i class="bx bx-cog me-2"></i> Manage Arrangement</a>
                                 </div>
                              </div>
@@ -197,6 +197,26 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Delete Confirmation Modal -->
+                    <div class="modal fade" id="deleteArrangementModal{{ $arrangement->id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Delete Subscription Arrangement</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="modal-text">Delete Arrangement "<span class="fw-bold">{{ $arrangement->arrangement_name }}</span>"?</div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button class="btn btn-danger delete-arrangement-btn" data-arrangement="{{ $arrangement->id }}" data-route-url="{{ url('admin/delete-arrangement/'.$arrangement->id) }}">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                   @endforeach
                </tbody>

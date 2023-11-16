@@ -118,8 +118,12 @@ class SubscriptionArrangementController extends Controller
         ]); 
     }
 
-    public function deleteSubscriptionArrangement() {
-
+    public function deleteSubscriptionArrangement($arrangement_id) {
+        $arrangement = SubscriptionArrangement::find($arrangement_id);
+        $arrangement->delete();
+        return response()->json([
+            'message' => '<strong>'.ucfirst($arrangement->arrangement_name).'</strong> successfully deleted.'
+        ]); 
     }
 
 }

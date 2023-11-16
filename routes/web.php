@@ -77,6 +77,7 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::post('update-arrangement-countdown', [SubscriptionArrangementController::class, 'toggleArrangementCountdown'])->name('toggleArrCountdown');
     Route::post('add-arrangement', [SubscriptionArrangementController::class, 'addArrangement'])->name('addArrangement');
     Route::post('update-arrangement', [SubscriptionArrangementController::class, 'updateArrangement'])->name('updateArrangement');
+    Route::post('delete-arrangement/{arrangement_id}', [SubscriptionArrangementController::class, 'deleteSubscriptionArrangement'])->name('delete.arrangement');
 
     // SUBSCRIPTION PACKAGES / TIERS
     Route::get('packages/sub-plan/{sub_plan_id}', [SubscriptionTierController::class, 'index']);
