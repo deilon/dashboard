@@ -27,7 +27,7 @@ class SalesExportCurrentMonth implements FromView
         $data['sales'] = Sale::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
             ->orderBy('amount', 'desc')
-            ->paginate(15);
+            ->get();
         $data['total'] = Sale::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
             ->sum('amount');

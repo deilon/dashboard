@@ -35,6 +35,11 @@
                         <div data-i18n="Current Month">Current Month</div>
                     </a>
                 </li>
+                <li class="menu-item {{ (request()->is('admin/sales/today')) ? 'active' : '' }}">
+                    <a href="{{ url('admin/sales/today') }}" class="menu-link">
+                        <div data-i18n="Today">Today</div>
+                    </a>
+                </li>
                 <li class="menu-item {{ (request()->is('admin/sales/all')) ? 'active' : '' }}">
                     <a href="{{ url('admin/sales/all') }}" class="menu-link">
                       <div data-i18n="All">All</div>

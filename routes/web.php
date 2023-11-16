@@ -93,12 +93,14 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
 
     // SALES REVENUE VIEW
     Route::get('sales/month', [SalesRevenueController::class, 'getCurrentMonth']);
+    Route::get('sales/today', [SalesRevenueController::class, 'getTodaySales']);
     Route::get('sales/all', [SalesRevenueController::class, 'getAllSales']);
     Route::get('/sales/search', [SalesRevenueController::class, 'search'])->name('sales.search');
 
     // SALES REVENUE EXPORT 
-    Route::get('sales/export/all', [SalesRevenueController::class, 'export'])->name('sales.export');
     Route::get('sales/export/this/month', [SalesRevenueController::class, 'salesExportCurrentMonth'])->name('sales.this.month');
+    Route::get('sales/export/today', [SalesRevenueController::class, 'salesExportToday'])->name('sales.today');
+    Route::get('sales/export/all', [SalesRevenueController::class, 'export'])->name('sales.export');
 });
 
 // Staff routes

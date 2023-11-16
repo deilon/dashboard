@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\Sale;
 use App\Exports\SalesExport;
 use App\Exports\SalesExportCurrentMonth;
+use App\Exports\SalesExportToday;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SalesRevenueController extends Controller
@@ -23,6 +25,13 @@ class SalesRevenueController extends Controller
         return view('dashboard.admin.sales-month', $data);
     }
 
+    public function getTodaySales() {
+        $today = Carbon::now()->toDateString();
+        $data['sales'] = Sale::whereDate('created_at', $today)->orderBy('amount', 'desc')->paginate(15);
+        $data['total'] = Sale::whereDate('created_at', $today)->sum('amount');
+        return view('dashboard.admin.sales-today', $data);
+    }
+
     public function getAllSales() {
         $data['sales'] = Sale::orderBy('amount', 'desc')->paginate(15);
         $data['total'] = Sale::sum('amount');
@@ -35,6 +44,10 @@ class SalesRevenueController extends Controller
 
     public function salesExportCurrentMonth() {
         return Excel::download(new SalesExportCurrentMonth, 'salesRevenueReport-'.now()->format('F-Y').'.xlsx');
+    }
+
+    public function salesExportToday() {
+        return Excel::download(new SalesExportToday, 'salesRevenueReport-'.now()->format('D').'.xlsx');
     }
 
     public function search(Request $request) {
