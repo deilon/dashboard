@@ -62,12 +62,7 @@
             <div class="row mb-4 mx-2">
                 <div class="col border-top border-bottom">
                     <div class="text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
-                        <div class="py-3">
-                            <label>
-                                <input type="search" class="form-control" placeholder="Search..">
-                            </label>
-                        </div>
-                        <div class="py-3 ms-3"> 
+                        <div class="py-3"> 
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewArrangement" tabindex="0" type="button">
                                 <span>
                                     <i class="bx bx-plus me-0 me-sm-1"></i>
