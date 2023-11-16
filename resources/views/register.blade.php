@@ -64,7 +64,7 @@
                         <div class="mb-3">
                            <label for="email" class="form-label">Email</label>
                            <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="Enter your email" />
-                           @error('firstname')<div class="text-danger">{{ $message }}</div>@enderror
+                           @error('email')<div class="text-danger">{{ $message }}</div>@enderror
                         </div>
                         <div class="mb-3 form-password-toggle">
                            <label class="form-label" for="password">Password</label>

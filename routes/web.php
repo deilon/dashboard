@@ -71,6 +71,11 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     // Delete user 
     Route::post('delete-user/{user}', [AdminController::class, 'deleteUser']);
 
+    // STAFF MANAGE
+    Route::get('users/{role}', [AdminController::class, 'staffRecords']);
+    Route::post('create/staff', [StaffController::class, 'createStaff'])->name('create.staff');
+    Route::post('update/staff', [StaffController::class, 'updateStaff'])->name('update.staff');
+
     // SUBSCRIPTION ARRANGEMENTS
     Route::get('subscription-arrangements', [SubscriptionArrangementController::class, 'subscriptionArrangements']);
     Route::post('update-arrangement-status', [SubscriptionArrangementController::class, 'toggleArrangementStatus'])->name('toggleArrStatus');

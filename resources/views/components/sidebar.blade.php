@@ -86,8 +86,8 @@
                 <div data-i18n="Admins">Admins</div>
             </a>
         </li>
-        <li class="menu-item {{ (request()->is('admin/users-records/staff')) ? 'active' : '' }}">
-            <a href="{{ url('admin/users-records/staff') }}" class="menu-link">
+        <li class="menu-item {{ (request()->is('admin/users/staff')) ? 'active' : '' }}">
+            <a href="{{ url('admin/users/staff') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div data-i18n="Staff">Staff</div>
             </a>

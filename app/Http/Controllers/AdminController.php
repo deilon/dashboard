@@ -113,6 +113,12 @@ class AdminController extends Controller
         return view('dashboard.admin.users-records', $data);
     }
 
+    public function staffRecords($role) {
+        $data['users'] = User::where('role', $role)->paginate(10);
+        $data['role'] = $role;
+        return view('dashboard.admin.staff-records', $data);
+    }
+
     public function subscribers() {
         $data['subscriptions'] = Subscription::paginate(10);
         $data['staffs'] = User::where('role', 'staff')->where('status', 'active')->get();
