@@ -48,13 +48,7 @@
                         <div class="py-3"> 
                             <button class="btn btn-secondary mx-3" tabindex="0" type="button">
                                 <span><i class="bx bx-export me-1"></i>Export</span>
-                            </button> 
-                            <button class="btn btn-primary" tabindex="0" type="button">
-                                <span>
-                                    <i class="bx bx-plus me-0 me-sm-1"></i>
-                                    <span class="d-none d-sm-inline-block">Add New User</span>
-                                </span>
-                            </button> 
+                            </button>
                         </div>
                     </div>
                 </div>
