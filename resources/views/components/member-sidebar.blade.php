@@ -16,19 +16,18 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item {{ (request()->is('member/dashboard')) ? 'active' : '' }}">
+        {{-- <li class="menu-item {{ (request()->is('member/dashboard')) ? 'active' : '' }}">
             <a href="{{ url('member/dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
-        </li>
+        </li> --}}
 
         <!-- Layouts -->
-        <li class="menu-item">
+        {{-- <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-run"></i>
                 <div data-i18n="Layouts">Fitness Progress</div>
-                {{-- <div data-i18n="Layouts">Layouts</div> --}}
             </a>
 
             <ul class="menu-sub">
@@ -53,7 +52,7 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li> --}}
 
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Your account</span>
@@ -100,7 +99,7 @@
         </li>
 
         {{-- Actions --}}
-        <li class="menu-header small text-uppercase">
+        {{-- <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Actions</span>
         </li>
         <li class="menu-item">
@@ -120,7 +119,7 @@
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div data-i18n="Logs">Logs</div>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </aside>
 <!-- / Menu -->

@@ -16,12 +16,12 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
+        {{-- <li class="menu-item {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
             <a href="{{ url('admin/dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
-        </li>
+        </li> --}}
 
         <!-- Sales Revenue Report -->
         <li class="menu-item {{ (request()->is('admin/sales/month')) || (request()->is('admin/sales/all')) ? 'active' : '' }}">
@@ -80,8 +80,8 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Users records</span>
         </li>
-        <li class="menu-item {{ (request()->is('admin/users-records/admin')) ? 'active' : '' }}">
-            <a href="{{ url('admin/users-records/admin') }}" class="menu-link">
+        <li class="menu-item {{ (request()->is('admin/records/admin')) ? 'active' : '' }}">
+            <a href="{{ url('admin/records/admin') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Admins">Admins</div>
             </a>
@@ -122,7 +122,7 @@
                 <div data-i18n="Announcements and Promotions">Announcements and Promotions</div>
             </a>
         </li>
-        <li class="menu-item">
+        {{-- <li class="menu-item">
             <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div data-i18n="Logs">Logs</div>
@@ -133,7 +133,7 @@
                 <i class="menu-icon tf-icons bx bx-box"></i>
                 <div data-i18n="Archives">Archives</div>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </aside>
 <!-- / Menu -->

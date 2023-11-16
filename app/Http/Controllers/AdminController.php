@@ -107,6 +107,12 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Password updated successfully.');
     }
 
+    public function adminRecords($role) {
+        $data['users'] = User::where('role', $role)->paginate(10);
+        $data['role'] = $role;
+        return view('dashboard.admin.admin-records', $data);
+    }
+
     public function usersRecords($role) {
         $data['users'] = User::where('role', $role)->paginate(10);
         $data['role'] = $role;

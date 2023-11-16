@@ -6,7 +6,6 @@
     <title>Home | PoundForPound Fitness Gym </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/frontend_assets/img/icon/favicon.ico') }}">
 
     <!-- CSS here -->
@@ -58,7 +57,7 @@
                                 <li><a href="{{ url('/#pricing') }}">Pricing</a></li>
                                 <li><a href="{{ url('/#gallery') }}">Gallery</a></li>
                                 <li><a href="{{ url('announcements') }}">Announcements</a></li>
-                                <li><a href="{{ url('contact') }}">Contact</a></li>
+                                {{-- <li><a href="{{ url('contact') }}">Contact</a></li> --}}
                             </ul>
                         </nav>
                     </div>          
@@ -305,7 +304,7 @@
                                     <p>All Access to Gym Equipments</p>
                                 </div>
                             </div>
-                            <a href="#" class="border-btn border-btn2">Join Now</a>
+                            <a href="{{ url('register') }}" class="border-btn border-btn2">Join Now</a>
                         </div>
                     </div>
                 </div>

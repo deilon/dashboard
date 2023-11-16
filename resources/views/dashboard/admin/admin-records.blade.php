@@ -1,7 +1,7 @@
 @extends('components.layouts.dashboard')
 
 @section('title')
-    {{ ucfirst($role) }} Records
+    Admin Records
 @endsection
 
 @section('sidebar')
@@ -21,7 +21,7 @@
     <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
         <div class="toast-header">
             <i class='bx bx-bell me-2'></i>
-        <div class="me-auto fw-semibold">User update</div>
+        <div class="me-auto fw-semibold">Admin update</div>
             <small>1 sec ago</small>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -31,18 +31,18 @@
     </div>
     <!-- Toast with Placements -->
 
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Users Records /</span> {{ ucfirst($role) }}</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Users Records /</span> Admin</h4>
 
       <!-- Hoverable Table rows -->
       <div class="card">
-         <h5 class="card-header">Users Records</h5>
+         <h5 class="card-header">Admin Records</h5>
          <div class="table-responsive text-nowrap">
             {{-- <div class="row mb-4 mx-2">
                 <div class="col border-top border-bottom">
                     <div class="text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
                         <div class="py-3">
                             <label>
-                                <input type="search" class="form-control" placeholder="Search..">
+                                <input type="search" class="form-control" id="searchAdmin" name="searchAdmin" placeholder="Search..">
                             </label>
                         </div>
                         <div class="py-3"> 
@@ -64,7 +64,7 @@
                      <th>Action</th>
                   </tr>
                </thead>
-               <tbody class="table-border-bottom-0">
+               <tbody class="table-border-bottom-0" id="allData">
                   @foreach ($users as $user)
                      <tr class="user-record-row-{{ $user->id }}">
                         <td><img src="{{ $user->photo ? asset('storage/assets/img/avatars/'. $user->photo) : asset('storage/assets/img/avatars/default.jpg') }}" class="rounded" width="25" height="25" alt="user photo"></td>

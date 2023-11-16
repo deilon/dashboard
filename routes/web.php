@@ -50,9 +50,13 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::put('profile-update', [AdminController::class, 'updateProfile']);
     Route::post('change-password', [AdminController::class, 'updatePassword']);
     
-    // Users records
+    // USERS RECORDS
     Route::get('users-records/{role}', [AdminController::class, 'usersRecords']);
+    Route::get('records/{role}', [AdminController::class, 'adminRecords']);
     Route::get('subscribers', [AdminController::class, 'subscribers']);
+    
+    // USERS SEARCH
+    Route::get('search/admin', [AdminController::class, 'search'])->name('search.admin');
 
     // Status update
     Route::post('status-update', [AdminController::class, 'updateStatus'])->name('update-status');

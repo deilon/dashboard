@@ -37,7 +37,7 @@
       <div class="card">
          <h5 class="card-header">Users Records</h5>
          <div class="table-responsive text-nowrap">
-            <div class="row mb-4 mx-2">
+            {{-- <div class="row mb-4 mx-2">
                 <div class="col border-top border-bottom">
                     <div class="text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
                         <div class="py-3">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <table class="table table-hover">
                <thead>
                   <tr>

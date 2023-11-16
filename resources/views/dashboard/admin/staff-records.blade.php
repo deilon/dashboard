@@ -61,15 +61,15 @@
             <div class="row mb-4 mx-2">
                 <div class="col border-top border-bottom">
                     <div class="text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
-                        <div class="py-3">
+                        {{-- <div class="py-3">
                             <label>
                                 <input type="search" class="form-control" placeholder="Search..">
                             </label>
-                        </div>
+                        </div> --}}
                         <div class="py-3"> 
-                            <button class="btn btn-secondary mx-3" tabindex="0" type="button">
+                            {{-- <button class="btn btn-secondary mx-3" tabindex="0" type="button">
                                 <span><i class="bx bx-export me-1"></i>Export</span>
-                            </button> 
+                            </button>  --}}
                             <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#createStaff" aria-controls="createStaff">
                                 <span>
                                     <i class="bx bx-plus me-0 me-sm-1"></i>
@@ -83,7 +83,6 @@
             <table class="table table-hover">
                <thead>
                   <tr>
-                     <th><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" /></th>
                      <th>{{ ucfirst($role) }}</th>
                      <th>Name</th>
                      <th>Email</th>
@@ -95,7 +94,6 @@
                <tbody class="table-border-bottom-0">
                   @foreach ($users as $user)
                      <tr class="user-record-row-{{ $user->id }}">
-                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" /></td>
                         <td><img src="{{ $user->photo ? asset('storage/assets/img/avatars/'. $user->photo) : asset('storage/assets/img/avatars/default.jpg') }}" class="rounded" width="25" height="25" alt="user photo"></td>
                         <td>{{ ucwords($user->firstname.' '.$user->lastname) }}</td>
                         <td><a class="link-opacity-100" href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
