@@ -30,6 +30,10 @@ Route::get('home', [FrontController::class, 'index']);
 Route::get('announcements', [FrontController::class, 'announcementsPromotions']);
 Route::get('logout', [AuthController::class, 'logout']);
 
+Route::get('/symlink', function () {
+    Artisan::call('storage:link');
+});
+
 Route::middleware(['guest'])->group(function() {
     // Authentication
     Route::get('register',[AuthController::class, 'register']);
