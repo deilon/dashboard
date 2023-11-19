@@ -16,12 +16,12 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
+        {{-- <li class="menu-item {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
             <a href="{{ url('admin/dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
-        </li>
+        </li> --}}
 
         <!-- Sales Revenue Report -->
         <li class="menu-item {{ (request()->is('admin/sales/month')) || (request()->is('admin/sales/all')) ? 'active' : '' }}">
