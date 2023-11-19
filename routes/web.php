@@ -72,6 +72,7 @@ Route::middleware(['auth', 'user-access:staff'])->prefix('staff')->group(functio
     Route::get('profile', [StaffController::class, 'profile']);
 });
 
+// MANAGEMENT ROUTES
 Route::middleware(['auth', 'multi-role:admin,staff'])->prefix('management')->group(function() {
 
     // USERS RECORDS
