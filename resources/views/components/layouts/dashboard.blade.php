@@ -36,7 +36,7 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
 
-        @yield('sidebar')
+        @yield('admin-sidebar')
         @yield('member-sidebar')
 
         <!-- Layout container -->

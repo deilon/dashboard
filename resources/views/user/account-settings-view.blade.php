@@ -4,9 +4,15 @@
     Account Settings
 @endsection
 
-@section('sidebar')
-    <x-sidebar/>
-@endsection
+@if(Auth::user()->role == 'admin')
+    @section('admin-sidebar')
+        <x-admin-sidebar/>
+    @endsection
+@elseif(Auth::user()->role == 'member')
+    @section('member-sidebar')
+        <x-member-sidebar/>
+    @endsection
+@endif
 
 @section('navbar-top')
     <x-navbar-top/>
@@ -33,10 +39,10 @@
        <div class="col-md-12">
           <ul class="nav nav-pills flex-column flex-md-row mb-3">
             <li class="nav-item">
-               <a class="nav-link {{ (request()->is('admin/account-settings')) ? 'active' : '' }}" href="{{ url('admin/account-settings') }}"><i class="bx bx-user me-1"></i> Account</a>
+               <a class="nav-link {{ (request()->is('user/account-settings')) ? 'active' : '' }}" href="{{ url('user/account-settings') }}"><i class="bx bx-user me-1"></i> Account</a>
             </li>
             <li class="nav-item">
-               <a class="nav-link {{ (request()->is('admin/change-password')) ? 'active' : '' }}" href="{{ url('admin/change-password') }}"
+               <a class="nav-link {{ (request()->is('user/change-password')) ? 'active' : '' }}" href="{{ url('user/change-password') }}"
                   ><i class="bx bx-lock-alt me-1"></i> Password</a
                   >
             </li>
@@ -66,7 +72,7 @@
              </div>
              <hr class="my-0" />
              <div class="card-body">
-                <form id="formAccountSettings" action="{{ url('admin/profile-update') }}" method="POST" enctype="multipart/form-data">
+                <form id="formAccountSettings" action="{{ url('user/profile-update') }}" method="POST" enctype="multipart/form-data">
                   @csrf
                   @method('PUT')
                    <div class="row">
@@ -130,7 +136,7 @@
              </div>
              <!-- /Account -->
           </div>
-          {{-- <div class="card">
+          <div class="card">
              <h5 class="card-header">Delete Account</h5>
              <div class="card-body">
                 <div class="mb-3 col-12 mb-0">
@@ -147,7 +153,7 @@
                      <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
                 </form>
              </div>
-          </div> --}}
+          </div>
        </div>
     </div>
  </div>

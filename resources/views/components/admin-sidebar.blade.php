@@ -16,12 +16,12 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        {{-- <li class="menu-item {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
+        <li class="menu-item {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
             <a href="{{ url('admin/dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
-        </li> --}}
+        </li>
 
         <!-- Sales Revenue Report -->
         <li class="menu-item {{ (request()->is('admin/sales/month')) || (request()->is('admin/sales/all')) ? 'active' : '' }}">
@@ -51,27 +51,22 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Your account</span>
         </li>
-        <li class="menu-item {{ (request()->is('admin/account-settings')) || (request()->is('admin/change-password')) ? 'active' : '' }}">
+        <li class="menu-item {{ (request()->is('user/account-settings')) || (request()->is('user/change-password')) ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Account settings</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ (request()->is('admin/account-settings')) ? 'active' : '' }}">
-                    <a href="{{ url('admin/account-settings') }}" class="menu-link">
+                <li class="menu-item {{ (request()->is('user/account-settings')) ? 'active' : '' }}">
+                    <a href="{{ url('user/account-settings') }}" class="menu-link">
                         <div data-i18n="Account">Account</div>
                     </a>
                 </li>
-                <li class="menu-item {{ (request()->is('admin/change-password')) ? 'active' : '' }}">
-                    <a href="{{ url('admin/change-password') }}" class="menu-link">
+                <li class="menu-item {{ (request()->is('user/change-password')) ? 'active' : '' }}">
+                    <a href="{{ url('user/change-password') }}" class="menu-link">
                       <div data-i18n="Change Password">Change Password</div>
                     </a>
                 </li>
-                {{-- <li class="menu-item">
-                    <a href="pages-account-settings-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Connections</div>
-                    </a>
-                </li> --}}
             </ul>
         </li>
 

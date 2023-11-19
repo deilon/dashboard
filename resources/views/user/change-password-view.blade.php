@@ -1,12 +1,18 @@
 @extends('components.layouts.dashboard')
 
 @section('title')
-    Account Settings
+    Change Password
 @endsection
 
-@section('sidebar')
-    <x-sidebar/>
-@endsection
+@if(Auth::user()->role == 'admin')
+    @section('admin-sidebar')
+        <x-admin-sidebar/>
+    @endsection
+@elseif(Auth::user()->role == 'member')
+    @section('member-sidebar')
+        <x-member-sidebar/>
+    @endsection
+@endif
 
 @section('navbar-top')
     <x-navbar-top/>
@@ -34,10 +40,10 @@
          <div class="col-md-6">
             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                <li class="nav-item">
-                  <a class="nav-link {{ (request()->is('admin/account-settings')) ? 'active' : '' }}" href="{{ url('admin/account-settings') }}"><i class="bx bx-user me-1"></i> Account</a>
+                  <a class="nav-link {{ (request()->is('user/account-settings')) ? 'active' : '' }}" href="{{ url('user/account-settings') }}"><i class="bx bx-user me-1"></i> Account</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link {{ (request()->is('admin/change-password')) ? 'active' : '' }}" href="{{ url('admin/change-password') }}"
+                  <a class="nav-link {{ (request()->is('user/change-password')) ? 'active' : '' }}" href="{{ url('user/change-password') }}"
                      ><i class="bx bx-lock-alt me-1"></i> Password</a
                      >
                </li>
@@ -55,7 +61,7 @@
                         <p class="mb-0">Please choose a strong, unique password for enhanced security. Do not share it with anyone. Contact support if you have concerns.</p>
                      </div>
                   </div>
-                  <form action="{{ url('admin/change-password') }}" method="POST">
+                  <form action="{{ url('user/change-password') }}" method="POST">
                      @csrf
                      <div class="mb-3">
                         <label for="current_password" class="form-label">Current Password</label>

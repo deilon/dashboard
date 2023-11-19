@@ -27,8 +27,8 @@ use App\Http\Controllers\SalesRevenueController;
 
 Route::get('/', [FrontController::class, 'index']);
 Route::get('home', [FrontController::class, 'index']);
-
 Route::get('announcements', [FrontController::class, 'announcementsPromotions']);
+Route::get('logout', [AuthController::class, 'logout']);
 
 Route::middleware(['guest'])->group(function() {
     // Authentication
@@ -38,17 +38,21 @@ Route::middleware(['guest'])->group(function() {
     Route::post('register', [AuthController::class, 'registerMember'])->name('register');
 });
 
-// Logout for all users role
-Route::get('logout', [AuthController::class, 'logout']);
+// Users Routes
+Route::middleware(['auth'])->prefix('user')->group(function() {
+    Route::get('account-settings', [UserController::class, 'accountSettingsView']);
+    Route::get('change-password', [UserController::class, 'changePasswordView']);
 
+    // All users
+    Route::put('profile-update', [UserController::class, 'updateAccount']);
+    Route::post('change-password', [UserController::class, 'updatePassword']);
+
+});
 
 // Admins routes
 Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'home']);
-    Route::get('account-settings', [AdminController::class, 'accountSettings']);
-    Route::get('change-password', [AdminController::class, 'changePassword']);
-    Route::put('profile-update', [AdminController::class, 'updateProfile']);
-    Route::post('change-password', [AdminController::class, 'updatePassword']);
+
     
     // USERS RECORDS
     Route::get('users-records/{role}', [AdminController::class, 'usersRecords']);
@@ -122,10 +126,7 @@ Route::middleware(['auth', 'user-access:staff'])->prefix('staff')->group(functio
 Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(function () {
     Route::get('dashboard', [MemberController::class, 'home']);
     
-    Route::get('account-settings', [MemberController::class, 'accountSettings']);
-    Route::get('change-password', [MemberController::class, 'changePassword']);
-    Route::put('profile-update', [MemberController::class, 'updateProfile']);
-    Route::post('change-password', [MemberController::class, 'updatePassword']);
+
     
     // Non subscriber access only
     Route::middleware(['auth', 'subscriber-access'])->group(function() {

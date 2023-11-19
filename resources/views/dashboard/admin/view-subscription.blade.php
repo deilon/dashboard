@@ -7,8 +7,8 @@
 
 @endsection
 
-@section('member-sidebar')
-    <x-member-sidebar/>
+@section('admin-sidebar')
+    <x-admin-sidebar/>
 @endsection
 
 @section('navbar-top')

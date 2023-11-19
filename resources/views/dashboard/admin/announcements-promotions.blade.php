@@ -4,8 +4,8 @@
     Announcements and Promotions
 @endsection
 
-@section('sidebar')
-    <x-sidebar/>
+@section('admin-sidebar')
+    <x-admin-sidebar/>
 @endsection
 
 @section('navbar-top')
