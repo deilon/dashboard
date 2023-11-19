@@ -38,7 +38,7 @@ Route::middleware(['guest'])->group(function() {
     Route::post('register', [AuthController::class, 'registerMember'])->name('register');
 });
 
-// Users Routes
+// ========= USERS ROUTES =========
 Route::middleware(['auth'])->prefix('user')->group(function() {
     Route::get('account-settings', [UserController::class, 'accountSettingsView']);
     Route::get('change-password', [UserController::class, 'changePasswordView']);
@@ -49,40 +49,54 @@ Route::middleware(['auth'])->prefix('user')->group(function() {
 
 });
 
-// Admins routes
+// ========= ADMIN ROUTES =========
 Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(function () {
+    // ADMIN DASHBOARD
     Route::get('dashboard', [AdminController::class, 'home']);
 
-    
+    // SALES REVENUE VIEW
+    Route::get('sales/month', [SalesRevenueController::class, 'getCurrentMonth']);
+    Route::get('sales/today', [SalesRevenueController::class, 'getTodaySales']);
+    Route::get('sales/all', [SalesRevenueController::class, 'getAllSales']);
+    Route::get('/sales/search', [SalesRevenueController::class, 'search'])->name('sales.search');
+
+    // SALES REVENUE EXPORT 
+    Route::get('sales/export/this/month', [SalesRevenueController::class, 'salesExportCurrentMonth'])->name('sales.this.month');
+    Route::get('sales/export/today', [SalesRevenueController::class, 'salesExportToday'])->name('sales.today');
+    Route::get('sales/export/all', [SalesRevenueController::class, 'export'])->name('sales.export');
+});
+
+// ========= STAFF ROUTES =========
+Route::middleware(['auth', 'user-access:staff'])->prefix('staff')->group(function () {
+    Route::get('dashboard', [StaffController::class, 'home']);
+    Route::get('profile', [StaffController::class, 'profile']);
+});
+
+Route::middleware(['auth', 'multi-role:admin,staff'])->prefix('management')->group(function() {
+
     // USERS RECORDS
-    Route::get('users-records/{role}', [AdminController::class, 'usersRecords']);
-    Route::get('records/{role}', [AdminController::class, 'adminRecords']);
-    Route::get('subscribers', [AdminController::class, 'subscribers']);
-    
-    // USERS SEARCH
-    Route::get('search/admin', [AdminController::class, 'search'])->name('search.admin');
-
-    // Status update
-    Route::post('status-update', [AdminController::class, 'updateStatus'])->name('update-status');
-
-    // Manage Subscribers
-    Route::post('update-subscription-status', [AdminController::class, 'updateSubscriptionStatus'])->name('update-sub-status');
-    Route::post('update-subscription-trainer', [AdminController::class, 'updateSubscriptionTrainer'])->name('update-trainer');
-    Route::post('remove-trainer', [AdminController::class, 'removeTrainer'])->name('remove-trainer');
-    Route::get('view-subscription/{subscriber_id}', [AdminController::class, 'viewSubscription']);
-
-    Route::post('delete-subscription/{subscription_id}', [SubscriptionController::class, 'deleteSubscription']);
-
-    // View
-    Route::get('view-profile/{user}', [AdminController::class, 'viewProfile']);
-
-    // Delete user 
-    Route::post('delete-user/{user}', [AdminController::class, 'deleteUser']);
+    Route::get('users-records/{role}', [UserController::class, 'usersRecords']);
+    Route::get('records/{role}', [UserController::class, 'adminRecords']);
+    Route::get('subscribers', [SubscriptionController::class, 'subscribers']);
+    Route::post('status-update', [UserController::class, 'updateStatus'])->name('update-status');
 
     // STAFF MANAGE
-    Route::get('users/{role}', [AdminController::class, 'staffRecords']);
+    Route::get('users/{role}', [StaffController::class, 'staffRecords']);
     Route::post('create/staff', [StaffController::class, 'createStaff'])->name('create.staff');
     Route::post('update/staff', [StaffController::class, 'updateStaff'])->name('update.staff');
+    
+    // MANAGE GYM SUBSCRIBERS
+    Route::post('update-subscription-status', [SubscriptionController::class, 'updateSubscriptionStatus'])->name('update-sub-status');
+    Route::post('update-subscription-trainer', [SubscriptionController::class, 'updateSubscriptionTrainer'])->name('update-trainer');
+    Route::post('remove-trainer', [AdminController::class, 'removeTrainer'])->name('remove-trainer');
+    Route::get('view-subscription/{subscriber_id}', [SubscriptionController::class, 'viewSubscription']);
+    Route::post('delete-subscription/{subscription_id}', [SubscriptionController::class, 'deleteSubscription']);
+
+    // VIEW PROFILE
+    Route::get('view-profile/{user}', [UserController::class, 'viewProfile']);
+
+    // DELETE USER 
+    Route::post('delete-user/{user}', [AdminController::class, 'deleteUser']);
 
     // SUBSCRIPTION ARRANGEMENTS
     Route::get('subscription-arrangements', [SubscriptionArrangementController::class, 'subscriptionArrangements']);
@@ -103,30 +117,12 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::post('announcements-promotions', [AnnouncementsPromotionsController::class, 'create'])->name('create.ap');
     Route::post('update-ap', [AnnouncementsPromotionsController::class, 'update'])->name('update.ap');
     Route::post('delete-ap/{ap_id}', [AnnouncementsPromotionsController::class, 'delete'])->name('delete.ap');
-
-    // SALES REVENUE VIEW
-    Route::get('sales/month', [SalesRevenueController::class, 'getCurrentMonth']);
-    Route::get('sales/today', [SalesRevenueController::class, 'getTodaySales']);
-    Route::get('sales/all', [SalesRevenueController::class, 'getAllSales']);
-    Route::get('/sales/search', [SalesRevenueController::class, 'search'])->name('sales.search');
-
-    // SALES REVENUE EXPORT 
-    Route::get('sales/export/this/month', [SalesRevenueController::class, 'salesExportCurrentMonth'])->name('sales.this.month');
-    Route::get('sales/export/today', [SalesRevenueController::class, 'salesExportToday'])->name('sales.today');
-    Route::get('sales/export/all', [SalesRevenueController::class, 'export'])->name('sales.export');
 });
 
-// Staff routes
-Route::middleware(['auth', 'user-access:staff'])->prefix('staff')->group(function () {
-    Route::get('dashboard', [StaffController::class, 'home']);
-    Route::get('profile', [StaffController::class, 'profile']);
-});
-
-// Members routes
+// ========= MEMBERS ROUTES =========
 Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(function () {
+    // Members Dashboard
     Route::get('dashboard', [MemberController::class, 'home']);
-    
-
     
     // Non subscriber access only
     Route::middleware(['auth', 'subscriber-access'])->group(function() {

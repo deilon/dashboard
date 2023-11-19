@@ -12,6 +12,10 @@
     @section('member-sidebar')
         <x-member-sidebar/>
     @endsection
+@elseif(Auth::user()->role == 'staff')
+   @section('staff-sidebar')
+      <x-staff-sidebar/>
+   @endsection
 @endif
 
 @section('navbar-top')

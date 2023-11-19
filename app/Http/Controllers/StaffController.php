@@ -20,6 +20,9 @@ class StaffController extends Controller
         return view('staff.profile');
     }
 
+    /**
+     * Create Staff
+     */
     public function createStaff(Request $request) {
         $request->validate([
             'email' => ['required', 'email', 'max:255', 'unique:users'],
@@ -43,6 +46,9 @@ class StaffController extends Controller
         return redirect()->back()->with('success', 'Staff successfully created.');
     }
 
+    /**
+     * Update staff record
+     */
     public function updateStaff(Request $request) {
         $request->validate([
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($request->staffId)],
@@ -62,4 +68,14 @@ class StaffController extends Controller
         $user->save();
         return redirect()->back()->with('success', 'Staff successfully created.');
     }
+
+    /**
+     * Get Staff records
+     */
+    public function staffRecords($role) {
+        $data['users'] = User::where('role', $role)->paginate(10);
+        $data['role'] = $role;
+        return view('management.staff-records', $data);
+    }
+
 }

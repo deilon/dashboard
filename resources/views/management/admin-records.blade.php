@@ -1,12 +1,18 @@
 @extends('components.layouts.dashboard')
 
 @section('title')
-    {{ ucfirst($role) }} Records
+    Admin Records
 @endsection
 
-@section('admin-sidebar')
-    <x-admin-sidebar/>
-@endsection
+@if(Auth::user()->role == 'admin')
+    @section('admin-sidebar')
+        <x-admin-sidebar/>
+    @endsection
+@elseif(Auth::user()->role == 'staff')
+   @section('staff-sidebar')
+      <x-staff-sidebar/>
+   @endsection
+@endif
 
 @section('navbar-top')
     <x-navbar-top/>
@@ -21,7 +27,7 @@
     <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
         <div class="toast-header">
             <i class='bx bx-bell me-2'></i>
-        <div class="me-auto fw-semibold">User update</div>
+        <div class="me-auto fw-semibold">Admin update</div>
             <small>1 sec ago</small>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -31,18 +37,18 @@
     </div>
     <!-- Toast with Placements -->
 
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Users Records /</span> {{ ucfirst($role) }}</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Users Records /</span> Admin</h4>
 
       <!-- Hoverable Table rows -->
       <div class="card">
-         <h5 class="card-header">Users Records</h5>
+         <h5 class="card-header">Admin Records</h5>
          <div class="table-responsive text-nowrap">
             {{-- <div class="row mb-4 mx-2">
                 <div class="col border-top border-bottom">
                     <div class="text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
                         <div class="py-3">
                             <label>
-                                <input type="search" class="form-control" placeholder="Search..">
+                                <input type="search" class="form-control" id="searchAdmin" name="searchAdmin" placeholder="Search..">
                             </label>
                         </div>
                         <div class="py-3"> 
@@ -64,7 +70,7 @@
                      <th>Action</th>
                   </tr>
                </thead>
-               <tbody class="table-border-bottom-0">
+               <tbody class="table-border-bottom-0" id="allData">
                   @foreach ($users as $user)
                      <tr class="user-record-row-{{ $user->id }}">
                         <td><img src="{{ $user->photo ? asset('storage/assets/img/avatars/'. $user->photo) : asset('storage/assets/img/avatars/default.jpg') }}" class="rounded" width="25" height="25" alt="user photo"></td>
@@ -98,10 +104,10 @@
                            <div class="dropdown position-static">
                               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                               <div class="dropdown-menu position-absolute">
-                                 <a class="dropdown-item" href="{{ url('admin/view-profile/'.$user->id) }}">View</a>
+                                 <a class="dropdown-item" href="{{ url('management/view-profile/'.$user->id) }}">View</a>
                                  @if(Auth::user()->id != $user->id && $role != 'admin')
                                     <a class="dropdown-item cursor-pointer suspend-user" data-status="suspended" data-user="{{ $user->id }}" data-route-url="{{ route('update-status') }}">Suspend</a>
-                                    <a class="dropdown-item cursor-pointer delete-user-btn" data-user="{{ $user->id }}" data-route-url="{{ url('admin/delete-user/'.$user->id) }}">Delete</a>
+                                    <a class="dropdown-item cursor-pointer delete-user-btn" data-user="{{ $user->id }}" data-route-url="{{ url('management/delete-user/'.$user->id) }}">Delete</a>
                                  @endif
                               </div>
                            </div>

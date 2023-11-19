@@ -4,9 +4,15 @@
     Gym Subscribers
 @endsection
 
-@section('admin-sidebar')
-    <x-admin-sidebar/>
-@endsection
+@if(Auth::user()->role == 'admin')
+    @section('admin-sidebar')
+        <x-admin-sidebar/>
+    @endsection
+@elseif(Auth::user()->role == 'staff')
+   @section('staff-sidebar')
+      <x-staff-sidebar/>
+   @endsection
+@endif
 
 @section('navbar-top')
     <x-navbar-top/>
@@ -118,8 +124,8 @@
                         </td>
                         <td>
                             <div class="d-inline-block text-nowrap">
-                                <a class="btn btn-sm btn-icon delete-subscription-btn" data-subscription-id="{{ $subscription->id }}" data-route-url="{{ url('admin/delete-subscription/'.$subscription->id) }}"><i class="bx bx-trash"></i></a>
-                                <a href="{{ url('admin/view-subscription/'.$subscription->user->id) }}" class="btn btn-sm btn-icon" target="_blank"><i class="bx bx-show me-2"></i></a>
+                                <a class="btn btn-sm btn-icon delete-subscription-btn" data-subscription-id="{{ $subscription->id }}" data-route-url="{{ url('management/delete-subscription/'.$subscription->id) }}"><i class="bx bx-trash"></i></a>
+                                <a href="{{ url('management/view-subscription/'.$subscription->user->id) }}" class="btn btn-sm btn-icon" target="_blank"><i class="bx bx-show me-2"></i></a>
                             </div>
                         </td>
                     </tr>

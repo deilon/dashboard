@@ -37,6 +37,7 @@
       <div class="layout-container">
 
         @yield('admin-sidebar')
+        @yield('staff-sidebar')
         @yield('member-sidebar')
 
         <!-- Layout container -->

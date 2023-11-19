@@ -7,9 +7,15 @@
 
 @endsection
 
-@section('admin-sidebar')
-    <x-admin-sidebar/>
-@endsection
+@if(Auth::user()->role == 'admin')
+    @section('admin-sidebar')
+        <x-admin-sidebar/>
+    @endsection
+@elseif(Auth::user()->role == 'staff')
+   @section('staff-sidebar')
+      <x-staff-sidebar/>
+   @endsection
+@endif
 
 @section('navbar-top')
     <x-navbar-top/>

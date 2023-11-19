@@ -14,7 +14,7 @@ class AnnouncementsPromotionsController extends Controller
 {
     public function index() {
         $data['aps'] = AnnouncementsPromotion::orderBy('created_at', 'desc')->get();
-        return view('admin.announcements-promotions', $data);
+        return view('management.announcements-promotions', $data);
     }
 
     public function create(Request $request) {
@@ -54,7 +54,7 @@ class AnnouncementsPromotionsController extends Controller
         $ap->user()->associate($user);
         $ap->save();
         // redirect
-        return redirect('admin/announcements-promotions')->with('success', 'You have successfully added new Announcement/Promotion.');
+        return redirect('management/announcements-promotions')->with('success', 'You have successfully added new Announcement/Promotion.');
     }
 
     public function update(Request $request) {
@@ -91,7 +91,7 @@ class AnnouncementsPromotionsController extends Controller
         $ap->user()->associate($user);
         $ap->save();
         // redirect
-        return redirect('admin/announcements-promotions')->with('success', 'You have successfully updated Announcement/Promotion.');
+        return redirect('management/announcements-promotions')->with('success', 'You have successfully updated Announcement/Promotion.');
     }
 
     public function delete($ap_id) {

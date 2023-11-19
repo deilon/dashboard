@@ -4,9 +4,15 @@
     Staff Records
 @endsection
 
-@section('admin-sidebar')
-    <x-admin-sidebar/>
-@endsection
+@if(Auth::user()->role == 'admin')
+    @section('admin-sidebar')
+        <x-admin-sidebar/>
+    @endsection
+@elseif(Auth::user()->role == 'staff')
+   @section('staff-sidebar')
+      <x-staff-sidebar/>
+   @endsection
+@endif
 
 @section('navbar-top')
     <x-navbar-top/>
@@ -126,10 +132,10 @@
                               <button type="button" class="btn p-0" data-bs-toggle="offcanvas" data-bs-target="#editStaff{{ $user->id }}" aria-controls="editStaff{{ $user->id }}"><i class="bx bx-edit"></i></button>
                               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                               <div class="dropdown-menu position-absolute">
-                                 <a class="dropdown-item" href="{{ url('admin/view-profile/'.$user->id) }}">View</a>
+                                 <a class="dropdown-item" href="{{ url('management/view-profile/'.$user->id) }}">View</a>
                                  @if(Auth::user()->id != $user->id && $role != 'admin')
                                     <a class="dropdown-item cursor-pointer suspend-user" data-status="suspended" data-user="{{ $user->id }}" data-route-url="{{ route('update-status') }}">Suspend</a>
-                                    <a class="dropdown-item cursor-pointer delete-user-btn" data-user="{{ $user->id }}" data-route-url="{{ url('admin/delete-user/'.$user->id) }}">Delete</a>
+                                    <a class="dropdown-item cursor-pointer delete-user-btn" data-user="{{ $user->id }}" data-route-url="{{ url('management/delete-user/'.$user->id) }}">Delete</a>
                                  @endif
                               </div>
                            </div>

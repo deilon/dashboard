@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+use App\Models\Subscription;
+use App\Models\SubscriptionTier;
 
 class UserController extends Controller
 {
@@ -103,6 +106,80 @@ class UserController extends Controller
     
         return redirect()->back()->with('success', 'Password updated successfully.');
     }
+
+    /**
+     * Get Admin records
+     */
+    public function adminRecords($role) {
+        $data['users'] = User::where('role', $role)->paginate(10);
+        $data['role'] = $role;
+        return view('management.admin-records', $data);
+    }
+
+    /**
+     * Get user records by role
+     */
+    public function usersRecords($role) {
+        $data['users'] = User::where('role', $role)->paginate(10);
+        $data['role'] = $role;
+        return view('management.users-records', $data);
+    }
+
+    /**
+     * Update user status
+     */
+    public function updateStatus(Request $request)
+    {  
+        $status = $request->input('status');
+        $user = User::find($request->input('user_id'));
+        if(!$user) {
+            return response()->json([
+                'message' => 'We can\'t find that user'
+            ]); 
+        }
+
+        $user->status = $status;
+        $user->save();
+
+        return response()->json([
+            'message' => 'Status for <strong>'.$user->firstname.' '.$user->lastname.'</strong> successfully udpated.'
+        ]); 
+    }
+
+
+    /**
+     * View user profile
+     */
+    public function viewProfile($user_id) {
+        $data['user'] = User::find($user_id);
+        
+        // Check if user is subscribed
+        $subscription = Subscription::where('user_id', $user_id)
+                        ->where(function ($query) {
+                            $query->where('status', 'active')
+                                ->orWhere('status', 'pending');
+                        })
+                        ->first();
+        $data['subscription'] = $subscription;
+        if($subscription) {
+            $current_date = date('Y-m-d');
+            $start_timestamp = strtotime($subscription->start_date);
+            $end_timestamp = strtotime($subscription->end_date);
+            $current_timestamp = strtotime($current_date);
+            $data['total_days'] = ($end_timestamp - $start_timestamp) / (60 * 60 * 24);
+            $data['days_elapsed'] = ($current_timestamp - $start_timestamp) / (60 * 60 * 24);
+            $data['percentage_completed'] = ($data['days_elapsed'] / $data['total_days']) * 100;
+    
+            $data['start_date'] = Carbon::parse($subscription->start_date);
+            $data['end_date']= Carbon::parse($subscription->end_date);
+            $data['tier'] = SubscriptionTier::where('id', $subscription->subscription_tier_id)->first();
+    
+            return view('management.view-profile', $data);
+        }
+
+        return view('management.view-profile', $data);
+    }
+
 
     /**
      * Log the user out of the application.

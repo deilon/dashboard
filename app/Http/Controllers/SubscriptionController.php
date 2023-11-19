@@ -15,6 +15,7 @@ use App\Models\Gcash;
 use App\Models\CreditCard;
 use App\Models\ManualPayment;
 use App\Models\Sale;
+use App\Models\User;
 
 class SubscriptionController extends Controller
 {
@@ -159,7 +160,109 @@ class SubscriptionController extends Controller
 
     }
 
+    /**
+     * Get all subscriptions
+     */
+    public function subscribers() {
+        $data['subscriptions'] = Subscription::paginate(10);
+        $data['staffs'] = User::where('role', 'staff')->where('status', 'active')->get();
+        return view('management.subscribers', $data);
+    }
 
+    /**
+     * Update subscription trainer
+     */
+    public function updateSubscriptionTrainer(Request $request) {
+        $staffId = $request->input('staff');
+        $subscriptionId = $request->input('subscription_id');
+        $subscriberId = $request->input('subscriber_id');
+
+        $staff = User::find($staffId);
+        $subscription = Subscription::find($subscriptionId);
+        $subscriber = User::find($subscriberId);
+        if(!$subscription) {
+            return response()->json([
+                'message' => 'We can\'t find the subscription'
+            ]); 
+        }
+        
+        $staffImageUrl = $staff->photo ? asset('storage/assets/img/avatars/'.$staff->photo) : asset('storage/assets/img/avatars/default.jpg');
+        $staffName = ucwords($staff->firstname.' '.$staff->lastname);
+        $subscription->staff_assigned_id = $staffId;
+        $subscription->save();
+
+        return response()->json([
+            'message' => 'Assigned Staff/Trainer for <strong>'.ucwords($subscriber->firstname.' '.$subscriber->lastname).'</strong> successfully udpated.',
+            'staffImageUrl' => $staffImageUrl,
+            'staffName' => $staffName
+        ]); 
+    }
+
+    /**
+     * 
+     * Update Subscription Status
+     */
+    public function updateSubscriptionStatus(Request $request) {
+        $status = $request->input('status');
+        $subscriptionId = $request->input('subscription');
+        $subscription = Subscription::find($subscriptionId);
+        $subscriber = User::find($request->subscriber_id);
+        if(!$subscription) {
+            return response()->json([
+                'message' => 'We can\'t find that subscription'
+            ]); 
+        }
+
+        $subscription->status = $status;
+        $subscription->save();
+
+        return response()->json([
+            'message' => 'Subscription status for <strong>'.ucwords($subscriber->firstname.' '.$subscriber->lastname).'</strong> successfully udpated.'
+        ]);         
+    }
+
+    /**
+     * View subscription
+     */
+    public function viewSubscription($subscriber_id) {
+        $subscription = Subscription::where('user_id', $subscriber_id)->first();
+        $data['subscription'] = $subscription;
+        if($subscription) {
+            $current_date = date('Y-m-d');
+            $start_timestamp = strtotime($subscription->start_date);
+            $end_timestamp = strtotime($subscription->end_date);
+            $current_timestamp = strtotime($current_date);
+            $data['total_days'] = ($end_timestamp - $start_timestamp) / (60 * 60 * 24);
+            $data['days_elapsed'] = ($current_timestamp - $start_timestamp) / (60 * 60 * 24);
+            $data['percentage_completed'] = ($data['days_elapsed'] / $data['total_days']) * 100;
+    
+            $data['start_date'] = Carbon::parse($subscription->start_date);
+            $data['end_date']= Carbon::parse($subscription->end_date);
+    
+            
+            $data['tier'] = SubscriptionTier::where('id', $subscription->subscription_tier_id)->first();
+            $data['user'] = Auth::user();
+
+            $data['assigned_staff'] = User::find($subscription->staff_assigned_id);
+
+            if($subscription->payment_option == 'credit card') {
+                $data['creditCard'] = CreditCard::where('subscription_id', $subscription->id)->first();
+            } else if ($subscription->payment_option == 'gcash') {
+                $data['gCash'] = Gcash::where('subscription_id', $subscription->id)->first();
+            } else if ($subscription->payment_option == 'manual payment') {
+                $data['manualPayment'] = ManualPayment::where('subscription_id', $subscription->id)->first();
+            }
+
+
+            return view('management.view-subscription', $data);
+        }
+
+        return view('management.view-subscription', $data);
+    }
+
+    /**
+     * Delete subscription
+     */
     public function deleteSubscription($subscription_id) {
         $subscription = Subscription::find($subscription_id);
         if(!$subscription) {

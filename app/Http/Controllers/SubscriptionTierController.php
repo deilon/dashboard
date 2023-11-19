@@ -13,7 +13,7 @@ class SubscriptionTierController extends Controller
     public function index($arrangement_id) {
         $data['arrangement'] = SubscriptionArrangement::find($arrangement_id);
         $data['tiers'] = SubscriptionTier::where('subscription_arrangement_id', $arrangement_id)->orderBy('duration')->get();
-        return view('admin.subscription-arrangement-tiers', $data);
+        return view('management.subscription-arrangement-tiers', $data);
     }
 
     public function create(Request $request) {

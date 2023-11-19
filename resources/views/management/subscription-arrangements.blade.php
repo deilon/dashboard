@@ -4,9 +4,15 @@
     Subscription Arrangements
 @endsection
 
-@section('admin-sidebar')
-    <x-admin-sidebar/>
-@endsection
+@if(Auth::user()->role == 'admin')
+    @section('admin-sidebar')
+        <x-admin-sidebar/>
+    @endsection
+@elseif(Auth::user()->role == 'staff')
+   @section('staff-sidebar')
+      <x-staff-sidebar/>
+   @endsection
+@endif
 
 @section('navbar-top')
     <x-navbar-top/>
@@ -129,7 +135,7 @@
                             <div class="dropdown position-static">
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                                 <div class="dropdown-menu position-absolute">
-                                    <a href="{{ url('admin/packages/sub-plan/'.$arrangement->id) }}" class="dropdown-item cursor-pointer" target="_blank"><i class="bx bx-cog me-2"></i> Manage Arrangement</a>
+                                    <a href="{{ url('management/packages/sub-plan/'.$arrangement->id) }}" class="dropdown-item cursor-pointer" target="_blank"><i class="bx bx-cog me-2"></i> Manage Arrangement</a>
                                     <button class="dropdown-item cursor-pointer" data-bs-toggle="modal" data-bs-target="#arrangementEditModal{{ $arrangement->id }}"><i class="bx bx-edit"></i> Edit Arrangement</button>
                                     @if($arrangement->id != 1) 
                                         <button class="dropdown-item cursor-pointer" data-bs-toggle="modal" data-bs-target="#deleteArrangementModal{{ $arrangement->id }}"><i class="bx bx-trash"></i> Delete Arrangement</button>

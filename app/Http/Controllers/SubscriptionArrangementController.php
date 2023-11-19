@@ -19,9 +19,13 @@ class SubscriptionArrangementController extends Controller
         return view('member.packages', $data);
     }
 
+    /**
+     * 
+     * List of subscription arrangements
+     */
     public function subscriptionArrangements() {
         $data['subscriptionArrangements'] = SubscriptionArrangement::paginate(10);
-        return view('admin.subscription-arrangements', $data);
+        return view('management.subscription-arrangements', $data);
     }
 
     public function addArrangement(Request $request) {
