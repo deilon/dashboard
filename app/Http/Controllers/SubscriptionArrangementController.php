@@ -16,12 +16,12 @@ class SubscriptionArrangementController extends Controller
         $activeSubscriptionArrangement = SubscriptionArrangement::where('status', 'active')->first();
         $data['tiers'] = SubscriptionTier::where('subscription_arrangement_id', $activeSubscriptionArrangement->id)->orderBy('duration')->get();
         $data['subscriptionArrangement'] = $activeSubscriptionArrangement;
-        return view('dashboard.member.packages', $data);
+        return view('member.packages', $data);
     }
 
     public function subscriptionArrangements() {
         $data['subscriptionArrangements'] = SubscriptionArrangement::paginate(10);
-        return view('dashboard.admin.subscription-arrangements', $data);
+        return view('admin.subscription-arrangements', $data);
     }
 
     public function addArrangement(Request $request) {

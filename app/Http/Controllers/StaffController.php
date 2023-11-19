@@ -13,11 +13,11 @@ use App\Models\User;
 class StaffController extends Controller
 {
     public function home() {
-        return view('dashboard.staff.home');
+        return view('staff.home');
     }
 
     public function profile() {
-        return view('dashboard.staff.profile');
+        return view('staff.profile');
     }
 
     public function createStaff(Request $request) {

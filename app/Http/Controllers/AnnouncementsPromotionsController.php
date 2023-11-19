@@ -14,7 +14,7 @@ class AnnouncementsPromotionsController extends Controller
 {
     public function index() {
         $data['aps'] = AnnouncementsPromotion::orderBy('created_at', 'desc')->get();
-        return view('dashboard.admin.announcements-promotions', $data);
+        return view('admin.announcements-promotions', $data);
     }
 
     public function create(Request $request) {

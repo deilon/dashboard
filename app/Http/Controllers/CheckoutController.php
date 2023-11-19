@@ -17,6 +17,6 @@ class CheckoutController extends Controller
         $data['subscription_arrangement'] = SubscriptionArrangement::find($subscriptionArrangementId);
         $data['tier_id'] = $tier_id;
         $data['tier_name'] = SubscriptionTier::find($tier_id)->tier_name;
-       return view('dashboard.member.checkout', $data);
+       return view('member.checkout', $data);
    }
 }

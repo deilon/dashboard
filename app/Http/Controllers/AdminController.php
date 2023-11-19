@@ -21,31 +21,31 @@ use App\Models\ManualPayment;
 class AdminController extends Controller
 {
     public function home() {
-        return view('dashboard.admin.home');
+        return view('admin.home');
     }
 
     public function adminRecords($role) {
         $data['users'] = User::where('role', $role)->paginate(10);
         $data['role'] = $role;
-        return view('dashboard.admin.admin-records', $data);
+        return view('admin.admin-records', $data);
     }
 
     public function usersRecords($role) {
         $data['users'] = User::where('role', $role)->paginate(10);
         $data['role'] = $role;
-        return view('dashboard.admin.users-records', $data);
+        return view('admin.users-records', $data);
     }
 
     public function staffRecords($role) {
         $data['users'] = User::where('role', $role)->paginate(10);
         $data['role'] = $role;
-        return view('dashboard.admin.staff-records', $data);
+        return view('admin.staff-records', $data);
     }
 
     public function subscribers() {
         $data['subscriptions'] = Subscription::paginate(10);
         $data['staffs'] = User::where('role', 'staff')->where('status', 'active')->get();
-        return view('dashboard.admin.subscribers', $data);
+        return view('admin.subscribers', $data);
     }
 
     public function updateSubscriptionTrainer(Request $request) {
@@ -143,10 +143,10 @@ class AdminController extends Controller
             }
 
 
-            return view('dashboard.admin.view-subscription', $data);
+            return view('admin.view-subscription', $data);
         }
 
-        return view('dashboard.member.view-subscription', $data);
+        return view('member.view-subscription', $data);
     }
 
     public function updateStatus(Request $request)
@@ -191,10 +191,10 @@ class AdminController extends Controller
             $data['end_date']= Carbon::parse($subscription->end_date);
             $data['tier'] = SubscriptionTier::where('id', $subscription->subscription_tier_id)->first();
     
-            return view('dashboard.admin.view-profile', $data);
+            return view('admin.view-profile', $data);
         }
 
-        return view('dashboard.admin.view-profile', $data);
+        return view('admin.view-profile', $data);
     }
 
     public function deleteUser($user_id) {

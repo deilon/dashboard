@@ -22,11 +22,11 @@ use App\Models\ManualPayment;
 class MemberController extends Controller
 {
     public function home() {
-        return view('dashboard.member.home');
+        return view('member.home');
     }
 
     public function packages() {
-        return view('dashboard.member.packages');
+        return view('member.packages');
     }
 
 
@@ -60,10 +60,10 @@ class MemberController extends Controller
             }
 
 
-            return view('dashboard.member.membership-details', $data);
+            return view('member.membership-details', $data);
         }
 
-        return view('dashboard.member.membership-details', $data);
+        return view('member.membership-details', $data);
     }
 
 }

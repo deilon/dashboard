@@ -22,20 +22,20 @@ class SalesRevenueController extends Controller
         $data['total'] = Sale::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
             ->sum('amount');
-        return view('dashboard.admin.sales-month', $data);
+        return view('admin.sales-month', $data);
     }
 
     public function getTodaySales() {
         $today = Carbon::now()->toDateString();
         $data['sales'] = Sale::whereDate('created_at', $today)->orderBy('amount', 'desc')->paginate(15);
         $data['total'] = Sale::whereDate('created_at', $today)->sum('amount');
-        return view('dashboard.admin.sales-today', $data);
+        return view('admin.sales-today', $data);
     }
 
     public function getAllSales() {
         $data['sales'] = Sale::orderBy('amount', 'desc')->paginate(15);
         $data['total'] = Sale::sum('amount');
-        return view('dashboard.admin.sales-all', $data);
+        return view('admin.sales-all', $data);
     }
 
     public function export() {
