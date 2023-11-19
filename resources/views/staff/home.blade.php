@@ -21,11 +21,11 @@
              <div class="d-flex align-items-end row">
                 <div class="col-sm-7">
                    <div class="card-body">
-                      <h5 class="card-title text-primary">Welcom to your Dashboard {{ ucwords(Auth::user()->firstname.' '.Auth::user()->lastname) }} 🚀</h5>
-                      <p class="mb-4">
+                      <h5 class="card-title text-primary">Welcome to your Dashboard {{ ucwords(Auth::user()->firstname.' '.Auth::user()->lastname) }} 🚀</h5>
+                      {{-- <p class="mb-4">
                          You are here. Task completed <span class="fw-bold">72%</span> by your staff today.
                       </p>
-                      <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Logs</a>
+                      <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Logs</a> --}}
                    </div>
                 </div>
                 {{-- <div class="col-sm-5 text-center text-sm-left">
