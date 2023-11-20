@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Models\Subscription;
 use App\Models\SubscriptionTier;
 use App\Models\SubscriptionArrangement;
+use App\Models\Sale;
 use App\Models\CreditCard;
 use App\Models\Gcash;
 use App\Models\ManualPayment;
@@ -21,7 +22,20 @@ use App\Models\ManualPayment;
 class AdminController extends Controller
 {
     public function home() {
-        return view('admin.home');
+        // Subscriptions / Sales Data
+        $today = Carbon::now()->toDateString();
+        $data['monthly_sales_total'] = Sale::whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->sum('amount');
+        $data['daily_sales_total'] = Sale::whereDate('created_at', $today)->sum('amount');
+        $data['monthly_pending_subscriptions_amount'] = Subscription::whereYear('created_at', now()->year)
+                                                ->whereMonth('created_at', now()->month)
+                                                ->where('status', 'pending')
+                                                ->sum('amount_paid');
+
+        // Registered Users Data
+        $now = Carbon::now();
+        $data['registered_today'] = User::where('role', 'member')->whereDate('created_at', $now->toDateString())->count();
+
+        return view('admin.home', $data);
     }
 
     public function removeTrainer(Request $request) {

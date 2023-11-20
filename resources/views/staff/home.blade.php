@@ -1,7 +1,7 @@
 @extends('components.layouts.dashboard')
 
 @section('title')
-    Staff Dashboard
+    Admin Dashboard
 @endsection
 
 @section('staff-sidebar')
@@ -15,128 +15,154 @@
 @section('content')
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="row">
-       <div class="col mb-4 order-0">
-          <div class="card">
-             <div class="d-flex align-items-end row">
-                <div class="col-sm-7">
-                   <div class="card-body">
-                      <h5 class="card-title text-primary">Welcome to your Dashboard {{ ucwords(Auth::user()->firstname.' '.Auth::user()->lastname) }} 🚀</h5>
-                      {{-- <p class="mb-4">
-                         You are here. Task completed <span class="fw-bold">72%</span> by your staff today.
-                      </p>
-                      <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Logs</a> --}}
-                   </div>
-                </div>
-                {{-- <div class="col-sm-5 text-center text-sm-left">
-                   <div class="card-body pb-0 px-0 px-md-4">
-                      <img src="{{ asset('storage/assets/img/illustrations/man-with-laptop-light.png') }}" height="140" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png"/>
-                   </div>
-                </div> --}}
-             </div>
-          </div>
-       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-lg-6 col-md-4 order-1">
-         <div class="row">
-            <div class="col-lg-6 col-md-12 col-6 mb-4">
-               <div class="card">
-                  <div class="card-body">
-                     <div class="card-title d-flex align-items-start justify-content-between">
-                        <div class="avatar flex-shrink-0">
-                           <img src="{{ asset('storage/assets/img/icons/unicons/paypal.png') }}" alt="Credit Card" class="rounded" />
-                        </div>
-                        <div class="dropdown">
-                           <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                             <i class="bx bx-dots-vertical-rounded"></i>
-                           </button>
-                           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                              <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                              <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                           </div>
-                        </div>
-                     </div>
-                     <span class="fw-semibold d-block mb-1">Profit</span>
-                     <h3 class="card-title mb-2">P12,628</h3>
-                     {{-- <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +72.80%</small> --}}
-                  </div>
-               </div>
+   <!-- LAYER 1 -->
+   <div class="card bg-transparent shadow-none border-0 my-4">
+      <div class="card-body row p-0 pb-3">
+         <div class="col-12 col-md-8">
+            <h3>Welcome back, {{ ucwords( Auth::user()->firstname.' '.Auth::user()->lastname ) }} 👋🏻 </h3>
+            <div class="col-12 col-lg-7 ">
+               <p>Overview and Real-Time Insights.</p>
             </div>
-            <div class="col-lg-6 col-md-12 col-6 mb-4">
-               <div class="card">
-                  <div class="card-body">
-                     <div class="card-title d-flex align-items-start justify-content-between">
-                        <div class="avatar flex-shrink-0">
-                           <img src="{{ asset('storage/assets/img/icons/unicons/wallet-info.png') }}" alt="Credit Card" class="rounded"/>
-                        </div>
-                        <div class="dropdown">
-                           <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                           </button>
-                           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                              <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                              <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                           </div>
-                        </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- LAYER 2 -->
+   <div class="card mb-4">
+      <div class="card-widget-separator-wrapper">
+         <div class="card-body card-widget-separator">
+            <div class="row gy-4 gy-sm-1">
+               <div class="col-sm-6 col-lg-4">
+                  <div class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
+                     <div>
+                        <h3 class="mb-1">{{ App\Models\Subscription::where('status', 'active')->count() }}</h3>
+                        <p class="mb-0">Active Gym <br/>Subscribers</p>
                      </div>
-                     <span class="fw-semibold d-block mb-1">Sales</span>
-                     <h3 class="card-title text-nowrap mb-1">P4,679</h3>
-                     {{-- <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small> --}}
+                     <div class="avatar me-sm-4">
+                        <span class="avatar-initial rounded bg-label-secondary">
+                        <i class="bx bx-user bx-sm"></i>
+                        </span>
+                     </div>
+                  </div>
+                  <hr class="d-none d-sm-block d-lg-none me-4">
+               </div>
+               <div class="col-sm-6 col-lg-4">
+                  <div class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-3 pb-sm-0">
+                     <div>
+                        <h3 class="mb-1">{{ App\Models\Subscription::where('status', 'pending')->count() }}</h3>
+                        <p class="mb-0">Pending Gym <br/>Subscribers</p>
+                     </div>
+                     <div class="avatar me-lg-4">
+                        <span class="avatar-initial rounded bg-label-secondary">
+                        <i class="bx bx-user-voice bx-sm"></i>
+                        </span>
+                     </div>
+                  </div>
+                  <hr class="d-none d-sm-block d-lg-none">
+               </div>
+               <div class="col-sm-6 col-lg-4">
+                  <div class="d-flex justify-content-between align-items-start pb-3 pb-sm-0 card-widget-3">
+                     <div>
+                        <h3 class="mb-1">{{ App\Models\Subscription::where('status', 'expired')->count() }}</h3>
+                        <p class="mb-0">Expired Gym <br> Subscriptions</p>
+                     </div>
+                     <div class="avatar me-sm-4">
+                        <span class="avatar-initial rounded bg-label-secondary">
+                        <i class="bx bx-user-x bx-sm"></i>
+                        </span>
+                     </div>
                   </div>
                </div>
             </div>
          </div>
       </div>
-      <div class="col-6 mb-4">
+   </div>
+
+   <!-- LAYER 3 -->
+   <div class="row g-4 mb-4 mt-4">
+      <div class="col-sm-6 col-xl-3">
          <div class="card">
             <div class="card-body">
-               <div class="card-title d-flex align-items-start justify-content-between">
-                  <div class="avatar flex-shrink-0">
-                     <img src="{{ asset('storage/assets/img/icons/unicons/chart-success.png') }}" alt="chart success" class="rounded" />
-                  </div>
-                  <div class="dropdown">
-                     <button class="btn p-0" type="button" id="cardOpt4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                        <i class="bx bx-dots-vertical-rounded"></i>
-                     </button>
-                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                        <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+               <div class="d-flex align-items-start justify-content-between">
+                  <div class="content-left">
+                     <span>Registered</span>
+                     <div class="d-flex align-items-end mt-2">
+                        <h4 class="mb-0 me-2">{{ App\Models\User::where('role', 'member')->count() }}</h4>
+                        <small class="text-success">(+{{ $registered_today }})</small>
                      </div>
+                     <p class="mb-0">Total Users</p>
+                  </div>
+                  <div class="avatar">
+                     <span class="avatar-initial rounded bg-label-primary">
+                     <i class="bx bx-user bx-sm"></i>
+                     </span>
                   </div>
                </div>
-               <span class="fw-semibold d-block mb-1">Registered Users</span>
-               <h3 class="card-title text-nowrap mb-2">190</h3>
-               {{-- <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small> --}}
             </div>
          </div>
       </div>
-
-      <div class="col-6 mb-4">
+      <div class="col-sm-6 col-xl-3">
          <div class="card">
             <div class="card-body">
-               <div class="card-title d-flex align-items-start justify-content-between">
-                  <div class="avatar flex-shrink-0">
-                     <img src="{{ asset('storage/assets/img/icons/unicons/cc-primary.png') }}" alt="Credit Card" class="rounded" />
-                  </div>
-                  <div class="dropdown">
-                     <button class="btn p-0" type="button" id="cardOpt1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                        <i class="bx bx-dots-vertical-rounded"></i>
-                     </button>
-                     <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                        <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+               <div class="d-flex align-items-start justify-content-between">
+                  <div class="content-left">
+                     <span>Active Users</span>
+                     <div class="d-flex align-items-end mt-2">
+                        <h4 class="mb-0 me-2">{{ App\Models\User::where('role', 'member')->where('status', 'active')->count() }}</h4>
                      </div>
+                     <p class="mb-0">&nbsp;</p>
+                  </div>
+                  <div class="avatar">
+                     <span class="avatar-initial rounded bg-label-success">
+                     <i class="bx bx-user-check bx-sm"></i>
+                     </span>
                   </div>
                </div>
-               <span class="fw-semibold d-block mb-1">Membership</span>
-               <h3 class="card-title mb-2">102</h3>
-               {{-- <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small> --}}
             </div>
          </div>
       </div>
-    </div>
+      <div class="col-sm-6 col-xl-3">
+         <div class="card">
+            <div class="card-body">
+               <div class="d-flex align-items-start justify-content-between">
+                  <div class="content-left">
+                     <span>Inactive Users</span>
+                     <div class="d-flex align-items-end mt-2">
+                        <h4 class="mb-0 me-2">{{ App\Models\User::where('role', 'member')->where('status', 'inactive')->count() }}</h4>
+                     </div>
+                     <p class="mb-0">&nbsp;</p>
+                  </div>
+                  <div class="avatar">
+                     <span class="avatar-initial rounded bg-label-warning">
+                     <i class="bx bx-user-minus bx-sm"></i>
+                     </span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-sm-6 col-xl-3">
+         <div class="card">
+            <div class="card-body">
+               <div class="d-flex align-items-start justify-content-between">
+                  <div class="content-left">
+                     <span>Suspended Users</span>
+                     <div class="d-flex align-items-end mt-2">
+                        <h4 class="mb-0 me-2">{{ App\Models\User::where('role', 'member')->where('status', 'suspended')->count() }}</h4>
+                     </div>
+                     <p class="mb-0">&nbsp;</p>
+                  </div>
+                  <div class="avatar">
+                     <span class="avatar-initial rounded bg-label-danger">
+                     <i class="bx bx-user-x bx-sm"></i>
+                     </span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 
  </div>
  <!-- / Content -->

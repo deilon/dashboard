@@ -6,14 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Models\User;
+use App\Models\Sale;
+use App\Models\Subscription;
 
 class StaffController extends Controller
 {
     public function home() {
-        return view('staff.home');
+        // Registered Users Data
+        $now = Carbon::now();
+        $data['registered_today'] = User::where('role', 'member')->whereDate('created_at', $now->toDateString())->count();
+
+        return view('staff.home', $data);
     }
 
     public function profile() {
