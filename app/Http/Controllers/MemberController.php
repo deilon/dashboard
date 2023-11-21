@@ -231,9 +231,19 @@ class MemberController extends Controller
      * Trainer Progress View
      */
     public function trainerProgress() {
-        $data['progressWeeks'] = ProgressWeek::where('user_id', Auth::user()->id)->orderBy('week_number', 'desc')->get();
+        $memberSubscription = Subscription::where('user_id', Auth::user()->id)->first();
+        // $trainerSubscriptions = Subscription::where('staff_assigned_id', $memberSubscription->staff_assigned_id)->get();
+        $data['progressWeeks'] = ProgressWeek::where('user_id', $memberSubscription->staff_assigned_id)->get();
+        
+        
         $data['user'] = Auth::user();
         return view('member.trainer-progress', $data);
+    }
+
+    public function staticTrainerWeek($wkProgressId) {
+        $data['weekProgress'] = ProgressWeek::find($wkProgressId);
+        $data['days'] = ProgressDay::where('progress_week_id', $wkProgressId)->orderBy('day_number', 'asc')->get();
+        return view('member.static-trainer-weeks', $data);
     }
 
 

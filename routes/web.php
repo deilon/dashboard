@@ -160,6 +160,7 @@ Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(funct
     Route::post('day/complete/{day_id}', [MemberController::class, 'dayComplete']);
 
     Route::get('trainer-progress-view', [MemberController::class, 'trainerProgress']);
+    Route::get('static-trainer-week/{week_id}', [MemberController::class, 'staticTrainerWeek']);
 
     // Non subscriber access only
     Route::middleware(['auth', 'subscriber-access'])->group(function() {
