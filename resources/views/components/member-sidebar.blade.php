@@ -24,7 +24,7 @@
         </li>
 
         <!-- Fitness Progress -->
-        <li class="menu-item">
+        <li class="menu-item {{ (request()->is('member/my-progress')) ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-run"></i>
                 <div data-i18n="Fitness Progress">Fitness Progress</div>
@@ -35,8 +35,8 @@
                         <div data-i18n="Trainer progress">Trainer Progress</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="" class="menu-link">
+                <li class="menu-item {{ (request()->is('member/my-progress')) ? 'active' : '' }}">
+                    <a href="{{ url('member/my-progress') }}" class="menu-link">
                         <div data-i18n="My progress">My progress</div>
                     </a>
                 </li>

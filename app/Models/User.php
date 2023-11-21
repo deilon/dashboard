@@ -72,6 +72,11 @@ class User extends Authenticatable
         return $this->hasMany(AnnouncementPromotions::class);
     }
 
+    public function progressWeek(): HasMany 
+    {
+        return $this->hasMany(ProgressWeek::class);
+    }
+
     /**
      * Interact with the user's role name.
      *

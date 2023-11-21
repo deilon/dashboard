@@ -128,9 +128,22 @@ Route::middleware(['auth', 'multi-role:admin,staff'])->prefix('management')->gro
 Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(function () {
     // Members Dashboard
     Route::get('dashboard', [MemberController::class, 'home']);
+
+    // Fitness Progress
     Route::get('my-progress', [MemberController::class, 'myProgress']);
     Route::get('my-weekly-progress/{week_id}', [MemberController::class, 'myWeeklyProgress']);
-    
+    Route::post('create-progress-week', [MemberController::class, 'createProgressWeek'])->name('create.progress.week');
+    Route::post('edit-progress-week', [MemberController::class, 'updateProgressWeek'])->name('update.progress.week');
+    Route::post('delete-progress-week/{week_id}', [MemberController::class, 'deleteProgressWeek'])->name('delete.progress.week');
+
+    Route::post('create-day-progress', [MemberController::class, 'createDayProgress'])->name('create.day');
+    Route::post('edit-day-progress', [MemberController::class, 'updateDayProgress'])->name('update.day');
+    Route::post('delete-day-progress/{day_id}', [MemberController::class, 'deleteDayProgress'])->name('delete.day');
+    Route::post('create-day-task', [MemberController::class, 'createDayTask'])->name('create.task');
+    Route::post('delete-day-task/{task_id}', [MemberController::class, 'deleteDayTask'])->name('delete.task');
+
+    Route::post('day/complete/{day_id}', [MemberController::class, 'dayComplete']);
+
     // Non subscriber access only
     Route::middleware(['auth', 'subscriber-access'])->group(function() {
         // Checkout
