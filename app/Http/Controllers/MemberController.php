@@ -29,6 +29,26 @@ class MemberController extends Controller
         return view('member.packages');
     }
 
+    /**
+     * Show to unsubscribed users
+     */
+    public function unavailableFitnessProgress() {
+        return view('member.default-manage-fitness-view');
+    }
+
+    /**
+     * My progress
+     */
+    public function myProgress() {
+        return view('member.my-progress');
+    }
+
+    /**
+     * View/Edit My Weekly progress
+     */
+    public function myWeeklyProgress() {
+        return view('member.my-weekly-progress-view');
+    }
 
     public function membershipDetails() {
         $subscription = Subscription::where('user_id', Auth::user()->id)->first();

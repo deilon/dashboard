@@ -23,8 +23,8 @@ class StaffController extends Controller
         return view('staff.home', $data);
     }
 
-    public function profile() {
-        return view('staff.profile');
+    public function manageFitnessView() {
+        return view('staff.manage-fitness');
     }
 
     /**

@@ -73,7 +73,7 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
 // ========= STAFF ROUTES =========
 Route::middleware(['auth', 'user-access:staff'])->prefix('staff')->group(function () {
     Route::get('dashboard', [StaffController::class, 'home']);
-    Route::get('profile', [StaffController::class, 'profile']);
+    Route::get('manage-fitness', [StaffController::class, 'manageFitnessView']);
 });
 
 // MANAGEMENT ROUTES
@@ -128,6 +128,8 @@ Route::middleware(['auth', 'multi-role:admin,staff'])->prefix('management')->gro
 Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(function () {
     // Members Dashboard
     Route::get('dashboard', [MemberController::class, 'home']);
+    Route::get('my-progress', [MemberController::class, 'myProgress']);
+    Route::get('my-weekly-progress/{week_id}', [MemberController::class, 'myWeeklyProgress']);
     
     // Non subscriber access only
     Route::middleware(['auth', 'subscriber-access'])->group(function() {
@@ -136,6 +138,9 @@ Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(funct
 
         // Subscription
         Route::post('subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+
+        // Default fitness mgr view
+        Route::get('must-subscribe-fitness-progress', [MemberController::class, 'unavailableFitnessProgress']);
     });
 
     // Availables Subscription Plan & Packages

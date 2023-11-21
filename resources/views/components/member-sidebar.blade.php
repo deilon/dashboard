@@ -23,36 +23,25 @@
             </a>
         </li>
 
-        <!-- Layouts -->
-        {{-- <li class="menu-item">
+        <!-- Fitness Progress -->
+        <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-run"></i>
-                <div data-i18n="Layouts">Fitness Progress</div>
+                <div data-i18n="Fitness Progress">Fitness Progress</div>
             </a>
-
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="layouts-without-menu.html" class="menu-link">
-                        <div data-i18n="Without menu">Today</div>
+                    <a href="" class="menu-link">
+                        <div data-i18n="Trainer progress">Trainer Progress</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="layouts-without-navbar.html" class="menu-link">
-                        <div data-i18n="Without navbar">Completed</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="layouts-container.html" class="menu-link">
-                        <div data-i18n="Container">Queues</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="layouts-container.html" class="menu-link">
-                        <div data-i18n="Container">All</div>
+                    <a href="" class="menu-link">
+                        <div data-i18n="My progress">My progress</div>
                     </a>
                 </li>
             </ul>
-        </li> --}}
+        </li>
 
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Your account</span>
