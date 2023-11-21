@@ -23,6 +23,14 @@
             </a>
         </li>
 
+        <!-- Fitness Progress -->
+        <li class="menu-item {{ (request()->is('staff/trainer-progress-view'))  ? 'active' : '' }}">
+            <a href="{{ url('staff/trainer-progress-view') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-run"></i>
+                <div data-i18n="Fitness Progress">Fitness Progress</div>
+            </a>
+        </li>
+
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Your account</span>
         </li>

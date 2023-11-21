@@ -74,6 +74,22 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
 Route::middleware(['auth', 'user-access:staff'])->prefix('staff')->group(function () {
     Route::get('dashboard', [StaffController::class, 'home']);
     Route::get('manage-fitness', [StaffController::class, 'manageFitnessView']);
+
+    // Fitness Progress
+    Route::get('trainer-progress-view', [StaffController::class, 'trainerProgress']);
+    Route::get('my-weekly-progress/{week_id}', [StaffController::class, 'myWeeklyProgress']);
+    Route::post('create-progress-week', [StaffController::class, 'createProgressWeek'])->name('staff.create.progress.week');
+    Route::post('edit-progress-week', [StaffController::class, 'updateProgressWeek'])->name('staff.update.progress.week');
+    Route::post('delete-progress-week/{week_id}', [StaffController::class, 'deleteProgressWeek'])->name('staff.delete.progress.week');
+
+    Route::post('create-day-progress', [StaffController::class, 'createDayProgress'])->name('staff.create.day');
+    Route::post('edit-day-progress', [StaffController::class, 'updateDayProgress'])->name('staff.update.day');
+    Route::post('delete-day-progress/{day_id}', [StaffController::class, 'deleteDayProgress'])->name('staff.delete.day');
+    Route::post('create-day-task', [StaffController::class, 'createDayTask'])->name('staff.create.task');
+    Route::post('delete-day-task/{task_id}', [StaffController::class, 'deleteDayTask'])->name('staff.delete.task');
+    Route::post('day/complete/{day_id}', [StaffController::class, 'dayComplete']);
+
+    Route::get('trainer-progress-view', [StaffController::class, 'trainerProgress']);
 });
 
 // MANAGEMENT ROUTES

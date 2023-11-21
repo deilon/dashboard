@@ -55,7 +55,7 @@ class MemberController extends Controller
      */
     public function myWeeklyProgress($wkProgressId) {
         $data['weekProgress'] = ProgressWeek::find($wkProgressId);
-        $data['days'] = ProgressDay::where('progress_week_id', $wkProgressId)->get();
+        $data['days'] = ProgressDay::where('progress_week_id', $wkProgressId)->orderBy('day_number', 'asc')->get();
         $data['user'] = Auth::user();
         return view('member.my-weekly-progress-view', $data);
     }

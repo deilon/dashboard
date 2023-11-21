@@ -1,7 +1,7 @@
 @extends('components.layouts.dashboard')
 
 @section('title')
-    Admin Dashboard
+    Staff Dashboard
 @endsection
 
 @section('staff-sidebar')

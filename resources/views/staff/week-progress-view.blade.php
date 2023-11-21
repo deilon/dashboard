@@ -11,8 +11,8 @@
  </style>
 @endsection
 
-@section('member-sidebar')
-    <x-member-sidebar/>
+@section('staff-sidebar')
+    <x-staff-sidebar/>
 @endsection
 
 @section('navbar-top')
@@ -24,17 +24,17 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
        <!-- Toast with Placements -->
-       <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
-         <div class="toast-header">
-            <i class='bx bx-bell me-2'></i>
-         <div class="me-auto fw-semibold">Progress Week update</div>
-            <small>1 sec ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-         </div>
-         <div class="toast-body">
-            <span id="status-message">Null</span>
-         </div>
-      </div>
+        <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+            <div class="toast-header">
+                <i class='bx bx-bell me-2'></i>
+            <div class="me-auto fw-semibold">Progress Week update</div>
+                <small>1 sec ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <span id="status-message">Null</span>
+            </div>
+        </div>
       <!-- Toast with Placements -->
 
     {{-- Alerts for form --}}
@@ -58,9 +58,18 @@
       </div>
     @endif
    
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">My Weekly Fitness Progress /</span> {{ ucwords($weekProgress->week_title) }}</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Progress Week / View /</span> {{ ucwords($weekProgress->week_title) }}</h4>
     <p>Here you can add Days and Tasks to Weekly Fitness Progress.</p>
 
+    @php
+        $totalSubscriptions = App\Models\Subscription::where('staff_assigned_id', Auth::user()->id)->get();
+        $subscriptions3 = App\Models\Subscription::where('staff_assigned_id', Auth::user()->id)->take(3)->get();
+        $trainerMembers = [];
+
+        foreach($subscriptions3 as $subscription) {
+            $trainerMembers[] = App\Models\User::find($subscription->user_id);
+        }
+    @endphp
     <div class="row g-4">
         <div class="col-xl-4 col-lg-6 col-md-6">
             <div class="card">
@@ -68,15 +77,22 @@
                    <div class="d-flex justify-content-between mb-2">
                       <h6 class="fw-normal">Total 1 user</h6>
                       <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
-                        @if($user->photo)
-                           <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-sm pull-up" aria-label="{{ ucwords($user->firstname.' '.$user->lastname) }}" data-bs-original-title="{{ ucwords($user->firstname.' '.$user->lastname) }}">
-                              <img class="rounded-circle" src="{{ asset('storage/assets/img/avatars/'.$user->photo) }}" alt="Avatar">
-                           </li>
-                        @else
-                           <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-sm pull-up" aria-label="{{ ucwords($user->firstname.' '.$user->lastname) }}" data-bs-original-title="{{ ucwords($user->firstname.' '.$user->lastname) }}">
-                              <img class="rounded-circle" src="{{ asset('storage/assets/img/avatars/default.jpg') }}" alt="Avatar">
-                           </li>
-                        @endif
+                        @foreach($trainerMembers as $trainerMember)
+                            @if($trainerMember->photo)
+                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-sm pull-up" aria-label="{{ ucwords($trainerMember->firstname.' '.$trainerMember->lastname) }}" data-bs-original-title="{{ ucwords($trainerMember->firstname.' '.$trainerMember->lastname) }}">
+                                    <img class="rounded-circle" src="{{ asset('storage/assets/img/avatars/'.$trainerMember->photo) }}" alt="Avatar">
+                                </li>
+                            @else
+                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-sm pull-up" aria-label="{{ ucwords($trainerMember->firstname.' '.$trainerMember->lastname) }}" data-bs-original-title="{{ ucwords($trainerMember->firstname.' '.$trainerMember->lastname) }}">
+                                    <img class="rounded-circle" src="{{ asset('storage/assets/img/avatars/default.jpg') }}" alt="Avatar">
+                                </li>
+                            @endif
+                        @endforeach
+                        @if($totalSubscriptions->count() > 3)
+                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-sm pull-up" aria-label="Plus {{ $totalSubscriptions->count() - 3 }} other members" data-bs-original-title="Plus {{ $totalSubscriptions->count() - 3 }} other members">
+                                <img class="rounded-circle" src="{{ asset('storage/assets/img/avatars/default.jpg') }}" alt="Avatar">
+                            </li>
+                        @endif()
                       </ul>
                    </div>
                    <div class="d-flex justify-content-between align-items-end">
@@ -96,8 +112,8 @@
             <div id="accordionIcon" class="accordion accordion-without-arrow">
                @foreach($days as $day)
                   <div class="accordion-item card" id="dayItem{{ $day->id }}">
-                     <h2 class="accordion-header text-body d-flex justify-content-between align-items-center" id="accordionIcon{{ $day->id }}">
-                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionIcon-{{ $day->id }}" aria-controls="accordionIcon-{{ $day->id }}">
+                     <h2 class="accordion-header text-body d-flex justify-content-between align-items-center" id="accordionIcon{{$day->id}}">
+                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionIcon-{{$day->id}}" aria-controls="accordionIcon-{{$day->id}}">
                            <input class="form-check-input me-2 align-self-start day-check" name="status" data-day="{{ $day->id }}" type="checkbox" value="completed" {{ $day->status == 'completed' ? 'checked' : '' }}>
                            <div class="flex-grow-1">
                               {{ ucfirst($day->day_title) }}
@@ -109,17 +125,17 @@
                            </div>
                         </button>
                      </h2>
-                     <div id="accordionIcon-{{ $day->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionIcon">
+                     <div id="accordionIcon-{{$day->id}}" class="accordion-collapse collapse" data-bs-parent="#accordionIcon">
                         <div class="accordion-body clearfix">
                            @php
                                $dayTasks = App\Models\ProgressDayTask::where('progress_day_id', $day->id)->get();
                            @endphp
                            <div class="list-group list-group-flush" id="listGroup{{ $day->id }}">
                               @foreach($dayTasks as $task)
-                                 <span id="taskItem{{ $task->id }}" class="list-group-item list-group-item-action">{{ ucfirst($task->task_title) }} <a class="cursor-pointer float-end d-none delete-task" data-task="{{ $task->id }}" data-route-url="{{ url('member/delete-day-task/'.$task->id) }}"><i class="bx bx-trash"></i></a></span>
+                                 <span id="taskItem{{ $task->id }}" class="list-group-item list-group-item-action">{{ ucfirst($task->task_title) }} <a class="cursor-pointer float-end d-none delete-task" data-task="{{ $task->id }}" data-route-url="{{ url('staff/delete-day-task/'.$task->id) }}"><i class="bx bx-trash"></i></a></span>
                               @endforeach
                            </div>
-                           <input class="form-control task-input" type="text" data-day="{{ $day->id }}" data-route-url="{{ route('create.task') }}" placeholder="Day 1 task entry">
+                           <input class="form-control task-input" type="text" data-day="{{ $day->id }}" data-route-url="{{ route('staff.create.task') }}" placeholder="Day 1 task entry">
                         </div>
                      </div>
                   </div>
@@ -129,7 +145,7 @@
                      <div class="modal fade" id="editDayModal{{ $day->id }}" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-sm" role="document">
                            <div class="modal-content">
-                              <form action="{{ route('update.day') }}" method="POST">
+                              <form action="{{ route('staff.update.day') }}" method="POST">
                                  @csrf
                                  <div class="modal-header">
                                     <h5 class="modal-title">Edit Day Progress</h5>
@@ -184,7 +200,7 @@
                                  </div>
                                  <div class="modal-footer">
                                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-danger delete-day" data-day="{{ $day->id }}" data-route-url="{{ url('member/delete-day-progress/'.$day->id) }}">Delete</button>
+                                    <button type="button" class="btn btn-danger delete-day" data-day="{{ $day->id }}" data-route-url="{{ url('staff/delete-day-progress/'.$day->id) }}">Delete</button>
                                  </div>
                               </div>
                         </div>
@@ -200,7 +216,7 @@
     <div class="modal fade" id="createDayModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-sm" role="document">
          <div class="modal-content">
-            <form action="{{ route('create.day') }}" method="POST">
+            <form action="{{ route('staff.create.day') }}" method="POST">
                @csrf
                <div class="modal-header">
                   <h5 class="modal-title">Create Progress Day</h5>
@@ -353,7 +369,7 @@ $(document).ready(function(){
       }
 
       $.ajax({
-         url: "{{ url('member/day/complete') }}/" + dayCheckId,
+         url: "{{ url('staff/day/complete') }}/" + dayCheckId,
          type: 'POST',
          data: {status: dayCheckVal},
          headers: {
