@@ -141,8 +141,9 @@ Route::middleware(['auth', 'user-access:member'])->prefix('member')->group(funct
     Route::post('delete-day-progress/{day_id}', [MemberController::class, 'deleteDayProgress'])->name('delete.day');
     Route::post('create-day-task', [MemberController::class, 'createDayTask'])->name('create.task');
     Route::post('delete-day-task/{task_id}', [MemberController::class, 'deleteDayTask'])->name('delete.task');
-
     Route::post('day/complete/{day_id}', [MemberController::class, 'dayComplete']);
+
+    Route::get('trainer-progress-view', [MemberController::class, 'trainerProgress']);
 
     // Non subscriber access only
     Route::middleware(['auth', 'subscriber-access'])->group(function() {

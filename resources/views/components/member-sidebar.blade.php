@@ -24,14 +24,14 @@
         </li>
 
         <!-- Fitness Progress -->
-        <li class="menu-item {{ (request()->is('member/my-progress')) ? 'active' : '' }}">
+        <li class="menu-item {{ (request()->is('member/my-progress')) || (request()->is('member/trainer-progress-view'))  ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-run"></i>
                 <div data-i18n="Fitness Progress">Fitness Progress</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="" class="menu-link">
+                <li class="menu-item {{ (request()->is('member/trainer-progress-view')) ? 'active' : '' }}">
+                    <a href="{{ url('member/trainer-progress-view') }}" class="menu-link">
                         <div data-i18n="Trainer progress">Trainer Progress</div>
                     </a>
                 </li>

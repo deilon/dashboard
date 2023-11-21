@@ -225,6 +225,18 @@ class MemberController extends Controller
         return redirect()->back()->with('success', 'Progress Week Updated Successfully.');
     }
 
+
+    /**
+     * 
+     * Trainer Progress View
+     */
+    public function trainerProgress() {
+        $data['progressWeeks'] = ProgressWeek::where('user_id', Auth::user()->id)->orderBy('week_number', 'desc')->get();
+        $data['user'] = Auth::user();
+        return view('member.trainer-progress', $data);
+    }
+
+
     /**
      * 
      * View Membership Details
