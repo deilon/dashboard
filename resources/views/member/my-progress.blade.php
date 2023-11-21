@@ -84,11 +84,11 @@
                       <h6 class="fw-normal">Total 1 user</h6>
                       <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
                         @if($user->photo)
-                           <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-sm pull-up" aria-label="Vinnie Mostowy" data-bs-original-title="Vinnie Mostowy">
+                           <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-sm pull-up" aria-label="{{ ucwords($user->firstname.' '.$user->lastname) }}" data-bs-original-title="{{ ucwords($user->firstname.' '.$user->lastname) }}">
                               <img class="rounded-circle" src="{{ asset('storage/assets/img/avatars/'.$user->photo) }}" alt="Avatar">
                            </li>
                         @else
-                           <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-sm pull-up" aria-label="Vinnie Mostowy" data-bs-original-title="Vinnie Mostowy">
+                           <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-sm pull-up" aria-label="{{ ucwords($user->firstname.' '.$user->lastname) }}" data-bs-original-title="{{ ucwords($user->firstname.' '.$user->lastname) }}">
                               <img class="rounded-circle" src="{{ asset('storage/assets/img/avatars/default.jpg') }}" alt="Avatar">
                            </li>
                         @endif
