@@ -431,7 +431,6 @@
                                                     <li><a href="pricing.html">Pricing</a></li>
                                                     <li><a href="gallery.html">Gallery</a></li>
                                                     <li><a href="gallery.html">Announcements</a></li>
-                                                    <li><a href="contact.html">Contact</a></li>
                                                 </ul>
                                             </nav>
                                         </div>   
