@@ -9,6 +9,7 @@ use App\Models\Sale;
 use App\Exports\SalesExport;
 use App\Exports\SalesExportCurrentMonth;
 use App\Exports\SalesExportToday;
+use App\Exports\SalesExportMonthPdf;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SalesRevenueController extends Controller
@@ -48,6 +49,10 @@ class SalesRevenueController extends Controller
 
     public function salesExportToday() {
         return Excel::download(new SalesExportToday, 'salesRevenueReport-'.now()->format('D').'.xlsx');
+    }
+
+    public function salesExportMonthPdf() {
+        return Excel::download(new SalesExportCurrentMonth, 'salesRevenueReport-'.now()->format('F-Y').'.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
     public function search(Request $request) {

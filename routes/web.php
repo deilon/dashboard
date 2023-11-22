@@ -68,6 +68,7 @@ Route::middleware(['auth', 'user-access:admin'])->prefix('admin')->group(functio
     Route::get('sales/export/this/month', [SalesRevenueController::class, 'salesExportCurrentMonth'])->name('sales.this.month');
     Route::get('sales/export/today', [SalesRevenueController::class, 'salesExportToday'])->name('sales.today');
     Route::get('sales/export/all', [SalesRevenueController::class, 'export'])->name('sales.export');
+    Route::get('sales/export/this/month/pdf', [SalesRevenueController::class, 'salesExportMonthPdf'])->name('sales.export.pdf.month');
 });
 
 // ========= STAFF ROUTES =========
