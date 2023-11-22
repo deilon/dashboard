@@ -99,12 +99,16 @@
                                         <span class="badge bg-label-success me-1">Active</span>
                                     @elseif($subscription->status == 'pending')
                                         <span class="badge bg-label-warning me-1">Pending</span>
+                                    @elseif($subscription->status == 'expired')
+                                        <span class="badge bg-label-danger me-1">Expired</span>
                                     @endif
                                 </button>
-                                <div class="dropdown-menu position-absolute">
-                                    <a class="dropdown-item cursor-pointer status-item" data-status="active" data-subscription-id="{{ $subscription->id }}" data-subscriber-id="{{ $subscription->user->id }}" data-route-url="{{ route('update-sub-status') }}"><span class="badge bg-label-success me-1">Active</span></a>
-                                    <a class="dropdown-item cursor-pointer status-item" data-status="pending" data-subscription-id="{{ $subscription->id }}" data-subscriber-id="{{ $subscription->user->id }}" data-route-url="{{ route('update-sub-status') }}"><span class="badge bg-label-warning me-1">Pending</span></a>
-                                </div>
+                                @if($subscription->status !== 'expired')
+                                    <div class="dropdown-menu position-absolute">
+                                        <a class="dropdown-item cursor-pointer status-item" data-status="active" data-subscription-id="{{ $subscription->id }}" data-subscriber-id="{{ $subscription->user->id }}" data-route-url="{{ route('update-sub-status') }}"><span class="badge bg-label-success me-1">Active</span></a>
+                                        <a class="dropdown-item cursor-pointer status-item" data-status="pending" data-subscription-id="{{ $subscription->id }}" data-subscriber-id="{{ $subscription->user->id }}" data-route-url="{{ route('update-sub-status') }}"><span class="badge bg-label-warning me-1">Pending</span></a>
+                                    </div>
+                                @endif
                             </div>
                         </td>
                         <td class="text-center">

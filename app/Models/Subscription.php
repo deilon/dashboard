@@ -9,6 +9,22 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Subscription extends Model
 {
     use HasFactory;
+    protected $dates = ['start_date', 'end_date'];
+    public $timestamps = true;
+
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($subscription) {
+            // Check if the end_date has passed
+            if ($subscription->end_date < now()) {
+                $subscription->status = 'expired';
+            }
+        });
+    }
+
     public function subscriptionArrangement()
     {
         return $this->belongsTo(SubscriptionArrangement::class);
