@@ -426,11 +426,11 @@
                                         <div class="main-menu main-menu2 text-center">
                                             <nav>
                                                 <ul>
-                                                    <li><a href="index.html">Home</a></li>
-                                                    <li><a href="about.html">About</a></li>
-                                                    <li><a href="pricing.html">Pricing</a></li>
-                                                    <li><a href="gallery.html">Gallery</a></li>
-                                                    <li><a href="gallery.html">Announcements</a></li>
+                                                    <li><a href="{{ url('/#home') }}">Home</a></li>
+                                                    <li><a href="{{ url('/#about') }}">About</a></li>
+                                                    <li><a href="{{ url('/#pricing') }}">Pricing</a></li>
+                                                    <li><a href="{{ url('/#gallery') }}">Gallery</a></li>
+                                                    <li><a href="{{ url('announcements') }}">Announcements</a></li>
                                                 </ul>
                                             </nav>
                                         </div>   
