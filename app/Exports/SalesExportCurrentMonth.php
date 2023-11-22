@@ -31,6 +31,6 @@ class SalesExportCurrentMonth implements FromView
         $data['total'] = Sale::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
             ->sum('amount');
-        return view('dashboard.xlsx.sales-current-month', $data);
+        return view('xlsx.sales-current-month', $data);
     }
 }

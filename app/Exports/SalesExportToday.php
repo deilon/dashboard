@@ -23,6 +23,6 @@ class SalesExportToday implements FromView
         $today = Carbon::now()->toDateString();
         $data['sales'] = Sale::whereDate('created_at', $today)->orderBy('amount', 'desc')->get();
         $data['total'] = Sale::whereDate('created_at', $today)->sum('amount');
-        return view('dashboard.xlsx.sales-today-file', $data);
+        return view('xlsx.sales-today-file', $data);
     }
 }
