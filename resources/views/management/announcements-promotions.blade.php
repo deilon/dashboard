@@ -164,7 +164,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-danger delete-ap-btn" data-ap="{{ $ap->id }}" data-route-url="{{ url('admin/delete-ap/'.$ap->id) }}">Delete</button>
+                                <button type="button" class="btn btn-danger delete-ap-btn" data-ap="{{ $ap->id }}" data-route-url="{{ url('management/delete-ap/'.$ap->id) }}">Delete</button>
                             </div>
                         </div>
                     </div>
