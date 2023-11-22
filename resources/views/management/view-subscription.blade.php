@@ -40,6 +40,7 @@
     @if($subscription)
     <h4 class="py-3 mb-4"><span class="text-muted fw-light">Membership Details /</span> Regular Subscription Plan</h4>
     <div class="row">
+      <h3>Subscriber name: {{ucwords($subscriber->firstname.' '.$subscriber->lastname)}}</h3>
       <!-- User Sidebar -->
       <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
          <!-- Plan Card -->

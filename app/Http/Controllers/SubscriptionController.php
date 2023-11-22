@@ -244,6 +244,7 @@ class SubscriptionController extends Controller
             $data['user'] = Auth::user();
 
             $data['assigned_staff'] = User::find($subscription->staff_assigned_id);
+            $data['subscriber'] = User::find($subscription->user_id);
 
             if($subscription->payment_option == 'credit card') {
                 $data['creditCard'] = CreditCard::where('subscription_id', $subscription->id)->first();
