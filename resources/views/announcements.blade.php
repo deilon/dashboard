@@ -54,7 +54,6 @@
                                 <li><a href="{{ url('/#pricing') }}">Pricing</a></li>
                                 <li><a href="{{ url('/#gallery') }}">Gallery</a></li>
                                 <li><a href="{{ url('announcements') }}">Announcements</a></li>
-                                <li><a href="{{ url('contact') }}">Contact</a></li>
                             </ul>
                         </nav>
                     </div>          
@@ -193,12 +192,11 @@
                                         <div class="main-menu main-menu2 text-center">
                                             <nav>
                                                 <ul>
-                                                    <li><a href="index.html">Home</a></li>
-                                                    <li><a href="about.html">About</a></li>
-                                                    <li><a href="courses.html">Courses</a></li>
-                                                    <li><a href="pricing.html">Pricing</a></li>
-                                                    <li><a href="gallery.html">Gallery</a></li>
-                                                    <li><a href="contact.html">Contact</a></li>
+                                                    <li><a href="{{ url('/#home') }}">Home</a></li>
+                                                    <li><a href="{{ url('/#about') }}">About</a></li>
+                                                    <li><a href="{{ url('/#pricing') }}">Pricing</a></li>
+                                                    <li><a href="{{ url('/#gallery') }}">Gallery</a></li>
+                                                    <li><a href="{{ url('announcements') }}">Announcements</a></li>
                                                 </ul>
                                             </nav>
                                         </div>   
@@ -222,7 +220,7 @@
                     <div class="col-lg-12">
                         <div class="footer-copy-right text-center">
                             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Created By Group 8
                               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                           </div>
                       </div>

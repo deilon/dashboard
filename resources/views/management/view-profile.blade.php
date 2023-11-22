@@ -37,22 +37,35 @@
                        </div>
                     </div>
                  </div>
-                 <div class="d-flex justify-content-around flex-wrap my-4 py-3">
-                    <div class="d-flex align-items-start me-4 mt-3 gap-3">
-                       <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-check bx-sm'></i></span>
-                       <div>
-                          <h5 class="mb-0">1.23k</h5>
-                          <span>Tasks Done</span>
-                       </div>
-                    </div>
-                    <div class="d-flex align-items-start mt-3 gap-3">
-                       <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-customize bx-sm'></i></span>
-                       <div>
-                          <h5 class="mb-0">568</h5>
-                          <span>Workout done</span>
-                       </div>
-                    </div>
-                 </div>
+                 @php
+                  $totalProgressDayTasks = $user->progressWeek()
+                     ->with('progressDay.progressDayTask') // Eager load relationships
+                     ->get()
+                     ->pluck('progressDay')
+                     ->flatten()
+                     ->pluck('progressDayTask')
+                     ->flatten()
+                     ->count();
+                        $totalProgressWeeks = $user->progressWeek()->count();  
+                  @endphp
+                 @if($user->role == "staff" || $user->role == "member")
+                     <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+                           <div class="d-flex align-items-start me-4 mt-3 gap-3">
+                              <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-check bx-sm'></i></span>
+                              <div>
+                                 <h5 class="mb-0">{{ $totalProgressDayTasks }}</h5>
+                                 <span>Tasks Done</span>
+                              </div>
+                           </div>
+                           <div class="d-flex align-items-start mt-3 gap-3">
+                              <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-customize bx-sm'></i></span>
+                              <div>
+                                 <h5 class="mb-0">{{ $totalProgressWeeks }}</h5>
+                                 <span>Weeks Progress</span>
+                              </div>
+                           </div>
+                        </div>
+                 @endif
                  <h5 class="pb-2 border-bottom mb-4">Details</h5>
                  <div class="info-container">
                     <ul class="list-unstyled">

@@ -58,7 +58,7 @@
                               ->pluck('progressDayTask')
                               ->flatten()
                               ->count();
-                           $totalProgressWeeks = $user->progressWeek()->count();  
+                           $totalProgressWeeks = $countUser->progressWeek()->count();  
                         @endphp
                         <h5 class="mb-0">{{ $totalProgressDayTasks }}</h5>
                         <span>Tasks Done</span>
