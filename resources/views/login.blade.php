@@ -59,7 +59,7 @@
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
-          <!-- Register -->
+          <!-- Login -->
           <div class="card">
             <div class="card-body">
               <!-- Logo -->
@@ -73,6 +73,12 @@
               <!-- /Logo -->
               <h4 class="mb-2">Welcome to Pound For Pound Fitness Gym 👋</h4>
               <p class="mb-4">Please sign-in to your account to start tracking your tasks.</p>
+
+              @if($errors->has('error_login'))
+                  <div class="alert alert-danger" role="alert">
+                      {{ $errors->first('error_login') }}
+                  </div>
+              @endif
 
               <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
                 @csrf

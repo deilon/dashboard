@@ -30,7 +30,9 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
- 
+        // Transform the password to lowercase
+        $credentials['password'] = strtolower($credentials['password']);
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
@@ -47,7 +49,7 @@ class AuthController extends Controller
         //     'email' => 'The provided credentials do not match our records.',
         // ])->onlyInput('email');
         return back()->withErrors([
-            'error_login' => 'Invalid credentials. Please check your username/email and password.',
+            'error_login' => 'Invalid credentials. Please check your email and password.',
         ])->withInput();
     }
 
