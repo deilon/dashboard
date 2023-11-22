@@ -25,9 +25,118 @@
    
     <h4 class="py-3 mb-4"><span class="text-muted fw-light">Progress Week / View /</span> {{ ucwords($weekProgress->week_title) }}</h4>
     <p>This is your Fitness Progress curated by your Trainer. <br> 
-        NOTE: That only your trainer can make changes to this progress.</p>
+        NOTE: That only your trainer can make changes to this progres.</p>
 
     <div class="row g-4">
+
+      @if($assigned_staff)
+      <!-- Trainer details -->
+      <div class="col-xl-4 col-lg-5 col-md-5 order-2 order-md-0">
+         <div class="card mb-4">
+            <div class="card-body">
+               <h5 class="card-title text-center">Trainer Details</h5>
+               <div class="user-avatar-section">
+                  <div class=" d-flex align-items-center flex-column">
+                     <img class="img-fluid rounded my-4" src="{{ $assigned_staff->photo ? asset('storage/assets/img/avatars/'. $assigned_staff->photo) : asset('storage/assets/img/avatars/default.jpg') }}" height="110" width="110" alt="User avatar" />            
+                     <div class="user-info text-center">
+                        <h4 class="mb-2">{{ ucwords($assigned_staff->firstname.' '.$assigned_staff->lastname) }}</h4>
+                        <span class="badge bg-label-secondary">{{ ucfirst($assigned_staff->role) }}</span>
+                     </div>
+                  </div>
+               </div>
+               <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+                  <div class="d-flex align-items-start me-4 mt-3 gap-3">
+                     <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-check bx-sm'></i></span>
+                     <div>
+                        <h5 class="mb-0">1.23k</h5>
+                        <span>Tasks Done</span>
+                     </div>
+                  </div>
+                  <div class="d-flex align-items-start mt-3 gap-3">
+                     <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-customize bx-sm'></i></span>
+                     <div>
+                        <h5 class="mb-0">568</h5>
+                        <span>Workout done</span>
+                     </div>
+                  </div>
+               </div>
+               <h5 class="pb-2 border-bottom mb-4">Details</h5>
+               <div class="info-container">
+                  <ul class="list-unstyled">
+                     <li class="mb-3">
+                        <span class="fw-medium me-2">Email:</span>
+                        <span>{{$user->email}}</span>
+                     </li>
+                     <li class="mb-3">
+                        <span class="fw-medium me-2">Status:</span>
+                        @if($user->status == 'active')
+                           <span class="badge bg-label-success me-1">Active</span>
+                        @elseif($user->status == 'inactive')
+                           <span class="badge bg-label-warning me-1">Inactive</span>
+                        @elseif($user->status == 'disabled')
+                           <span class="badge bg-label-secondary me-1">Disabled</span>
+                        @else
+                           <span class="badge bg-label-warning me-1">Suspended</span>
+                        @endif
+                     </li>
+                     <li class="mb-3">
+                        <span class="fw-medium me-2">Role:</span>
+                        <span>{{$assigned_staff->role}}</span>
+                     </li>
+                     <li class="mb-3">
+                        <span class="fw-medium me-2">Country:</span>
+                        <span>{{ $assigned_staff->country }}</span>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!--/ Trainer Details -->
+      @else
+      <!-- Pending Trainer details -->
+      <div class="col-xl-4 col-lg-5 col-md-5 order-2 order-md-0">
+         <div class="card mb-4">
+            <div class="card-body">
+               <h5 class="card-title text-center">Trainer Details</h5>
+               <div class="user-avatar-section">
+                  <div class=" d-flex align-items-center flex-column">
+                     <img class="img-fluid rounded my-4" src="{{ asset('storage/assets/img/avatars/default.jpg') }}" height="110" width="110" alt="User avatar" />            
+                     <div class="user-info text-center">
+                        <h4 class="mb-2">...</h4>
+                        <span class="badge bg-label-secondary">Trainer / Staff</span>
+                     </div>
+                  </div>
+               </div>
+               <h5 class="pb-2 border-bottom mb-4">Details</h5>
+               <div class="info-container">
+                  <ul class="list-unstyled">
+                     <li class="mb-3">
+                        <span class="fw-medium me-2">Email:</span>
+                        <span>Pending</span>
+                     </li>
+                     <li class="mb-3">
+                        <span class="fw-medium me-2">Status:</span>
+                        <span class="badge bg-label-secondary me-1">Pending</span>
+                     </li>
+                     <li class="mb-3">
+                        <span class="fw-medium me-2">Role:</span>
+                        <span>Trainer / Staff</span>
+                     </li>
+                     <li class="mb-3">
+                        <span class="fw-medium me-2">Country:</span>
+                        <span>Philippines</span>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!--/ Pending Trainer Details -->
+      @endif
+
+
+
         <div class="col-xl-4 col-lg-6 col-md-6">
             <div class="card">
                 <div class="card-body">
