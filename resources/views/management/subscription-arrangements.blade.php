@@ -214,7 +214,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button class="btn btn-danger delete-arrangement-btn" data-arrangement="{{ $arrangement->id }}" data-route-url="{{ url('admin/delete-arrangement/'.$arrangement->id) }}">Delete</a>
+                                    <button class="btn btn-danger delete-arrangement-btn" data-arrangement="{{ $arrangement->id }}" data-route-url="{{ url('management/delete-arrangement/'.$arrangement->id) }}">Delete</a>
                                 </div>
                             </div>
                         </div>
