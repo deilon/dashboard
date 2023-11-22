@@ -279,4 +279,19 @@ class StaffController extends Controller
         return view('management.staff-records', $data);
     }
 
+    public function search(Request $request) {
+        $query = $request->input('query');
+
+        $users = User::where('role', 'staff')
+        ->where(function ($queryBuilder) use ($query) {
+            $queryBuilder->where('firstname', 'like', '%' . $query . '%')
+                ->orWhere('lastname', 'like', '%' . $query . '%')
+                ->orWhere('email', 'like', '%' . $query . '%')
+                ->orWhere('status', 'like', '%' . $query . '%');
+        })
+        ->get();
+
+        return response()->json(['users' => $users]);
+    }
+
 }

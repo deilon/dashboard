@@ -64,7 +64,7 @@
                      </tr>
                   @endforeach
                </tbody>
-               <tbody id="searchData" class="table-border-bottom-0"></tbody>
+               <tbody id="searchData" class="table-border-bottom-0 d-none"></tbody>
                <tfoot class="table-border-bottom-0">
                     <tr>
                         <th class="text-end" colspan="7">Total: <span class="fs-5 text-primary">₱{{ $total }}</span></th>
@@ -161,6 +161,7 @@
 
             if($query) {
                 $("#allData").hide();
+                $('#searchData').removeClass('d-none');
                 $('#searchData').show();
             } else {
                 $("#allData").show();

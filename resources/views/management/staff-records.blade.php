@@ -67,15 +67,15 @@
             <div class="row mb-4 mx-2">
                 <div class="col border-top border-bottom">
                     <div class="text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
-                        {{-- <div class="py-3">
+                        <div class="py-3">
                             <label>
-                                <input type="search" class="form-control" placeholder="Search..">
+                                <input type="search" class="form-control" id="searchStaff" name="searchStaff" placeholder="Search..">
                             </label>
-                        </div> --}}
+                        </div>
                         <div class="py-3"> 
-                            {{-- <button class="btn btn-secondary mx-3" tabindex="0" type="button">
+                            <button class="btn btn-secondary mx-3" tabindex="0" type="button">
                                 <span><i class="bx bx-export me-1"></i>Export</span>
-                            </button>  --}}
+                            </button>
                             <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#createStaff" aria-controls="createStaff">
                                 <span>
                                     <i class="bx bx-plus me-0 me-sm-1"></i>
@@ -97,7 +97,7 @@
                      <th>Action</th>
                   </tr>
                </thead>
-               <tbody class="table-border-bottom-0">
+               <tbody class="table-border-bottom-0" id="allData">
                   @foreach ($users as $user)
                      <tr class="user-record-row-{{ $user->id }}">
                         <td><img src="{{ $user->photo ? asset('storage/assets/img/avatars/'. $user->photo) : asset('storage/assets/img/avatars/default.jpg') }}" class="rounded" width="25" height="25" alt="user photo"></td>
@@ -149,31 +149,31 @@
                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-                        <form action="{{ route('update.staff'); }}" method="POST" class="add-new-staff" id="updateStaffForm">
+                        <form action="{{ route('update.staff'); }}" method="POST" class="add-new-staff" id="updateStaffForm{{$user->id}}">
                             @csrf
                             <div class="mb-3">
-                                <label class="form-label" for="add-staff-firstname">First Name</label>
-                                <input type="text" class="form-control" id="add-staff-firstname" placeholder="John" name="firstName" value="{{ old('firstName', ucwords($user->firstname)) }}" aria-label="John">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control"  placeholder="John" name="firstName" value="{{ old('firstName', ucwords($user->firstname)) }}" aria-label="John">
                                 @error('firstName')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="add-staff-lastname">Last Name</label>
-                                <input type="text" class="form-control" id="add-staff-lastname" placeholder="Doe" name="lastName" value="{{ old('lastName', ucwords($user->lastname)) }}" aria-label="Doe">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" placeholder="Doe" name="lastName" value="{{ old('lastName', ucwords($user->lastname)) }}" aria-label="Doe">
                                 @error('lastName')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="add-staff-email">Email</label>
-                                <input type="text" class="form-control" id="add-staff-email" placeholder="email@example.com" value="{{ old('email', ucwords($user->email)) }}" name="email">
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control" placeholder="email@example.com" value="{{ old('email', ucwords($user->email)) }}" name="email">
                                 @error('email')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="add-staff-password">Password</label>
-                                <input type="password" class="form-control" id="add-staff-password" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;">
                                 @error('password')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="add-staff-password-confirmation">Password Confirmation</label>
-                                <input type="password" class="form-control" id="add-staff-password-confirmation" name="password_confirmation" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;">
+                                <label class="form-label">Password Confirmation</label>
+                                <input type="password" class="form-control" name="password_confirmation" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;">
                                 @error('password_confirmation')<div class="text-danger d-block pt-3">{{ $message }}</div>@enderror
                             </div>
                                 <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
@@ -183,6 +183,8 @@
                     </div>
                                 
                   @endforeach
+               </tbody>
+               <tbody id="searchData" class="table-border-bottom-0 d-none">
                </tbody>
             </table>
          </div>
@@ -285,6 +287,88 @@
 @section('page-js')
 <script src="{{ asset('storage/assets/js/dashboards-analytics.js') }}"></script>
 <script src="{{ asset('storage/assets/js/ui-toasts.js')}} "></script>
+<script>
+    $(document).ready(function () {
+        $('#searchStaff').on('keyup', function () {
+            $query = $(this).val();
+
+            if($query) {
+                $("#allData").hide();
+                $('#searchData').removeClass('d-none');
+                $('#searchData').show();
+            } else {
+                $("#allData").show();
+                $('#searchData').hide();
+            }
+
+            $.ajax({
+                url: '{{ route('staff.search') }}',
+                method: 'get',
+                data: { 'query': $query },
+                success: function (data) {
+                    // Assuming data.users is the array of users returned in the JSON response
+                    var users = data.users;
+
+                    // Clear previous search results
+                    $('#searchData').empty();
+
+                    // Iterate through each user and append the HTML to #searchResults
+                    users.forEach(function (user) {
+                        var userHtml = `
+                        <tr class="user-record-row-{{ $user->id }}">
+                            <td><img src="${user.photo ? '/storage/assets/img/avatars/' + user.photo : '/storage/assets/img/avatars/default.jpg'}" class="rounded" width="25" height="25" alt="user photo"></td>
+                        <td>${user.firstname +' '+ user.lastname}</td>
+                        <td><a class="link-opacity-100" href="mailto:${ user.email }">${ user.email }</a></td>
+                        <td>Staff</td>
+                        <td>
+                            <div class="dropdown position-static">
+                                <button type="button" id="statusBtn${user.id}" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <span class="badge me-1 ${
+                                        user.status === 'active' ? 'bg-label-success' :
+                                        user.status === 'inactive' ? 'bg-label-warning' :
+                                        user.status === 'disabled' ? 'bg-label-secondary' :
+                                        'bg-label-danger'
+                                    }">
+                                        ${
+                                            user.status === 'active' ? 'Active' :
+                                            user.status === 'inactive' ? 'Inactive' :
+                                            user.status === 'disabled' ? 'Disabled' :
+                                            'Suspended'
+                                        }
+                                    </span>
+                                </button>
+                                <div class="dropdown-menu position-absolute">
+                                    <a class="dropdown-item cursor-pointer status-item" data-status="active" data-user="${user.id}" data-route-url="{{ route('update-status') }}"><span class="badge bg-label-success me-1">Active</span></a>
+                                    @if(Auth::user()->id != $user->id && $role != 'admin')
+                                        <a class="dropdown-item cursor-pointer status-item" data-status="inactive" data-user="${user.id}" data-route-url="{{ route('update-status') }}"><span class="badge bg-label-warning me-1">Inactive</span></a>
+                                        <a class="dropdown-item cursor-pointer status-item" data-status="disabled" data-user="${user.id}" data-route-url="{{ route('update-status') }}"><span class="badge bg-label-secondary me-1">Disabled</span></a>
+                                    @endif
+                                </div>
+                            </div>                               
+                        </td>
+                        <td>
+                           <div class="dropdown position-static">
+                              <button type="button" class="btn p-0" data-bs-toggle="offcanvas" data-bs-target="#editStaff${user.id} " aria-controls="editStaff${user.id}"><i class="bx bx-edit"></i></button>
+                              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                              <div class="dropdown-menu position-absolute">
+                                 <a class="dropdown-item" href="{{ url('management/view-profile/${user.id}') }}">View</a>
+                                 @if(Auth::user()->id != $user->id && $role != 'admin')
+                                    <a class="dropdown-item cursor-pointer suspend-user" data-status="suspended" data-user=" ${user.id} " data-route-url="{{ route('update-status') }}">Suspend</a>
+                                    <a class="dropdown-item cursor-pointer delete-user-btn" data-user="{{$user->id}}" data-route-url="{{ url('management/delete-user/'.$user->id) }}">Delete</a>
+                                 @endif
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                        `;
+
+                        $('#searchData').append(userHtml);
+                    });
+                }
+            });
+        });
+    });
+</script>
 <script src="{{ asset('storage/assets/js/custom/users-records.js')}} "></script>
 @endsection
 

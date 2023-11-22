@@ -108,6 +108,7 @@ Route::middleware(['auth', 'multi-role:admin,staff'])->prefix('management')->gro
     Route::get('users/{role}', [StaffController::class, 'staffRecords']);
     Route::post('create/staff', [StaffController::class, 'createStaff'])->name('create.staff');
     Route::post('update/staff', [StaffController::class, 'updateStaff'])->name('update.staff');
+    Route::get('/staff/search', [StaffController::class, 'search'])->name('staff.search');
     
     // MANAGE GYM SUBSCRIBERS
     Route::post('update-subscription-status', [SubscriptionController::class, 'updateSubscriptionStatus'])->name('update-sub-status');

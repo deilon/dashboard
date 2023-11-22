@@ -114,7 +114,7 @@
                      </tr>
                   @endforeach
                </tbody>
-               <tbody id="searchData" class="table-border-bottom-0">
+               <tbody id="searchData" class="table-border-bottom-0 d-none">
                </tbody>
             </table>
          </div>
@@ -183,6 +183,7 @@
 
             if($query) {
                 $("#allData").hide();
+                $('#searchData').removeClass('d-none');
                 $('#searchData').show();
             } else {
                 $("#allData").show();
@@ -196,7 +197,6 @@
                 success: function (data) {
                     // Assuming data.users is the array of users returned in the JSON response
                     var users = data.users;
-                    console.log(data.users);
 
                     // Clear previous search results
                     $('#searchData').empty();
