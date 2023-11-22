@@ -277,7 +277,7 @@
       </div>
     @endif
 
-
+    @if($subscription->payment_option == 'gcash')
       <!-- Gcash Receipt Modal -->
       <div class="modal fade" id="gcashReceiptModal" tabindex="-1" aria-hidden="true">
          <div class="modal-dialog modal-lg" role="document">
@@ -297,6 +297,7 @@
             </div>
          </div>
       </div>
+   @endif
 
  </div>
  <!-- / Content -->

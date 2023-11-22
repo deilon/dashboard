@@ -271,25 +271,27 @@
     @endif
 
 
-   <!-- Gcash Receipt Modal -->
-   <div class="modal fade" id="gcashReceiptModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel3">Image Preview</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <img class="img-fluid d-flex mx-auto my-4 border cursor-pointer" src="{{ asset('storage/assets/img/gcash_receipts/'.$gCash->receipt_photo) }}" alt="Receipt photo">
-            </div>
-            <div class="modal-footer">
-               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                  Close
-               </button>
+    @if($subscription->payment_option == 'gcash')
+      <!-- Gcash Receipt Modal -->
+      <div class="modal fade" id="gcashReceiptModal" tabindex="-1" aria-hidden="true">
+         <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel3">Image Preview</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+                  <img class="img-fluid d-flex mx-auto my-4 border cursor-pointer" src="{{ asset('storage/assets/img/gcash_receipts/'.$gCash->receipt_photo) }}" alt="Receipt photo">
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                     Close
+                  </button>
+               </div>
             </div>
          </div>
       </div>
-   </div>
+   @endif
 
 
 

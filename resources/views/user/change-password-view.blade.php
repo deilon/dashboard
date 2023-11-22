@@ -8,6 +8,10 @@
     @section('admin-sidebar')
         <x-admin-sidebar/>
     @endsection
+@elseif(Auth::user()->role == 'staff')
+    @section('staff-sidebar')
+        <x-staff-sidebar/>
+    @endsection
 @elseif(Auth::user()->role == 'member')
     @section('member-sidebar')
         <x-member-sidebar/>

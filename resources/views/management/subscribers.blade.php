@@ -82,7 +82,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex flex-column">
-                                    <a href="{{ url('admin/view-profile/'.$subscription->user->id) }}" class="text-body text-truncate">
+                                    <a href="{{ url('management/view-profile/'.$subscription->user->id) }}" class="text-body text-truncate">
                                         <span class="fw-medium">{{ ucwords($subscription->user->firstname.' '.$subscription->user->lastname) }}</span>
                                     </a>
                                     <small class="text-muted">{{ $subscription->user->email }}</small>
