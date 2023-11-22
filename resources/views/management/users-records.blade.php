@@ -43,12 +43,12 @@
       <div class="card">
          <h5 class="card-header">Users Records</h5>
          <div class="table-responsive text-nowrap">
-            {{-- <div class="row mb-4 mx-2">
+            <div class="row mb-4 mx-2">
                 <div class="col border-top border-bottom">
                     <div class="text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
                         <div class="py-3">
                             <label>
-                                <input type="search" class="form-control" placeholder="Search..">
+                                <input type="search" class="form-control" id="searchRegistered" name="searchRegistered" placeholder="Search..">
                             </label>
                         </div>
                         <div class="py-3"> 
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
             <table class="table table-hover">
                <thead>
                   <tr>
@@ -70,7 +70,7 @@
                      <th>Action</th>
                   </tr>
                </thead>
-               <tbody class="table-border-bottom-0">
+               <tbody class="table-border-bottom-0" id="allData">
                   @foreach ($users as $user)
                      <tr class="user-record-row-{{ $user->id }}">
                         <td><img src="{{ $user->photo ? asset('storage/assets/img/avatars/'. $user->photo) : asset('storage/assets/img/avatars/default.jpg') }}" class="rounded" width="25" height="25" alt="user photo"></td>
@@ -115,6 +115,7 @@
                      </tr>
                   @endforeach
                </tbody>
+               <tbody id="searchData" class="table-border-bottom-0 d-none">
             </table>
          </div>
       </div>
@@ -174,5 +175,86 @@
 @section('page-js')
 <script src="{{ asset('storage/assets/js/dashboards-analytics.js') }}"></script>
 <script src="{{ asset('storage/assets/js/ui-toasts.js')}} "></script>
+<script>
+    $(document).ready(function () {
+        $('#searchRegistered').on('keyup', function () {
+            $query = $(this).val();
+
+            if($query) {
+                $("#allData").hide();
+                $('#searchData').removeClass('d-none');
+                $('#searchData').show();
+            } else {
+                $("#allData").show();
+                $('#searchData').hide();
+            }
+
+            $.ajax({
+                url: '{{ route('registered.search') }}',
+                method: 'get',
+                data: { 'query': $query },
+                success: function (data) {
+                    // Assuming data.users is the array of users returned in the JSON response
+                    var users = data.users;
+
+                    // Clear previous search results
+                    $('#searchData').empty();
+
+                    // Iterate through each user and append the HTML to #searchResults
+                    users.forEach(function (user) {
+                        var userHtml = `
+                        <tr class="user-record-row-{{ $user->id }}">
+                            <td><img src="${user.photo ? '/storage/assets/img/avatars/' + user.photo : '/storage/assets/img/avatars/default.jpg'}" class="rounded" width="25" height="25" alt="user photo"></td>
+                            <td>${user.firstname+' '+user.lastname}</td>
+                            <td><a class="link-opacity-100" href="mailto:${user.email}">${user.email}</a></td>
+                            <td>Member</td>
+                            <td>
+                                <div class="dropdown position-static">
+                                    <button type="button" id="statusBtn{{ $user->id }}" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                        <span class="badge me-1 ${
+                                        user.status === 'active' ? 'bg-label-success' :
+                                        user.status === 'inactive' ? 'bg-label-warning' :
+                                        user.status === 'disabled' ? 'bg-label-secondary' :
+                                        'bg-label-danger'
+                                        }">
+                                            ${
+                                                user.status === 'active' ? 'Active' :
+                                                user.status === 'inactive' ? 'Inactive' :
+                                                user.status === 'disabled' ? 'Disabled' :
+                                                'Suspended'
+                                            }
+                                        </span>
+                                    </button>
+                                    <div class="dropdown-menu position-absolute">
+                                        <a class="dropdown-item cursor-pointer status-item" data-status="active" data-user="{{$user->id}}" data-route-url="{{ route('update-status') }}"><span class="badge bg-label-success me-1">Active</span></a>
+                                        @if(Auth::user()->id != $user->id && $role != 'admin')
+                                            <a class="dropdown-item cursor-pointer status-item" data-status="inactive" data-user="{{$user->id}}" data-route-url="{{ route('update-status') }}"><span class="badge bg-label-warning me-1">Inactive</span></a>
+                                            <a class="dropdown-item cursor-pointer status-item" data-status="disabled" data-user="{{$user->id}}" data-route-url="{{ route('update-status') }}"><span class="badge bg-label-secondary me-1">Disabled</span></a>
+                                        @endif
+                                    </div>
+                                </div>                               
+                            </td>
+                            <td>
+                            <div class="dropdown position-static">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                                <div class="dropdown-menu position-absolute">
+                                    <a class="dropdown-item" href="{{ url('management/view-profile/'.$user->id) }}">View</a>
+                                    @if(Auth::user()->id != $user->id && $role != 'admin')
+                                        <a class="dropdown-item cursor-pointer suspend-user" data-status="suspended" data-user="{{ $user->id }}" data-route-url="{{ route('update-status') }}">Suspend</a>
+                                        <a class="dropdown-item cursor-pointer delete-user-btn" data-user="{{ $user->id }}" data-route-url="{{ url('management/delete-user/'.$user->id) }}">Delete</a>
+                                    @endif
+                                </div>
+                            </div>
+                            </td>
+                     </tr>
+                        `;
+
+                        $('#searchData').append(userHtml);
+                    });
+                }
+            });
+        });
+    });
+</script>
 <script src="{{ asset('storage/assets/js/custom/users-records.js')}} "></script>
 @endsection

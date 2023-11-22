@@ -181,6 +181,22 @@ class UserController extends Controller
     }
 
 
+    public function search(Request $request) {
+        $query = $request->input('query');
+
+        $users = User::where('role', 'member')
+        ->where(function ($queryBuilder) use ($query) {
+            $queryBuilder->where('firstname', 'like', '%' . $query . '%')
+                ->orWhere('lastname', 'like', '%' . $query . '%')
+                ->orWhere('email', 'like', '%' . $query . '%')
+                ->orWhere('status', 'like', '%' . $query . '%');
+        })
+        ->get();
+
+        return response()->json(['users' => $users]);
+    }
+
+
     /**
      * Log the user out of the application.
      */

@@ -101,6 +101,8 @@ Route::middleware(['auth', 'multi-role:admin,staff'])->prefix('management')->gro
     Route::get('subscribers', [SubscriptionController::class, 'subscribers']);
     Route::post('status-update', [UserController::class, 'updateStatus'])->name('update-status');
 
+    Route::get('/registered/search', [UserController::class, 'search'])->name('registered.search');
+
     // ADMIN RECORDS
     Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
 
