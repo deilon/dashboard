@@ -94,15 +94,26 @@
                   <div class="d-flex align-items-start me-4 mt-3 gap-3">
                      <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-check bx-sm'></i></span>
                      <div>
-                        <h5 class="mb-0">1.23k</h5>
+                        @php
+                           $totalProgressDayTasks = $assigned_staff->progressWeek()
+                              ->with('progressDay.progressDayTask') // Eager load relationships
+                              ->get()
+                              ->pluck('progressDay')
+                              ->flatten()
+                              ->pluck('progressDayTask')
+                              ->flatten()
+                              ->count();
+                           $totalProgressWeeks = $assigned_staff->progressWeek()->count();  
+                        @endphp
+                        <h5 class="mb-0">{{ $totalProgressDayTasks }}</h5>
                         <span>Tasks Done</span>
                      </div>
                   </div>
                   <div class="d-flex align-items-start mt-3 gap-3">
                      <span class="badge bg-label-primary p-2 rounded"><i class='bx bx-customize bx-sm'></i></span>
                      <div>
-                        <h5 class="mb-0">568</h5>
-                        <span>Workout done</span>
+                        <h5 class="mb-0">{{ $totalProgressWeeks }}</h5>
+                        <span>Weeks Progress</span>
                      </div>
                   </div>
                </div>
