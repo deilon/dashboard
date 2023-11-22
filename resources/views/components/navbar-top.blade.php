@@ -34,7 +34,7 @@
              <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
                     @if(Auth::user()->photo !== null)
-                        <img src="{{ asset('storage/assets/img/avatars/'. Auth::user()->photo) }}" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="{{ asset('storage/assets/img/avatars/'. Auth::user()->photo) }}" alt class="w-px-40 h-px-40 rounded-circle" />
                     @elseif(Auth::user()->photo == null)
                         <img src="{{ asset('storage/assets/img/avatars/default.jpg') }}" alt class="w-px-40 h-auto rounded-circle" />
                     @endif
@@ -47,7 +47,7 @@
                          <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
                                 @if(Auth::user()->photo !== null)
-                                    <img src="{{ asset('storage/assets/img/avatars/'. Auth::user()->photo) }}" alt class="w-px-40 h-auto rounded-circle" />
+                                    <img src="{{ asset('storage/assets/img/avatars/'. Auth::user()->photo) }}" alt class="w-px-40 h-px-40 rounded-circle" />
                                 @elseif(Auth::user()->photo == null)
                                     <img src="{{ asset('storage/assets/img/avatars/default.jpg') }}" alt class="w-px-40 h-auto rounded-circle" />
                                 @endif
