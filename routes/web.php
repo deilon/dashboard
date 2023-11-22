@@ -101,6 +101,9 @@ Route::middleware(['auth', 'multi-role:admin,staff'])->prefix('management')->gro
     Route::get('subscribers', [SubscriptionController::class, 'subscribers']);
     Route::post('status-update', [UserController::class, 'updateStatus'])->name('update-status');
 
+    // ADMIN RECORDS
+    Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
+
     // STAFF MANAGE
     Route::get('users/{role}', [StaffController::class, 'staffRecords']);
     Route::post('create/staff', [StaffController::class, 'createStaff'])->name('create.staff');

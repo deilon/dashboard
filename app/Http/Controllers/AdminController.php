@@ -65,4 +65,19 @@ class AdminController extends Controller
             'message' => '<strong>'.$user->firstname.' '.$user->lastname.'</strong> successfully deleted.'
         ]); 
     }
+
+    public function search(Request $request) {
+        $query = $request->input('query');
+
+        $users = User::where('role', 'admin')
+        ->where(function ($queryBuilder) use ($query) {
+            $queryBuilder->where('firstname', 'like', '%' . $query . '%')
+                ->orWhere('lastname', 'like', '%' . $query . '%')
+                ->orWhere('email', 'like', '%' . $query . '%')
+                ->orWhere('status', 'like', '%' . $query . '%');
+        })
+        ->get();
+
+        return response()->json(['users' => $users]);
+    }
 }
