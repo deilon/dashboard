@@ -73,10 +73,10 @@
                             </label>
                         </div>
                         <div class="py-3"> 
-                            <button class="btn btn-secondary mx-3" tabindex="0" type="button">
+                            {{-- <button class="btn btn-secondary mx-3" tabindex="0" type="button">
                                 <span><i class="bx bx-export me-1"></i>Export</span>
-                            </button>
-                            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#createStaff" aria-controls="createStaff">
+                            </button> --}}
+                            <button class="btn btn-primary ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#createStaff" aria-controls="createStaff">
                                 <span>
                                     <i class="bx bx-plus me-0 me-sm-1"></i>
                                     <span class="d-none d-sm-inline-block">Add New Staff</span>
