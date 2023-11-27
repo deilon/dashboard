@@ -61,7 +61,8 @@
 
     <div class="row g-4">
 
-      @if($assigned_staff)
+      
+      @if($assigned_staff !== null)
       <!-- Trainer details -->
       <div class="col-xl-4 col-lg-5 col-md-5 order-2 order-md-0">
          <div class="card mb-4">
@@ -181,6 +182,7 @@
       <!--/ Pending Trainer Details -->
       @endif
 
+      @if($progressWeeks !== null)
          @foreach($progressWeeks as $pweek)
          <div class="col-xl-4 col-lg-6 col-md-6" id="pwItem{{ $pweek->id }}">
             <div class="card">
@@ -201,6 +203,7 @@
              </div>
          </div>
          @endforeach
+      @endif
     </div>
  </div>
  <!-- / Content -->

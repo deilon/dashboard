@@ -258,11 +258,19 @@ class MemberController extends Controller
      */
     public function trainerProgress() {
         $subscription = Subscription::where('user_id', Auth::user()->id)->first();
+        $data['subscribed'] = $subscription;
         $data['user'] = Auth::user();
-        $data['assigned_staff'] = User::find($subscription->staff_assigned_id);
-
+        // $data['assigned_staff'] = User::find($subscription->staff_assigned_id);
+        if ($subscription) {
+            $data['assigned_staff'] = User::find($subscription->staff_assigned_id);
+            $data['progressWeeks'] = ProgressWeek::where('user_id', $subscription->staff_assigned_id)->get();
+        } else {
+            // Handle the case where $subscription is null
+            $data['assigned_staff'] = null; // or any other default value or action
+            $data['progressWeeks'] = null;
+        }
         // $trainerSubscriptions = Subscription::where('staff_assigned_id', $memberSubscription->staff_assigned_id)->get();
-        $data['progressWeeks'] = ProgressWeek::where('user_id', $subscription->staff_assigned_id)->get();
+        
         return view('member.trainer-progress', $data);
     }
 

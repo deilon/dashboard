@@ -92,7 +92,7 @@
 <!-- Promotion/Announcement Start -->
 <section class="home-blog-area pt-40 pb-50">
     <div class="container">
-        @if($aps)
+        @if($aps != null)
             <div class="row">
                 @foreach($aps as $ap)
                     <div class="col-xl-6 col-lg-6 col-md-6">

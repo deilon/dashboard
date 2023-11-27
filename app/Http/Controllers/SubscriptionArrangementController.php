@@ -14,8 +14,15 @@ class SubscriptionArrangementController extends Controller
     public function index() {
         // In your controller method
         $activeSubscriptionArrangement = SubscriptionArrangement::where('status', 'active')->first();
-        $data['tiers'] = SubscriptionTier::where('subscription_arrangement_id', $activeSubscriptionArrangement->id)->orderBy('duration')->get();
-        $data['subscriptionArrangement'] = $activeSubscriptionArrangement;
+        
+        if($activeSubscriptionArrangement != null) {
+            $data['subscriptionArrangement'] = $activeSubscriptionArrangement;
+            $data['tiers'] = SubscriptionTier::where('subscription_arrangement_id', $activeSubscriptionArrangement->id)->orderBy('duration')->get();
+        } else {
+            $data['subscriptionArrangement'] = null;
+        }
+
+        
         return view('member.packages', $data);
     }
 

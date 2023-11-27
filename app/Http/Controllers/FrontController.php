@@ -10,13 +10,31 @@ use App\Models\SubscriptionArrangement;
 class FrontController extends Controller
 {
     public function index() {
-        $data['aps'] = AnnouncementsPromotion::orderBy('created_at', 'desc')->take(2)->get();
-        $data['activeArrangement'] = SubscriptionArrangement::where('status', 'active')->first();
+        $aps = AnnouncementsPromotion::orderBy('created_at', 'desc')->take(2)->get();
+        if($aps != null) {
+            $data['aps'] = AnnouncementsPromotion::orderBy('created_at', 'desc')->take(2)->get();
+        } else {
+            $data['aps'] = null;
+        }
+        
+        
+        $activeArrangement = SubscriptionArrangement::where('status', 'active')->first();
+        if($activeArrangement) {
+            $data['activeArrangement'] = $activeArrangement;
+        } else {
+            $data['activeArrangement'] = null;
+        }
+        
         return view('home', $data);
     }
 
     public function announcementsPromotions() {
-        $data['aps'] = AnnouncementsPromotion::orderBy('created_at', 'desc')->get();
+        $aps = AnnouncementsPromotion::orderBy('created_at', 'desc')->take(2)->get();
+        if($aps != null) {
+            $data['aps'] = AnnouncementsPromotion::orderBy('created_at', 'desc')->take(2)->get();
+        } else {
+            $data['aps'] = null;
+        }
         return view('announcements', $data);
     }
 }
