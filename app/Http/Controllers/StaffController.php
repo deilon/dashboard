@@ -274,7 +274,7 @@ class StaffController extends Controller
      * Get Staff records
      */
     public function staffRecords($role) {
-        $data['users'] = User::where('role', $role)->paginate(10);
+        $data['users'] = User::where('role', $role)->orderBy('created_at', 'desc')->paginate(10);
         $data['role'] = $role;
         return view('management.staff-records', $data);
     }

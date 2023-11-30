@@ -120,7 +120,7 @@ class UserController extends Controller
      * Get user records by role
      */
     public function usersRecords($role) {
-        $data['users'] = User::where('role', $role)->paginate(10);
+        $data['users'] = User::where('role', $role)->orderBy('created_at', 'desc')->paginate(10);
         $data['role'] = $role;
         return view('management.users-records', $data);
     }

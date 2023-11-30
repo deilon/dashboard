@@ -164,7 +164,7 @@ class SubscriptionController extends Controller
      * Get all subscriptions
      */
     public function subscribers() {
-        $data['subscriptions'] = Subscription::paginate(10);
+        $data['subscriptions'] = Subscription::orderBy('created_at', 'desc')->paginate(10);
         $data['staffs'] = User::where('role', 'staff')->where('status', 'active')->get();
         return view('management.subscribers', $data);
     }
