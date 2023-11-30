@@ -24,10 +24,10 @@
         </li>
 
         <!-- Sales Revenue Report -->
-        <li class="menu-item {{ (request()->is('admin/sales/month')) || (request()->is('admin/sales/all')) ? 'active' : '' }}">
+        <li class="menu-item {{ (request()->is('admin/sales/month')) || (request()->is('admin/sales/all')) || (request()->is('admin/sales/today')) ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Sales Revenue Report">Sales Revenue Report</div>
+                <div data-i18n="Sales Revenue Report">Service Revenue Report</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ (request()->is('admin/sales/month')) ? 'active' : '' }}">

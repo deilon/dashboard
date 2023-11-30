@@ -16,7 +16,7 @@
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">All Sales Report</span></h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">All Service Report</span></h4>
 
       <!-- Hoverable Table rows -->
       <div class="card">
@@ -42,7 +42,6 @@
                 {{-- <caption class="ms-4">Sales Revenue Report for the Month of January</caption> --}}
                <thead>
                   <tr>
-                     <th>ID</th>
                      <th>Subscription Arrangement</th>
                      <th>Tier</th>
                      <th>Payment Method</th>
@@ -54,7 +53,6 @@
                <tbody id="allData" class="table-border-bottom-0">
                   @foreach ($sales as $srr)
                      <tr class="user-sales-row-{{ $srr->id }}">
-                        <td>{{ $srr->id }}</td>
                         <td>{{ $srr->subscription_arrangement }}</td>
                         <td>{{ ucwords($srr->tier_name) }}</td>
                         <td>{{ ucwords($srr->payment_method) }}</td>
@@ -128,11 +126,11 @@
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Export Sales Revenue</h5>
+                        <h5 class="modal-title">Export Service Revenue</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="modal-text">Export All Sales Revenue Report?</div>
+                        <div class="modal-text">Export All Service Revenue Report?</div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>

@@ -18,7 +18,7 @@ class SalesRevenueController extends Controller
     public function getCurrentMonth() {
         $data['sales'] = Sale::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
-            ->orderBy('amount', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(15);
         $data['total'] = Sale::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
@@ -28,31 +28,31 @@ class SalesRevenueController extends Controller
 
     public function getTodaySales() {
         $today = Carbon::now()->toDateString();
-        $data['sales'] = Sale::whereDate('created_at', $today)->orderBy('amount', 'desc')->paginate(15);
+        $data['sales'] = Sale::whereDate('created_at', $today)->orderBy('created_at', 'desc')->paginate(15);
         $data['total'] = Sale::whereDate('created_at', $today)->sum('amount');
         return view('admin.sales-today', $data);
     }
 
     public function getAllSales() {
-        $data['sales'] = Sale::orderBy('amount', 'desc')->paginate(15);
+        $data['sales'] = Sale::orderBy('created_at', 'desc')->paginate(15);
         $data['total'] = Sale::sum('amount');
         return view('admin.sales-all', $data);
     }
 
     public function export() {
-        return Excel::download(new SalesExport, 'salesRevenueReport.xlsx');
+        return Excel::download(new SalesExport, 'serviceRevenueReport.xlsx');
     }
 
     public function salesExportCurrentMonth() {
-        return Excel::download(new SalesExportCurrentMonth, 'salesRevenueReport-'.now()->format('F-Y').'.xlsx');
+        return Excel::download(new SalesExportCurrentMonth, 'serviceRevenueReport-'.now()->format('F-Y').'.xlsx');
     }
 
     public function salesExportToday() {
-        return Excel::download(new SalesExportToday, 'salesRevenueReport-'.now()->format('D').'.xlsx');
+        return Excel::download(new SalesExportToday, 'serviceRevenueReport-'.now()->format('D').'.xlsx');
     }
 
     public function salesExportMonthPdf() {
-        return Excel::download(new SalesExportCurrentMonth, 'salesRevenueReport-'.now()->format('F-Y').'.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        return Excel::download(new SalesExportCurrentMonth, 'serviceRevenueReport-'.now()->format('F-Y').'.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
     public function search(Request $request) {
