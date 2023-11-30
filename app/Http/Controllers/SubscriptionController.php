@@ -16,6 +16,9 @@ use App\Models\CreditCard;
 use App\Models\ManualPayment;
 use App\Models\Sale;
 use App\Models\User;
+use App\Mail\PaymentReceived;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\RedirectResponse;
 
 class SubscriptionController extends Controller
 {
@@ -155,9 +158,11 @@ class SubscriptionController extends Controller
             
         }
 
-        // redirect
-        return redirect('member/membership-details')->with('success', 'You have successfully subscribed.');
+        // Email User
+        Mail::to(Auth::user())->send(new PaymentReceived());
 
+        // redirect
+        return redirect('member/membership-details')->with('success', 'Congratulations! You have successfully subscribed. We will notify you by email once we receive your payment at ' . Auth::user()->email);
     }
 
     /**
