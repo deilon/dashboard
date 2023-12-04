@@ -231,7 +231,6 @@
                   <i class="bx bx-star"></i>
                 </div>
               </div>
-              {{-- <a href="{{ route('checkout.plan', ['subscriptionType' => $subscriptionType, 'tier_id' => $tier->id]) }}" class="w-100 btn btn-lg btn-outline-primary">Subscribe</a> --}}
             </div>
           </div>
         </div>
