@@ -15,6 +15,15 @@
 @section('content')
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
+   @if(!Auth::user()->is_email_verified)
+      <div class="alert alert-warning text-center fs-3" role="alert">
+         Please confirm your account by clicking the verification link we sent to: <strong>{{ Auth::user()->email }}</strong>.
+         If you haven't received the email, please check your spam folder. 
+         <br>
+         <small>Note: Your account will be fully activated once you verify your email address.</small>
+      </div>
+   @endif
+
    <div class="row">
 
    <!-- LAYER 1 -->

@@ -9,7 +9,10 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\UserVerify;
 
 class AuthController extends Controller
 {
@@ -76,6 +79,18 @@ class AuthController extends Controller
             'role' => 'member',
         ]);
 
+        // Store Email Verification
+        $token = Str::random(64);
+        UserVerify::create([
+            'user_id' => $user->id, 
+            'token' => $token
+        ]);
+
+        Mail::send('emails.email_verification', ['token' => $token], function($message) use($request){
+            $message->to($request->email);
+            $message->subject('Verifiy Email Address');
+        });
+
         event(new Registered($user));
 
         $request->session()->flash('welcome_message', 'Welcome, ' . $user->firstname . '! Your account has been created.');
@@ -84,6 +99,22 @@ class AuthController extends Controller
 
         return redirect('member/dashboard');
     }
+
+    public function verifyAccount($token): RedirectResponse
+    {
+        $verifyUser = UserVerify::where('token', $token)->first();
+        if(!is_null($verifyUser) ){
+            $user = $verifyUser->user;
+              
+            if(!$user->is_email_verified) {
+                $verifyUser->user->is_email_verified = 1;
+                $verifyUser->user->save();
+            }
+        }
+  
+      return redirect(Auth::user()->role.'/dashboard');
+    }
+
 
     /**
      * Log the user out of the application.

@@ -29,6 +29,7 @@ Route::get('/', [FrontController::class, 'index']);
 Route::get('home', [FrontController::class, 'index']);
 Route::get('announcements', [FrontController::class, 'announcementsPromotions']);
 Route::get('logout', [AuthController::class, 'logout']);
+Route::get('email/verify/{token}', [AuthController::class, 'verifyAccount'])->name('user.verify'); 
 
 Route::get('/symlink', function () {
     Artisan::call('storage:link');
