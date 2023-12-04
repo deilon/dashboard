@@ -78,7 +78,7 @@
             
             <p>Thank you for signing up! Please click the button below to verify your email address.</p>
             
-            <p><a href="{{ route('user.verify', $token) }}">Verify Email Address</a></p>
+            <p><a class="verify-email-button" href="{{ route('user.verify', $token) }}">Verify Email Address</a></p>
             
             <p>If you did not create an account, Please ignore this email.</p>
         </div>
