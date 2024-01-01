@@ -455,7 +455,7 @@
                 <div class="row d-flex align-items-center">
                     <div class="col-lg-12">
                         <div class="footer-copy-right text-center">
-                            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved - Created By Group 8</p>
+                            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved - Franklin Cutamora</p>
                         </div>
                     </div>
                 </div>

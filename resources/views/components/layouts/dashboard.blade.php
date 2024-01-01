@@ -58,7 +58,7 @@
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
-                  By Group 8
+                  By Fraknlin Cutamora
                 </div>
               </div>
             </footer>
