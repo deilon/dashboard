@@ -58,7 +58,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <img src="https://p4pfitness.online/storage/assets/img/landingpage/logo.png" alt="logo">
+                <img src="{{ $message->embed(public_path().'/storage/assets/img/landingpage/logo.png') }}" alt="">
             </div>
             <h1>Dear Valued Customer,</h1>
             
